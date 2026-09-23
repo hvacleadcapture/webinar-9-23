@@ -107,7 +107,7 @@ export function ProofSlide() {
               <div className="mt-4 grid grid-cols-3 gap-2">
                 {c.stats.map((s) => (
                   <div key={s.label} className="min-w-0">
-                    <p className="font-display text-3xl font-bold leading-none tracking-display text-accent min-[901px]:text-4xl">
+                    <p className="font-display text-xl font-bold leading-none tracking-tight text-accent tabular-nums min-[901px]:text-2xl">
                       {s.value}
                     </p>
                     <p className="mt-2 text-xs font-semibold uppercase tracking-kicker text-fg">{s.label}</p>
