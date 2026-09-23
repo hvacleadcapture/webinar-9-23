@@ -1,5 +1,16 @@
 import { Body, Display, HouseGraphic, Kicker, SlidePad } from "./primitives";
 
+export function StartingSlide() {
+  return (
+    <SlidePad className="justify-center">
+      <Kicker>We'll get going shortly</Kicker>
+      <Display className="mt-6 max-w-[14ch] text-6xl min-[701px]:text-[7.2rem]">
+        Starting at 7:10 PM EST
+      </Display>
+    </SlidePad>
+  );
+}
+
 export function TitleSlide() {
   return (
     <div className="relative h-full overflow-hidden">

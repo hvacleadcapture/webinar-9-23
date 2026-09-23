@@ -3,6 +3,7 @@ import {
   PenSlide,
   ProofSlide,
   ScenariosSlide,
+  StartingSlide,
   TitleSlide,
   WholeListSlide,
   WhySlide,
@@ -66,6 +67,12 @@ function T3() {
 }
 
 export const SLIDES: SlideDef[] = [
+  {
+    id: "starting",
+    title: "Starting soon",
+    notes: "Hold slide before the webinar starts. We're live at 7:10 PM EST.",
+    Component: StartingSlide,
+  },
   {
     id: "title",
     title: "The nine things",
