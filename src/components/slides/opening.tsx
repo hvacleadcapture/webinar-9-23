@@ -11,11 +11,6 @@ export function TitleSlide() {
         <HouseGraphic className="relative z-10 h-full w-full" />
       </div>
       <SlidePad className="relative z-10 justify-end pb-16 max-[700px]:justify-start">
-        <img
-          src="/slides/logo-cjp.png"
-          alt="CJP Enterprises"
-          className="mb-8 h-11 w-auto object-contain object-left max-[700px]:h-9"
-        />
         <Display className="max-w-[15ch] text-5xl min-[701px]:text-[5.15rem]">
           The nine things Google reads before it decides which contractor gets the call
         </Display>
@@ -33,11 +28,20 @@ export function TitleSlide() {
 export function WhySlide() {
   return (
     <SlidePad className="justify-center">
-      <Kicker>Why you're here</Kicker>
-      <Display className="mt-6 max-w-[12ch] text-6xl min-[701px]:text-[7.2rem]">
-        Leverage technology for your business.
-      </Display>
-      <div className="mt-12 h-1.5 w-28 bg-accent" />
+      <div className="flex min-h-0 flex-1 items-center gap-12">
+        <div className="flex min-w-0 flex-1 flex-col justify-center">
+          <Kicker>Why you're here</Kicker>
+          <Display className="mt-6 max-w-[12ch] text-6xl min-[701px]:text-[7.2rem]">
+            Leverage technology for your business.
+          </Display>
+          <div className="mt-12 h-1.5 w-28 bg-accent" />
+        </div>
+        <img
+          src="/slides/user-added/guy-on-computer-sketch.png"
+          alt="Line-art sketch of a person working at a computer"
+          className="hidden h-[65%] w-[380px] shrink-0 object-contain min-[1000px]:block"
+        />
+      </div>
     </SlidePad>
   );
 }
@@ -103,10 +107,10 @@ export function ProofSlide() {
               <div className="mt-4 grid grid-cols-3 gap-2">
                 {c.stats.map((s) => (
                   <div key={s.label} className="min-w-0">
-                    <p className="font-display text-xl font-semibold leading-none tracking-display text-accent">
+                    <p className="font-display text-3xl font-bold leading-none tracking-display text-accent min-[901px]:text-4xl">
                       {s.value}
                     </p>
-                    <p className="mt-1 text-xs uppercase tracking-kicker text-muted">{s.label}</p>
+                    <p className="mt-2 text-xs font-semibold uppercase tracking-kicker text-fg">{s.label}</p>
                   </div>
                 ))}
               </div>

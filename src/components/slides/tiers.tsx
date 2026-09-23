@@ -225,10 +225,11 @@ export function AiSlide() {
       caption="Yelp, HomeAdvisor and Nextdoor tell ChatGPT, Claude and Perplexity: do not read this"
     >
       <Photo
-        src="/slides/robots-ai.png"
-        alt="robots.txt files from Yelp, HomeAdvisor and Nextdoor disallowing AI crawlers"
+        src="/slides/user-added/chatgpt-repair-near-me.png"
+        alt="ChatGPT recommending specific local repair shops by name for a 'repair near me' search"
         className="hidden w-[360px] shrink-0 min-[1100px]:block"
-        caption="real files, public, pulled 2026-09-11"
+        caption="ChatGPT names real businesses when asked — is yours one of them?"
+        contain
       />
     </Split>
   );
@@ -269,13 +270,18 @@ export function CitationsSlide() {
           <p className="mt-7 text-sm text-subtle">Potts Brothers · Google, Instagram, Facebook, Angi, BBB, Houzz, Nextdoor and more.</p>
           <ScoreChip n={8} />
         </div>
-        <div className="hidden w-[560px] shrink-0 flex-col gap-2 min-[1000px]:flex">
+        <div className="hidden w-[620px] shrink-0 grid-cols-2 gap-2 min-[1000px]:grid">
           {[
-            ["/slides/user-added/potts-links-top-blurred.png", "Potts Brothers search results and social profiles"],
-            ["/slides/user-added/potts-links-middle.png", "Potts Brothers local links and profiles"],
-            ["/slides/user-added/potts-links-bottom.png", "Potts Brothers additional local links"],
-          ].map(([src, alt]) => (
-            <div key={src} className="min-h-0 flex-1 overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-border)]">
+            ["/slides/user-added/potts-links-top-blurred.png", "Potts Brothers search results and social profiles", ""],
+            ["/slides/user-added/potts-links-middle.png", "Potts Brothers local links and profiles", ""],
+            ["/slides/user-added/potts-links-bottom.png", "Potts Brothers additional local links", ""],
+            ["/slides/user-added/ds.png", "DS HomeTech website navigation and service menu", ""],
+            ["/slides/user-added/service-rep.png", "Handyman repair website hero example", "col-span-2"],
+          ].map(([src, alt, extra]) => (
+            <div
+              key={src}
+              className={`h-40 overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-border)] ${extra}`}
+            >
               <img src={src} alt={alt} className="h-full w-full object-contain" />
             </div>
           ))}

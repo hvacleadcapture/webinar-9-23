@@ -5,3 +5,5 @@ attachments/
 screenshots/
 node_modules/
 *.log
+.vercel
+.env*
