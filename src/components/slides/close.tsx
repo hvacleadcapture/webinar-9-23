@@ -130,8 +130,8 @@ export function AdsProofSlide() {
 
 export function ProofClipsSlide() {
   const videos = [
-    { id: "cnmCmZLwttY", name: "Micah", company: "Powered Up LLC" },
-    { id: "iTytr2YkC_A", name: "Richard", company: "SmithStraw LLC" },
+    { id: "iTytr2YkC_A", name: "Micah", company: "Powered Up LLC" },
+    { id: "cnmCmZLwttY", name: "Richard", company: "SmithStraw LLC" },
   ];
 
   return (

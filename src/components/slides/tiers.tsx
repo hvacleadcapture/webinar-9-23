@@ -175,6 +175,22 @@ export function ServicePagesSlide() {
             </ul>
           </div>
           <p className="text-sm text-subtle">an example · one page for everything vs one page per job</p>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="h-28 overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-border)]">
+              <img
+                src="/slides/user-added/ds.png"
+                alt="DS HomeTech website navigation menu with a page for every service"
+                className="h-full w-full object-cover object-top"
+              />
+            </div>
+            <div className="h-28 overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-border)]">
+              <img
+                src="/slides/user-added/service-rep.png"
+                alt="Handyman repair website services menu listing individual job pages"
+                className="h-full w-full object-cover object-top"
+              />
+            </div>
+          </div>
         </div>
         <NineRail active={4} />
       </div>
@@ -270,18 +286,13 @@ export function CitationsSlide() {
           <p className="mt-7 text-sm text-subtle">Potts Brothers · Google, Instagram, Facebook, Angi, BBB, Houzz, Nextdoor and more.</p>
           <ScoreChip n={8} />
         </div>
-        <div className="hidden w-[620px] shrink-0 grid-cols-2 gap-2 min-[1000px]:grid">
+        <div className="hidden w-[560px] shrink-0 flex-col gap-2 min-[1000px]:flex">
           {[
-            ["/slides/user-added/potts-links-top-blurred.png", "Potts Brothers search results and social profiles", ""],
-            ["/slides/user-added/potts-links-middle.png", "Potts Brothers local links and profiles", ""],
-            ["/slides/user-added/potts-links-bottom.png", "Potts Brothers additional local links", ""],
-            ["/slides/user-added/ds.png", "DS HomeTech website navigation and service menu", ""],
-            ["/slides/user-added/service-rep.png", "Handyman repair website hero example", "col-span-2"],
-          ].map(([src, alt, extra]) => (
-            <div
-              key={src}
-              className={`h-40 overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-border)] ${extra}`}
-            >
+            ["/slides/user-added/potts-links-top-blurred.png", "Potts Brothers search results and social profiles"],
+            ["/slides/user-added/potts-links-middle.png", "Potts Brothers local links and profiles"],
+            ["/slides/user-added/potts-links-bottom.png", "Potts Brothers additional local links"],
+          ].map(([src, alt]) => (
+            <div key={src} className="min-h-0 flex-1 overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-border)]">
               <img src={src} alt={alt} className="h-full w-full object-contain" />
             </div>
           ))}
