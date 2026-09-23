@@ -1,0 +1,219 @@
+import type { ComponentType } from "react";
+import {
+  PenSlide,
+  ProofSlide,
+  ScenariosSlide,
+  TitleSlide,
+  WholeListSlide,
+  WhySlide,
+} from "./opening";
+import {
+  AiSlide,
+  CitationsSlide,
+  KeywordsSlide,
+  PhoneSlide,
+  PostingSlide,
+  ProfileSlide,
+  ReviewsSlide,
+  ServicePagesSlide,
+  TierHeader,
+  WebsiteSlide,
+} from "./tiers";
+import {
+  HousePricingSlide,
+  PyramidSlide,
+  ScoreRecapSlide,
+  StructureSlide,
+} from "./house";
+import { AdsProofSlide, CtaSlide, ProofClipsSlide } from "./close";
+
+export type SlideDef = {
+  id: string;
+  title: string;
+  notes: string;
+  Component: ComponentType;
+};
+
+function T1() {
+  return (
+    <TierHeader
+      n="Tier one"
+      title="You have it. Does it pass?"
+      sub="Google profile, reviews, website."
+      active={1}
+    />
+  );
+}
+function T2() {
+  return (
+    <TierHeader
+      n="Tier two"
+      title="Found for more than your name"
+      sub="A page for every service. Posting, every week — we automate it."
+      active={4}
+    />
+  );
+}
+function T3() {
+  return (
+    <TierHeader
+      n="Tier three"
+      title="The part almost nobody does"
+      sub="AI visibility. Keywords. Citations. When the phone rings."
+      active={6}
+    />
+  );
+}
+
+export const SLIDES: SlideDef[] = [
+  {
+    id: "title",
+    title: "The nine things",
+    notes: "Start on time. Promise the list, never an outcome.",
+    Component: TitleSlide,
+  },
+  {
+    id: "why",
+    title: "Why you're here",
+    notes: "One line. Leverage technology to grow the business. Don't add a speech.",
+    Component: WhySlide,
+  },
+  {
+    id: "proof",
+    title: "Client results",
+    notes: "Potts Brothers, Mission Decks, M.E. Garlock. Google's numbers, not ours. Point at leads, form starts, and the Garlock organic-search screenshot. Don't oversell.",
+    Component: ProofSlide,
+  },
+  {
+    id: "scenarios",
+    title: "Three scenarios",
+    notes: "Hundreds of contractors. Most are in one of these three. No fault of their own.",
+    Component: ScenariosSlide,
+  },
+  {
+    id: "pen",
+    title: "Score yourself",
+    notes: "Pen and paper. Mean it. If you have to think, it's a no. At the end you will ask for the number.",
+    Component: PenSlide,
+  },
+  {
+    id: "list",
+    title: "The whole list",
+    notes: "Finite list. Not a secret. Nine things in three tiers. Keep moving.",
+    Component: WholeListSlide,
+  },
+  {
+    id: "t1",
+    title: "Tier one",
+    notes: "Most of you have all three. The question is whether they pass.",
+    Component: T1,
+  },
+  {
+    id: "profile",
+    title: "Google profile",
+    notes: "Right category, every service, photo and post in last 30 days. Three real Google Business Profiles are shown on the right.",
+    Component: ProfileSlide,
+  },
+  {
+    id: "reviews",
+    title: "Reviews",
+    notes: "Freshness + replies. Fix tonight: reply to last five.",
+    Component: ReviewsSlide,
+  },
+  {
+    id: "website",
+    title: "Website in five seconds",
+    notes: "Garlock plus two stronger contractor website examples on the right. What, where, licensed, tap-to-call — no scroll. That's the bar.",
+    Component: WebsiteSlide,
+  },
+  {
+    id: "t2",
+    title: "Tier two",
+    notes: "Two things. Found for more than your own name.",
+    Component: T2,
+  },
+  {
+    id: "pages",
+    title: "A page per job",
+    notes: "If it makes you money, it gets its own page.",
+    Component: ServicePagesSlide,
+  },
+  {
+    id: "posting",
+    title: "Posting every week",
+    notes: "Two examples: a contractor blog and Google Business Profile posts. Lean on automation. We post to Google and the site, plus Facebook and Instagram. Do NOT call socials backlinks.",
+    Component: PostingSlide,
+  },
+  {
+    id: "t3",
+    title: "Tier three",
+    notes: "This is where it gets past the basics. Move.",
+    Component: T3,
+  },
+  {
+    id: "ai",
+    title: "AI visibility",
+    notes: "Capped at 90 seconds. Don't say GEO or AEO.",
+    Component: AiSlide,
+  },
+  {
+    id: "keywords",
+    title: "Keywords + rankings",
+    notes: "Checking from the office tells you nothing.",
+    Component: KeywordsSlide,
+  },
+  {
+    id: "citations",
+    title: "Citations + links",
+    notes: "Potts Brothers search results showing local links and social profiles. Tedious, not hard.",
+    Component: CitationsSlide,
+  },
+  {
+    id: "phone",
+    title: "When the phone rings",
+    notes: "The missed-call screenshot is the visual. The point is simple: if the phone rings and nobody answers, text back immediately. That's nine. Add up the score.",
+    Component: PhoneSlide,
+  },
+  {
+    id: "score",
+    title: "Your score",
+    notes: "Ask for the number. Then tie the nine back into the house.",
+    Component: ScoreRecapSlide,
+  },
+  {
+    id: "pyramid",
+    title: "The house",
+    notes: "Reputation at the bottom. Ranking in the middle. Reach on the roof. Don't invert it.",
+    Component: PyramidSlide,
+  },
+  {
+    id: "structure",
+    title: "How I structure my services",
+    notes: "No prices yet. Some guys only need the foundation. Some need foundation + frame. Some are ready for ads. Meet them where they are. Do not push ads.",
+    Component: StructureSlide,
+  },
+  {
+    id: "house-pricing",
+    title: "The house, priced",
+    notes: "Same house. Price next to each level. Essentials is the foundation. Growth is the frame. Pro is the roof. Still no 50% off.",
+    Component: HousePricingSlide,
+  },
+  {
+    id: "ads-proof",
+    title: "When you're ready for ads",
+    notes: "This is the transition into paid advertising. A2Z: 25 tracked leads. One job was a $37,000 driveway on roughly $3,000 in ad spend, about $500/month. Richard: 49 tracked results, including 31 phone call leads. Do not imply every client gets the same outcome.",
+    Component: AdsProofSlide,
+  },
+  {
+    id: "clips",
+    title: "Hear it from the owners",
+    notes: "Click play on Micah and Richard. These are the two YouTube testimonials provided for the webinar.",
+    Component: ProofClipsSlide,
+  },
+  {
+    id: "cta",
+    title: "Book a call",
+    notes: "QR. Talk 1:1, book a call, or get to work. By the way: 50% off first month for anyone who signs up from this webinar. Leave it up for questions.",
+    Component: CtaSlide,
+  },
+];

@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0a0a0a;
+  --color-bg-elevated: #121212;
+  --color-surface: #171717;
+  --color-surface-2: #1f1f1f;
+  --color-fg: #f5f5f4;
+  --color-muted: #a8a29e;
+  --color-subtle: #78716c;
+  --color-accent: #ff5a1f;
+  --color-accent-soft: #ff7a4a;
+  --color-accent-fg: #0a0a0a;
+  --color-surface-warm: #1a100c;
+  --color-line: #2a2a2a;
+  --color-line-strong: #3f3f3f;
+  --color-pass: #22c55e;
+  --color-fail: #737373;
+  --color-house-rep: #1c1c1c;
+  --color-house-rep-side: #111111;
+  --color-house-rep-top: #262626;
+  --color-house-rank: #3a3a3a;
+  --color-house-rank-side: #2a2a2a;
+  --color-house-rank-top: #454545;
+  --color-house-reach-side: #d94816;
+  --color-house-reach-dark: #c43a10;
+  --color-house-void: #0a0a0a;
+
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Oswald", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
+
+  --text-kicker: 0.72rem;
+  --text-sm: 0.9rem;
+  --text-base: 1.05rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.55rem;
+  --text-2xl: 2.1rem;
+  --text-3xl: 3.1rem;
+  --text-4xl: 4.4rem;
+  --text-5xl: 6.4rem;
+  --text-6xl: 8.5rem;
+
+  --leading-tight: 0.92;
+  --leading-snug: 1.12;
+  --leading-normal: 1.45;
+
+  --tracking-display: 0.02em;
+  --tracking-kicker: 0.22em;
+
+  --shadow-border: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow-photo: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 24px 60px rgba(0, 0, 0, 0.45);
+
+  --motion-stagger: 40ms;
+  --motion-micro: 80ms;
+  --motion-quick: 150ms;
+  --motion-fast: 250ms;
+  --motion-medium: 350ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html,
+  body,
+  #app {
+    min-height: 100%;
+    background: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@keyframes live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.7);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.live-dot {
+  animation: live-pulse 1.6s var(--ease-out) infinite;
+}
+
+.stagger-in > * {
+  opacity: 0;
+  animation: rise-in var(--motion-medium) var(--ease-out) forwards;
+}
+.stagger-in > *:nth-child(1) {
+  animation-delay: 40ms;
+}
+.stagger-in > *:nth-child(2) {
+  animation-delay: 90ms;
+}
+.stagger-in > *:nth-child(3) {
+  animation-delay: 140ms;
+}
+.stagger-in > *:nth-child(4) {
+  animation-delay: 190ms;
+}
+.stagger-in > *:nth-child(5) {
+  animation-delay: 240ms;
+}
+.stagger-in > *:nth-child(6) {
+  animation-delay: 290ms;
+}
+.stagger-in > *:nth-child(7) {
+  animation-delay: 340ms;
+}
+.stagger-in > *:nth-child(8) {
+  animation-delay: 390ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-dot,
+  .stagger-in > * {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+.house-art {
+  object-fit: contain;
+  filter: drop-shadow(0 24px 60px color-mix(in oklab, var(--color-accent) 22%, transparent));
+  -webkit-mask-image: linear-gradient(to bottom, #000 94%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 94%, transparent 100%);
+}
+
+.house-glow {
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in oklab, var(--color-accent) 32%, transparent) 0%,
+    transparent 68%
+  );
+  filter: blur(48px);
+}
+
+.photo-frame {
+  outline: 1px solid rgba(255, 255, 255, 0.1);
+  outline-offset: -1px;
+}
+
+.slide-num {
+  font-variant-numeric: tabular-nums;
+}
+
+.deck-stage {
+  width: 1600px;
+  height: 900px;
+  transform-origin: top left;
+}
+
+@media (max-width: 700px) {
+  .deck-stage {
+    width: 100%;
+    height: auto;
+    min-height: 100dvh;
+    transform: none !important;
+  }
+
+  .house-art {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}

@@ -1,0 +1,7 @@
+﻿.grok/
+.vercel/
+artifacts/
+attachments/
+screenshots/
+node_modules/
+*.log
