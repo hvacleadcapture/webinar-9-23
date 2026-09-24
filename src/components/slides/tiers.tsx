@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import { Body, DashItem, Display, Kicker, NineRail, Photo, ScoreChip, SlidePad } from "./primitives";
+import { NINE } from "@/lib/nine";
+import { Body, DashItem, Display, Kicker, NineRail, Photo, Plain, ScoreChip, SlidePad } from "./primitives";
 
 function Split({
   kicker,
@@ -21,8 +22,9 @@ function Split({
       <div className="flex min-h-0 flex-1 gap-10">
         <div className="flex min-w-0 flex-1 flex-col">
           <Kicker>{kicker}</Kicker>
-          <Display className="mt-4 max-w-[12ch] text-5xl min-[701px]:text-6xl">{title}</Display>
-          <ul className="mt-10 space-y-5">
+          <Display className="mt-4 text-5xl min-[701px]:text-[4.4rem]">{title}</Display>
+          {score ? <Plain n={score} /> : null}
+          <ul className="mt-8 space-y-4">
             {items.map((item) => (
               <DashItem key={item}>{item}</DashItem>
             ))}
@@ -68,7 +70,8 @@ export function ProfileSlide() {
       <div className="flex min-h-0 flex-1 gap-8">
         <div className="flex min-w-0 flex-1 flex-col">
           <Kicker>Tier one · 1 of 3</Kicker>
-          <Display className="mt-4 max-w-[12ch] text-5xl min-[701px]:text-6xl">Your Google profile</Display>
+          <Display className="mt-4 text-5xl min-[701px]:text-[4.4rem]">Your Google profile</Display>
+          <Plain n={1} />
           <ul className="mt-8 space-y-4">
             {["Right main category", "Every service listed", "Photo + post, last 30 days"].map((item) => (
               <DashItem key={item}>{item}</DashItem>
@@ -117,7 +120,8 @@ export function WebsiteSlide() {
       <div className="flex min-h-0 flex-1 gap-8">
         <div className="flex min-w-0 flex-1 flex-col">
           <Kicker>Tier one · 3 of 3</Kicker>
-          <Display className="mt-4 max-w-[12ch] text-5xl min-[701px]:text-6xl">Your website, in five seconds</Display>
+          <Display className="mt-4 text-5xl min-[701px]:text-[4.4rem]">Your website, in five seconds</Display>
+          <Plain n={3} />
           <ul className="mt-8 space-y-4">
             {["What you do + where", "Licensed + insured", "Tap-to-call button", "All without scrolling"].map((item) => (
               <DashItem key={item}>{item}</DashItem>
@@ -149,9 +153,10 @@ export function ServicePagesSlide() {
       <div className="flex min-h-0 flex-1 gap-10">
         <div className="flex min-w-0 flex-1 flex-col">
           <Kicker>Tier two · 1 of 2</Kicker>
-          <Display className="mt-4 max-w-[12ch] text-5xl min-[701px]:text-6xl">
+          <Display className="mt-4 text-5xl min-[701px]:text-[4.4rem]">
             A page for every service
           </Display>
+          <Plain n={4} />
           <ul className="mt-10 space-y-5">
             {["One page per job", "Not one “services” page", "Every job that pays you"].map((item) => (
               <DashItem key={item}>{item}</DashItem>
@@ -204,17 +209,15 @@ export function PostingSlide() {
       <div className="flex min-h-0 flex-1 gap-8">
         <div className="flex min-w-0 flex-1 flex-col">
           <Kicker>Tier two · 2 of 2</Kicker>
-          <Display className="mt-4 max-w-[12ch] text-5xl min-[701px]:text-6xl">
+          <Display className="mt-4 text-5xl min-[701px]:text-[4.4rem]">
             We post. Every week. For you.
           </Display>
+          <Plain n={5} />
           <ul className="mt-8 space-y-4">
             {["Something new, last 7 days", "Google. Site. Facebook. Instagram.", "We automate all of it"].map((item) => (
               <DashItem key={item}>{item}</DashItem>
             ))}
           </ul>
-          <p className="mt-7 max-w-[36ch] text-xl leading-normal text-muted">
-            One system can keep the website and Google profile active instead of letting both go stale.
-          </p>
           <ScoreChip n={5} />
         </div>
         <div className="hidden w-[520px] shrink-0 grid-rows-2 gap-3 min-[1000px]:grid">
@@ -275,9 +278,10 @@ export function CitationsSlide() {
       <div className="flex min-h-0 flex-1 gap-8">
         <div className="flex min-w-0 flex-1 flex-col">
           <Kicker>Tier three · 3 of 4</Kicker>
-          <Display className="mt-4 max-w-[14ch] text-5xl min-[701px]:text-6xl">
+          <Display className="mt-4 text-5xl min-[701px]:text-[4.4rem]">
             Citations and local links
           </Display>
+          <Plain n={8} />
           <ul className="mt-8 space-y-4">
             {["Same name, address, phone", "Everywhere you're listed", "Your social profiles count too"].map((item) => (
               <DashItem key={item}>{item}</DashItem>
@@ -320,5 +324,42 @@ export function PhoneSlide() {
         />
       </div>
     </Split>
+  );
+}
+
+/**
+ * A breather at the end of a tier. The 23 Sept critique: it went fast for
+ * owners with no background. This is the built-in place to stop, say the tier
+ * back in one line each, and read the chat before moving on.
+ */
+export function CheckpointSlide({ tier }: { tier: 1 | 2 }) {
+  const done = NINE.filter((c) => c.tier === tier);
+  const left = NINE.filter((c) => c.tier > tier).length;
+  return (
+    <SlidePad className="justify-center">
+      <div className="flex min-h-0 flex-1 gap-10">
+        <div className="flex min-w-0 flex-1 flex-col justify-center">
+          <Kicker>Quick check · tier {tier === 1 ? "one" : "two"} done</Kicker>
+          <Display className="mt-4 text-5xl min-[701px]:text-6xl">Where we are.</Display>
+          <ol className="mt-10 space-y-6">
+            {done.map((c) => (
+              <li key={c.n} className="flex gap-5">
+                <span className="slide-num w-14 shrink-0 font-display text-3xl font-semibold text-accent">
+                  {String(c.n).padStart(2, "0")}
+                </span>
+                <span>
+                  <span className="block font-display text-2xl font-semibold uppercase leading-snug">{c.name}</span>
+                  <span className="mt-1 block text-lg text-muted">{c.plain}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-10 text-xl text-fg">
+            {left} to go. Lost on any of these? Put it in the chat now.
+          </p>
+        </div>
+        <NineRail active={done[done.length - 1].n} />
+      </div>
+    </SlidePad>
   );
 }

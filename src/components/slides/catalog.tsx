@@ -4,12 +4,14 @@ import {
   ProofSlide,
   ScenariosSlide,
   StartingSlide,
+  TakeHomeSlide,
   TitleSlide,
   WholeListSlide,
   WhySlide,
 } from "./opening";
 import {
   AiSlide,
+  CheckpointSlide,
   CitationsSlide,
   KeywordsSlide,
   PhoneSlide,
@@ -44,6 +46,12 @@ function T1() {
       active={1}
     />
   );
+}
+function Check1() {
+  return <CheckpointSlide tier={1} />;
+}
+function Check2() {
+  return <CheckpointSlide tier={2} />;
 }
 function T2() {
   return (
@@ -100,8 +108,14 @@ export const SLIDES: SlideDef[] = [
   {
     id: "pen",
     title: "Score yourself",
-    notes: "Pen and paper. Mean it. If you have to think, it's a no. At the end you will ask for the number.",
+    notes: "Pace: this crowd includes owners with zero background. Read the plain-words line (the one with the orange bar) on every check before the bullets. Pen and paper. Mean it. If you have to think, it's a no. At the end you will ask for the number.",
     Component: PenSlide,
+  },
+  {
+    id: "takehome",
+    title: "The list goes home with you",
+    notes: "Say it out loud: don't copy the slides, the whole checklist is at go.cjp-enterprises.com/nine. Only write down your score. Leave it up for a slow count of five so people can scan the code.",
+    Component: TakeHomeSlide,
   },
   {
     id: "list",
@@ -134,6 +148,12 @@ export const SLIDES: SlideDef[] = [
     Component: WebsiteSlide,
   },
   {
+    id: "check1",
+    title: "Quick check: tier one",
+    notes: "Slow down here. Say each one back in one line. Then stop talking and read the chat for ten seconds. Answer a question in ten seconds, or park it once for Q&A.",
+    Component: Check1,
+  },
+  {
     id: "t2",
     title: "Tier two",
     notes: "Two things. Found for more than your own name.",
@@ -150,6 +170,12 @@ export const SLIDES: SlideDef[] = [
     title: "Posting every week",
     notes: "Two examples: a contractor blog and Google Business Profile posts. Lean on automation. We post to Google and the site, plus Facebook and Instagram. Do NOT call socials backlinks.",
     Component: PostingSlide,
+  },
+  {
+    id: "check2",
+    title: "Quick check: tier two",
+    notes: "Same as before. Say the two back. Read the chat. Tier three is the least familiar part for most people, so go slower there than you think you need to.",
+    Component: Check2,
   },
   {
     id: "t3",
