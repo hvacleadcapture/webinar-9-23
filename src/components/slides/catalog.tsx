@@ -24,7 +24,9 @@ import {
 } from "./tiers";
 import {
   HousePricingSlide,
+  MathSlide,
   PyramidSlide,
+  WhatYouGetSlide,
   ScoreRecapSlide,
   StructureSlide,
 } from "./house";
@@ -214,6 +216,12 @@ export const SLIDES: SlideDef[] = [
     Component: ScoreRecapSlide,
   },
   {
+    id: "math",
+    title: "What is it costing you?",
+    notes: "Slow down. Ask all three out loud and wait for the chat. Then the math: their average job times one more a week, times 52. Their number, never ours. Tell one real client story here in plain contractor words (what the phone was doing before, what it does now) using only numbers from the proof slide. No invented stats.",
+    Component: MathSlide,
+  },
+  {
     id: "pyramid",
     title: "The house",
     notes: "Reputation at the bottom. Ranking in the middle. Reach on the roof. Don't invert it.",
@@ -228,8 +236,14 @@ export const SLIDES: SlideDef[] = [
   {
     id: "house-pricing",
     title: "The house, priced",
-    notes: "Same house. Price next to each level. Essentials is the foundation. Growth is the frame. Pro is the roof. Still no 50% off.",
+    notes: "Same house. Price next to each level. Essentials is the foundation. Growth is the frame. Pro is the roof. Still no 50% off. Next slide spells out what each one does.",
     Component: HousePricingSlide,
+  },
+  {
+    id: "what-you-get",
+    title: "What you get, check by check",
+    notes: "This answers the Hometown Air note: say exactly what each price buys. Essentials covers four of the nine. Growth covers all nine. Walk the Growth column line by line. Posts are twice a week. If asked about ads: that's Pro, only once the foundation is working.",
+    Component: WhatYouGetSlide,
   },
   {
     id: "ads-proof",

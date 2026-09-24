@@ -11,6 +11,9 @@
 export type Check = {
   n: number;
   tier: 1 | 2 | 3;
+  /** The cheapest plan that does this check for them, and what we actually do. */
+  plan: "essentials" | "growth";
+  weDo: string;
   name: string;
   plain: string;
   pass: string[];
@@ -27,6 +30,8 @@ export const NINE: Check[] = [
   {
     n: 1,
     tier: 1,
+    plan: "growth",
+    weDo: "Your Google profile set up right: category, every service, kept current",
     name: "Your Google profile",
     plain: "The box with your name, stars and phone number that shows up when someone Googles you.",
     pass: ["Right main category", "Every service listed", "A photo and a post in the last 30 days"],
@@ -35,6 +40,8 @@ export const NINE: Check[] = [
   {
     n: 2,
     tier: 1,
+    plan: "essentials",
+    weDo: "A review request goes out automatically after every job",
     name: "Your reviews",
     plain: "Google trusts what your customers say about you more than what you say about yourself.",
     pass: ["A new review in the last 30 days", "A reply on every one", "Asked for automatically, not when you remember"],
@@ -43,6 +50,8 @@ export const NINE: Check[] = [
   {
     n: 3,
     tier: 1,
+    plan: "essentials",
+    weDo: "An AI website on your own domain. SEO agents rewrite it every 2 weeks",
     name: "Your website, in five seconds",
     plain: "A stranger lands on your site. In five seconds, do they know what you do, where, and how to call you?",
     pass: ["What you do and where", "Licensed and insured", "A tap-to-call button", "All of it without scrolling"],
@@ -51,6 +60,8 @@ export const NINE: Check[] = [
   {
     n: 4,
     tier: 2,
+    plan: "growth",
+    weDo: "A page for each job and each town you work",
     name: "A page for every service",
     plain: "Google shows pages, not companies. No page for a job means you can't show up for that job.",
     pass: ["One page per job", "Not one “services” page", "Every job that pays you"],
@@ -59,6 +70,8 @@ export const NINE: Check[] = [
   {
     n: 5,
     tier: 2,
+    plan: "growth",
+    weDo: "New posts twice a week, on your site and your Google profile",
     name: "Posting, every week",
     plain: "A profile or site that hasn't changed in months looks closed. Something new says you're open.",
     pass: ["Something new in the last 7 days", "On Google and on your site"],
@@ -67,6 +80,8 @@ export const NINE: Check[] = [
   {
     n: 6,
     tier: 3,
+    plan: "essentials",
+    weDo: "Your site built so ChatGPT and Google's AI can read it",
     name: "AI visibility",
     plain: "People now ask ChatGPT who's good near them. It answers with a name. Is it yours?",
     pass: ["Ask ChatGPT for your trade in your town", "Your business is one of the names it gives"],
@@ -75,6 +90,8 @@ export const NINE: Check[] = [
   {
     n: 7,
     tier: 3,
+    plan: "growth",
+    weDo: "Your rankings tracked, and a monthly report from Google's own numbers",
     name: "Keywords and rankings",
     plain: "The exact words people type when they need you, and where you show up for each one.",
     pass: ["You know the 10 searches that pay you", "You know where you rank for each", "Checked from their street, not your office"],
@@ -83,6 +100,8 @@ export const NINE: Check[] = [
   {
     n: 8,
     tier: 3,
+    plan: "growth",
+    weDo: "Your listings cleaned up and matched, and local links built",
     name: "Citations and local links",
     plain: "Every other website that lists your business name, address and phone. They all need to match.",
     pass: ["Same name, address and phone", "Everywhere you're listed", "Social profiles count too"],
@@ -91,6 +110,8 @@ export const NINE: Check[] = [
   {
     n: 9,
     tier: 3,
+    plan: "essentials",
+    weDo: "A missed call gets a text back in seconds",
     name: "When the phone rings",
     plain: "When you can't pick up, a text goes out right away so the caller doesn't just call the next guy.",
     pass: ["Missed calls get a text back right away", "Not just a voicemail"],
