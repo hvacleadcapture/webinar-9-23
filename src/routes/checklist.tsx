@@ -68,7 +68,7 @@ function Checklist() {
 
       <footer className="mt-14 border-t border-line pt-6 text-base text-muted">
         <p>
-          Want a hand with the ones you missed? Book a call:{" "}
+          Want a hand with the ones you missed? Grab 20 minutes and I&rsquo;ll go through your business with you:{" "}
           <a className="text-accent underline underline-offset-4" href="https://go.cjp-enterprises.com/start">
             go.cjp-enterprises.com/start
           </a>
