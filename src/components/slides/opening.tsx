@@ -1,3 +1,4 @@
+import { CHECKLIST_URL } from "@/lib/nine";
 import { Body, Display, HouseGraphic, Kicker, SlidePad } from "./primitives";
 
 export function StartingSlide() {
@@ -237,6 +238,40 @@ export function WholeListSlide() {
             </ol>
           </section>
         ))}
+      </div>
+    </SlidePad>
+  );
+}
+
+/**
+ * Right after "grab a pen". The 23 Sept critique: an attendee asked for the
+ * transcript because she couldn't hold on to it all. Say up front that the
+ * whole list goes home with them, so nobody spends the hour copying slides.
+ */
+export function TakeHomeSlide() {
+  return (
+    <SlidePad className="justify-center">
+      <div className="grid items-center gap-12 min-[901px]:grid-cols-[1.2fr_0.8fr]">
+        <div>
+          <Kicker>Don't copy the slides</Kicker>
+          <Display className="mt-4 max-w-[16ch] text-5xl min-[701px]:text-[4.4rem]">
+            The whole list goes home with you.
+          </Display>
+          <Body className="mt-8 max-w-[34ch] text-xl text-fg">
+            All nine checks. What passing looks like. One thing to do tonight for each. Just write down your score.
+          </Body>
+          <p className="mt-10 font-display text-3xl font-semibold uppercase tracking-display text-accent">
+            {CHECKLIST_URL}
+          </p>
+        </div>
+        <div className="flex flex-col items-center justify-center rounded-xl bg-fg p-8">
+          <img
+            src="/slides/qr-nine.png"
+            alt={`QR code for the nine-point checklist at ${CHECKLIST_URL}`}
+            className="aspect-square w-full max-w-[340px] max-[700px]:max-w-[220px]"
+          />
+          <p className="mt-5 font-display text-sm tracking-kicker text-accent-fg uppercase">The checklist</p>
+        </div>
       </div>
     </SlidePad>
   );

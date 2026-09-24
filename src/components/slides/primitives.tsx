@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Check, Minus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDeck } from "@/lib/deck-store";
+import { plainFor } from "@/lib/nine";
 import { HouseGraphic } from "./house-pyramid";
 
 export { HouseGraphic };
@@ -10,7 +11,7 @@ export function Kicker({ children, className }: { children: ReactNode; className
   return (
     <p
       className={cn(
-        "font-display text-kicker font-medium tracking-kicker text-accent uppercase",
+        "font-display text-[length:var(--text-kicker)] font-medium tracking-kicker text-accent uppercase",
         className,
       )}
     >
@@ -88,6 +89,15 @@ export function Photo({
       />
       {caption ? <figcaption className="mt-3 shrink-0 text-sm text-subtle">{caption}</figcaption> : null}
     </figure>
+  );
+}
+
+/** One sentence a total beginner can follow, before the pass test. */
+export function Plain({ n, className }: { n: number; className?: string }) {
+  return (
+    <p className={cn("mt-6 max-w-[34ch] border-l-4 border-accent pl-5 text-xl leading-snug text-fg", className)}>
+      {plainFor(n)}
+    </p>
   );
 }
 

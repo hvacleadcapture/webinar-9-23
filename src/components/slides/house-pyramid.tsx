@@ -267,7 +267,7 @@ function PricingAside({ highlight }: { highlight: HouseLayer }) {
           <article
             key={plan.name}
             className={cn(
-              "rounded-lg px-6 py-5 transition-opacity duration-[var(--motion-fast)]",
+              "rounded-lg px-6 py-4 transition-opacity duration-[var(--motion-fast)]",
               plan.layer === "reach"
                 ? "bg-surface-warm shadow-[0_0_0_1px_var(--color-accent)]"
                 : "bg-surface shadow-[var(--shadow-border)]",
@@ -275,7 +275,7 @@ function PricingAside({ highlight }: { highlight: HouseLayer }) {
             )}
           >
             <p className="font-display text-kicker tracking-kicker text-accent uppercase">{plan.kicker}</p>
-            <div className="mt-2 flex items-end justify-between gap-4">
+            <div className="mt-1 flex items-end justify-between gap-4">
               <div>
                 <h2 className="font-display text-2xl font-semibold uppercase leading-snug tracking-display">
                   {plan.name}
@@ -287,11 +287,7 @@ function PricingAside({ highlight }: { highlight: HouseLayer }) {
                 <span className="block text-sm text-subtle">/mo</span>
               </p>
             </div>
-            <ul className="mt-3 space-y-1 text-sm text-muted">
-              {plan.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+            <p className="mt-2 text-sm leading-snug text-muted">{plan.items.join(" · ")}</p>
           </article>
         );
       })}
@@ -308,7 +304,7 @@ function PathsAside({ highlight }: { highlight: HouseLayer }) {
           <article
             key={path.kicker}
             className={cn(
-              "rounded-lg bg-surface px-6 py-6 shadow-[var(--shadow-border)] transition-opacity duration-[var(--motion-fast)]",
+              "rounded-lg bg-surface px-6 py-4 shadow-[var(--shadow-border)] transition-opacity duration-[var(--motion-fast)]",
               !on && "opacity-30",
             )}
           >
@@ -316,7 +312,7 @@ function PathsAside({ highlight }: { highlight: HouseLayer }) {
             <h2 className="mt-2 font-display text-2xl font-semibold uppercase leading-snug tracking-display">
               {path.title}
             </h2>
-            <p className="mt-3 text-lg leading-normal text-fg">{path.body}</p>
+            <p className="mt-2 text-base leading-snug text-fg">{path.body}</p>
           </article>
         );
       })}

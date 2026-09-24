@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { CHECKLIST_URL } from "@/lib/nine";
 import { Display, Kicker, SlidePad } from "./primitives";
 
 const PLANS = [
@@ -167,7 +168,7 @@ export function CtaSlide() {
       <div className="grid items-center gap-12 min-[901px]:grid-cols-[1.1fr_0.9fr]">
         <div>
           <Kicker>Where to go</Kicker>
-          <Display className="mt-4 max-w-[14ch] text-5xl min-[701px]:text-6xl">
+          <Display className="mt-4 max-w-[16ch] text-5xl min-[701px]:text-[4.4rem]">
             Talk one-on-one. Or get to work.
           </Display>
           <ul className="mt-8 space-y-4 text-xl text-fg">
@@ -180,7 +181,7 @@ export function CtaSlide() {
               <span>Ready to work with us? Scan the code.</span>
             </li>
           </ul>
-          <p className="mt-10 font-display text-kicker tracking-kicker text-subtle uppercase">
+          <p className="mt-8 font-display text-kicker tracking-kicker text-subtle uppercase">
             By the way
           </p>
           <p className="mt-2 max-w-[28ch] font-display text-3xl font-semibold uppercase leading-snug tracking-display text-accent">
@@ -191,6 +192,9 @@ export function CtaSlide() {
           </p>
           <p className="mt-8 font-display text-2xl font-semibold uppercase tracking-display text-fg">
             go.cjp-enterprises.com/start
+          </p>
+          <p className="mt-3 text-lg text-muted">
+            Your checklist of the nine: <span className="text-fg">{CHECKLIST_URL}</span>
           </p>
         </div>
         <div className="flex flex-col items-center justify-center rounded-xl bg-fg p-8">

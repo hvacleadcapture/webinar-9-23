@@ -207,3 +207,47 @@
     mask-image: none;
   }
 }
+
+/*
+ * Bigger type on the slides only (23 Sept critique: "make everything on the
+ * screen larger"). The deck is shared through a video call, where a 1600px
+ * stage lands in a small window, so the reading sizes go up; the display sizes
+ * were already big enough. Scoped to the stage so the header, notes and
+ * overview chrome keep their sizes.
+ */
+.deck-stage {
+  --text-kicker: 1.05rem;
+  --text-sm: 1.25rem;
+  --text-base: 1.4rem;
+  --text-lg: 1.65rem;
+  --text-xl: 2rem;
+  --text-2xl: 2.4rem;
+}
+
+/* The /checklist take-home prints on white paper, not the dark screen theme. */
+@media print {
+  html,
+  body,
+  #app,
+  .checklist,
+  .checklist * {
+    background: #fff !important;
+    color: #111 !important;
+    box-shadow: none !important;
+  }
+  .checklist .text-accent {
+    color: #c43a10 !important;
+  }
+  .checklist li.break-inside-avoid {
+    border: 1px solid #ccc;
+  }
+  .checklist .bg-accent {
+    background: #c43a10 !important;
+  }
+  .checklist .checkbox {
+    border-color: #111 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}

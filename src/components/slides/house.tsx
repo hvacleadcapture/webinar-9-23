@@ -106,7 +106,7 @@ export function HousePricingSlide() {
       <Body className="mt-3 max-w-[46ch]">
         Foundation. Frame. Roof. Pick the level you need. Not more.
       </Body>
-      <div className="mt-5 min-h-0 flex-1">
+      <div className="mt-2 min-h-0 flex-1">
         <HouseGraphic mode="pricing" />
       </div>
     </SlidePad>
