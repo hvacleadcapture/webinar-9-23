@@ -263,6 +263,9 @@ export function TakeHomeSlide() {
           <p className="mt-10 font-display text-3xl font-semibold uppercase tracking-display text-accent">
             {CHECKLIST_URL}
           </p>
+          <p className="mt-6 max-w-[40ch] text-lg text-muted">
+            Stick around to the end. I answer your questions, and there&rsquo;s an offer for everyone here.
+          </p>
         </div>
         <div className="flex flex-col items-center justify-center rounded-xl bg-fg p-8">
           <img

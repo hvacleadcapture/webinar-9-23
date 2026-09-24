@@ -116,7 +116,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "takehome",
     title: "The list goes home with you",
-    notes: "Say it out loud: don't copy the slides, the whole checklist is at go.cjp-enterprises.com/nine. Only write down your score. Leave it up for a slow count of five so people can scan the code.",
+    notes: "Say it out loud: don't copy the slides, the whole checklist is at go.cjp-enterprises.com/nine. Only write down your score. Then plant the hook: stick around to the end, questions plus an offer for everyone here. Don't say what it is yet. Leave it up for a slow count of five so people can scan the code.",
     Component: TakeHomeSlide,
   },
   {
@@ -259,8 +259,8 @@ export const SLIDES: SlideDef[] = [
   },
   {
     id: "cta",
-    title: "Book a call",
-    notes: "QR. Talk 1:1, book a call, or get to work. By the way: 50% off first month for anyone who signs up from this webinar. Leave it up for questions.",
+    title: "Grab 20 minutes",
+    notes: "The close. Scan this, grab 20 minutes, I audit your business with you: Google profile, reviews, website. I tell you exactly what you're missing and how to fix it. If we're not a fit, you keep the plan. 50% off first month if you sign up within 24 hours (replay watchers: until the replay comes down). Leave it up for questions.",
     Component: CtaSlide,
   },
 ];
