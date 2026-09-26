@@ -236,7 +236,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "house-pricing",
     title: "The house, priced",
-    notes: "Same house. Price next to each level. Essentials is the foundation. Growth is the frame. Pro is the roof. Still no 50% off. Next slide spells out what each one does.",
+    notes: "Same house. Price next to each level. Essentials is the foundation. Growth is the frame. Pro is the roof. Next slide spells out what each one does.",
     Component: HousePricingSlide,
   },
   {
@@ -260,7 +260,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "cta",
     title: "Grab 20 minutes",
-    notes: "The close. Scan this, grab 20 minutes, I audit your business with you: Google profile, reviews, website. I tell you exactly what you're missing and how to fix it. If we're not a fit, you keep the plan. 50% off first month if you sign up within 24 hours (replay watchers: until the replay comes down). Leave it up for questions.",
+    notes: "The close. Scan this, grab 20 minutes, I audit your business with you: Google profile, reviews, website. I tell you exactly what you're missing and how to fix it. If we're not a fit, you keep the plan. No discount. Leave it up for questions.",
     Component: CtaSlide,
   },
 ];
