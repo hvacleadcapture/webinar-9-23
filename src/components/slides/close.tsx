@@ -185,15 +185,6 @@ export function CtaSlide() {
               <span>Not a fit? You keep the plan.</span>
             </li>
           </ul>
-          <p className="mt-8 font-display text-kicker tracking-kicker text-subtle uppercase">
-            By the way
-          </p>
-          <p className="mt-2 max-w-[28ch] font-display text-3xl font-semibold uppercase leading-snug tracking-display text-accent">
-            50% off the first month
-          </p>
-          <p className="mt-3 text-lg text-muted">
-            Anyone who signs up within 24 hours of tonight. First month only.
-          </p>
           <p className="mt-8 font-display text-2xl font-semibold uppercase tracking-display text-fg">
             go.cjp-enterprises.com/start
           </p>
