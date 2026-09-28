@@ -122,7 +122,6 @@ const CLIENTS = [
     stats: [
       { value: "61", label: "Organic clicks" },
       { value: "1,118", label: "Impressions" },
-      { value: "7.80", label: "Avg. position" },
     ],
   },
 ];

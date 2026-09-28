@@ -31,6 +31,8 @@ import {
   StructureSlide,
 } from "./house";
 import { AdsProofSlide, CtaSlide, ProofClipsSlide } from "./close";
+import { MissedCallDemoSlide } from "./demo";
+import { AutoGlossSlide, PriceCompareSlide, ReferenceCallSlide, ResultsWallSlide } from "./credibility";
 
 export type SlideDef = {
   id: string;
@@ -84,6 +86,12 @@ export const SLIDES: SlideDef[] = [
     Component: StartingSlide,
   },
   {
+    id: "reference",
+    title: "Reference call",
+    notes: "You clicked a random ad, you have no idea who I am. So before anything else: a reference call, live. Call Duncan at R&D Plumbing, Baldwin County, Alabama. Brand-new company, came to us in July with nothing: no site, no logo, no Google profile. Let him say what it's been like working with us. Don't put numbers in his mouth: he has no reviews yet and his Google profile is still in verification, so keep it to the experience. Call him Duncan.",
+    Component: ReferenceCallSlide,
+  },
+  {
     id: "title",
     title: "The nine things",
     notes: "Start on time. Promise the list, never an outcome.",
@@ -100,6 +108,18 @@ export const SLIDES: SlideDef[] = [
     title: "Client results",
     notes: "Potts Brothers, Mission Decks, M.E. Garlock. Google's numbers, not ours. Point at leads, form starts, and the Garlock organic-search screenshot. Don't oversell.",
     Component: ProofSlide,
+  },
+  {
+    id: "results-wall",
+    title: "Six more businesses",
+    notes: "Rapid-fire, one line each. Every number is from their own Search Console, Analytics or Ads. The #1s are Search Console average position for that search, not the map, so say 'on Google search'. Benrishi: no licence talk.",
+    Component: ResultsWallSlide,
+  },
+  {
+    id: "autogloss",
+    title: "Case study: AutoGloss",
+    notes: "Jeff Miller, detailing, Fuquay-Varina NC. New site went up September 10. 18 real leads in the next two weeks, 10 from the site and 8 from the ads page. Clicks from Google search 42 vs 12. Cost per click down from $3.80 to $2.71. Don't mention revenue, and don't say veteran-owned.",
+    Component: AutoGlossSlide,
   },
   {
     id: "scenarios",
@@ -210,6 +230,12 @@ export const SLIDES: SlideDef[] = [
     Component: PhoneSlide,
   },
   {
+    id: "missed-call-demo",
+    title: "Missed call, text back",
+    notes: "Let it play, talk over it. You miss the call because you're on a job, the text goes out by itself in seconds, they text back instead of calling the next guy, job booked. Say it's an example conversation, not a real customer. Hit Play again if the chat wants to see it twice.",
+    Component: MissedCallDemoSlide,
+  },
+  {
     id: "score",
     title: "Your score",
     notes: "Ask for the number. Then tie the nine back into the house.",
@@ -238,6 +264,12 @@ export const SLIDES: SlideDef[] = [
     title: "The house, priced",
     notes: "Same house. Price next to each level. Essentials is the foundation. Growth is the frame. Pro is the roof. Next slide spells out what each one does.",
     Component: HousePricingSlide,
+  },
+  {
+    id: "piece-by-piece",
+    title: "Piece by piece vs one plan",
+    notes: "If you went out and bought all of this separately, low-end small-business prices, it's $1,760 to $4,834 a month, plus $2,500 to $10,000 for the website. Walk down the checks: Essentials already covers the website, reviews and missed-call text back. Growth is everything but the ads. Ad spend isn't in any of these numbers. Sources for every range are in credibility.tsx.",
+    Component: PriceCompareSlide,
   },
   {
     id: "what-you-get",
