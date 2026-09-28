@@ -32,7 +32,7 @@ import {
 } from "./house";
 import { AdsProofSlide, CtaSlide, ProofClipsSlide } from "./close";
 import { MissedCallDemoSlide } from "./demo";
-import { AutoGlossSlide, PriceCompareSlide, ReferenceCallSlide, ResultsLeadsSlide, ResultsRanksSlide, ResultsTrafficSlide } from "./credibility";
+import { AutoGlossSlide, ObjectionsSlide, PriceCompareSlide, ReferenceCallSlide, ResultsLeadsSlide, ResultsRanksSlide, ResultsTrafficSlide } from "./credibility";
 
 export type SlideDef = {
   id: string;
@@ -148,7 +148,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "takehome",
     title: "The list goes home with you",
-    notes: "Say it out loud: don't copy the slides, the whole checklist is at go.cjp-enterprises.com/nine. Only write down your score. Then plant the hook: stick around to the end: questions, and I'll tell you what I found when I pulled up your business. Don't say what it is yet. Leave it up for a slow count of five so people can scan the code.",
+    notes: "Say it out loud: don't copy the slides, the whole checklist is at go.cjp-enterprises.com/nine. Only write down your score. Then plant the hook: stick around to the end, I already pulled up every one of your businesses and scored it, and at the end I'll tell you how to get yours. Don't say the number or what's in it yet. Leave it up for a slow count of five so people can scan the code.",
     Component: TakeHomeSlide,
   },
   {
@@ -250,7 +250,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "score",
     title: "Your score",
-    notes: "Ask for the number. Then tie the nine back into the house.",
+    notes: "Ask for the number in the chat. Read the line on screen: that's the one you gave yourself, I already ran the real one on your business, you get it at the end. Then tie the nine back into the house.",
     Component: ScoreRecapSlide,
   },
   {
@@ -272,16 +272,16 @@ export const SLIDES: SlideDef[] = [
     Component: StructureSlide,
   },
   {
-    id: "house-pricing",
-    title: "The house, priced",
-    notes: "Same house. Price next to each level. Essentials is the foundation. Growth is the frame. Pro is the roof. Next slide spells out what each one does.",
-    Component: HousePricingSlide,
-  },
-  {
     id: "piece-by-piece",
     title: "Piece by piece vs one plan",
     notes: "If you went out and bought all of this separately, low-end small-business prices, it's $1,760 to $4,834 a month, plus $2,500 to $10,000 for the website. Walk down the checks: Essentials already covers the website, reviews and missed-call text back. Growth is everything but the ads. Ad spend isn't in any of these numbers. Sources for every range are in credibility.tsx.",
     Component: PriceCompareSlide,
+  },
+  {
+    id: "house-pricing",
+    title: "The house, priced",
+    notes: "Same house. Price next to each level. Essentials is the foundation. Growth is the frame. Pro is the roof. Next slide spells out what each one does.",
+    Component: HousePricingSlide,
   },
   {
     id: "what-you-get",
@@ -302,9 +302,15 @@ export const SLIDES: SlideDef[] = [
     Component: ProofClipsSlide,
   },
   {
+    id: "objections",
+    title: "What you're probably thinking",
+    notes: "Answer them before the chat does. Agree first, never argue, never knock their guy. Referrals: good, but they Google you before they call. Website guy: good, what does he do every month? Burned before: don't take my word, month to month, cancel any time, every number from your own Google account.",
+    Component: ObjectionsSlide,
+  },
+  {
     id: "cta",
     title: "What happens next",
-    notes: "The close. I audited every one of your businesses, and I'll follow up with each one of you to schedule a call to go over the audit. I have some times open Thursday and Friday if anyone wants to book in: if you're available, type in the chat. If not, I'll follow up with each of you by phone and we'll schedule a time to go over your audit results. No QR code, no discount. Leave it up for questions.",
+    notes: "The reveal. I already pulled up every one of your businesses and scored it against the nine. I'll follow up with each of you to go over it: your score, where you come up when someone searches your trade and your town and who's above you, and your top fixes, yours to keep either way. Remember your number from the math slide. I have times Thursday and Friday: if you're available, type it in the chat. If not, I'll call each of you and we'll pick a time. Say 'Google's business search', never 'the map'. Leave it up for questions.",
     Component: CtaSlide,
   },
 ];

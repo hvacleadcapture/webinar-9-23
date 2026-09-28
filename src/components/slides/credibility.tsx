@@ -427,3 +427,51 @@ export function PriceCompareSlide() {
     </SlidePad>
   );
 }
+
+/* ------------------------------------------------------------------------ */
+/*  Objections, answered before the chat asks                                */
+/* ------------------------------------------------------------------------ */
+
+/*
+ * The three that actually come up, answered the cjp-growth-offer way: agree,
+ * then move the frame. Never argue, never quote a statistic, never disparage
+ * "the guy". Nothing here promises a result; the only commitments are ones the
+ * pricing slide already makes (month to month, cancel any time) and the
+ * reporting the "Check by check" slide already describes.
+ */
+const OBJECTIONS = [
+  {
+    q: "“I get all my work from referrals.”",
+    a: "Good. That’s the business. But before a referral calls you, they Google you. This is what decides whether they call.",
+  },
+  {
+    q: "“I already have a website guy.”",
+    a: "Good. What does he do every month? The build is almost never the gap. It’s that nothing happens after it.",
+  },
+  {
+    q: "“I’ve been burned by marketing before.”",
+    a: "Then don’t take my word for it. Month to month, cancel any time, and every number comes out of your own Google account.",
+  },
+];
+
+export function ObjectionsSlide() {
+  return (
+    <SlidePad className="justify-center">
+      <Kicker>Before you ask</Kicker>
+      <Display className="mt-3 text-4xl min-[701px]:text-[4rem]">What you&rsquo;re probably thinking.</Display>
+      <div className="mt-8 flex flex-col gap-4">
+        {OBJECTIONS.map((o) => (
+          <article
+            key={o.q}
+            className="grid items-center gap-8 rounded-xl bg-surface px-8 py-6 shadow-[var(--shadow-border)] min-[901px]:grid-cols-[0.85fr_1.15fr]"
+          >
+            <p className="font-display text-[2.1rem] leading-tight font-semibold tracking-display text-fg uppercase">
+              {o.q}
+            </p>
+            <p className="border-l-[3px] border-accent pl-5 text-[1.55rem] leading-snug text-muted">{o.a}</p>
+          </article>
+        ))}
+      </div>
+    </SlidePad>
+  );
+}
