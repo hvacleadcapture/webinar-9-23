@@ -107,96 +107,168 @@ export function ReferenceCallSlide() {
 }
 
 /* ------------------------------------------------------------------------ */
-/*  Results wall                                                             */
+/*  Results: the real screenshots, and what each one means                   */
 /* ------------------------------------------------------------------------ */
 
 /*
- * Sources (all ~/cjp-vault unless noted):
- *  AutoGloss      clients/autogloss.md, 27 Sept: Search Console clicks, 17 days
- *                 after the 10 Sept launch vs the 17 days before.
- *  Potts Brothers clients/potts-brothers.md + reports/potts-brothers/
- *                 2026-09-21-checkup.md: human-classified enquiries Jul -> Aug.
- *  Benrishi       August report (sent, not disputed): Search Console
- *                 impressions 2,948 -> 4,273. Reviews from benrishi-gbp.png.
- *                 NO licence/credential wording (benrishi-performance-fix).
- *  Two Koats      cjp-crm Signal ranking push 24 Sept (Search Console average
- *                 position). Do NOT claim review growth.
- *  A2Z Concrete   cjp-crm ranking push 4 Aug; August report clicks 28 -> 42.
- *  SmithStraw     clients/smithstraw.md 24 Sept: Google Ads, 3 conversions at
- *                 $7.09 on "pine straw near me".
+ * Every image in public/slides/results/ is a crop of the client's own Google
+ * account, captured 28 Sept 2026 (Search Console unless noted). Nothing in an
+ * image is edited; crops only drop the account chrome and, on the chart
+ * captures, the summary tiles.
+ *
+ *  AutoGloss   Search Console, autoglossnc.com, clicks daily 24 Aug-26 Sep.
+ *              17 days before the 10 Sept launch = 12 clicks, 17 after = 42
+ *              (vault clients/autogloss.md, 27 Sept).
+ *  Benrishi    Search Console, sc-domain:benrishico.com, impressions weekly
+ *              1 Jun-26 Sep. Jul 2,948 -> Aug 4,273 = +45% (August report;
+ *              the Jul+Aug total of 7.22K was re-checked in GSC). NO licence
+ *              or credential wording anywhere near this client.
+ *  Potts       GA4 events report, Aug-Sep: generate_lead 29, click_to_call 9.
+ *  Two Koats   Search Console, last 28 days to 26 Sep, top queries. "painter"
+ *              1.2 over 269 impressions; "exterior painters virginia beach"
+ *              3.4 over 145. (The earlier "#1 painter in virginia beach" was
+ *              a one-day reading; its 28-day average is 3.7, so it is gone.)
+ *  A2Z         Search Console, last 90 days, top queries: "concrete near me"
+ *              3.9, "concrete work near me" 2.1, "concrete foundation
+ *              contractors" 1.0. September clicks were DOWN, so no traffic
+ *              claim for A2Z.
+ *  SmithStraw  Google Ads, Jan 24-Sep 23 2026: 31 phone call leads, 18
+ *              contacts.
  */
-const WALL = [
+type Result = {
+  name: string;
+  where: string;
+  img: string;
+  alt: string;
+  source: string;
+  big: string;
+  bigLabel: string;
+  means: string;
+};
+
+const RESULTS_TRAFFIC: Result[] = [
   {
     name: "AutoGloss",
     where: "Detailing · Fuquay-Varina, NC",
+    img: "/slides/results/autogloss-gsc.png",
+    alt: "Google Search Console clicks chart for AutoGloss, rising after September 10",
+    source: "Google Search Console · clicks from Google, per day",
     big: "12 → 42",
-    what: "Clicks from Google search, 17 days before vs after the new site",
-  },
-  {
-    name: "Potts Brothers",
-    where: "Remodeling · Arlington, VA",
-    big: "+50%",
-    what: "Real enquiries, July to August (8 → 12). Mostly garages and additions",
+    bigLabel: "clicks, 17 days before vs after",
+    means: "The new site went live September 10. Look where the line jumps. More than 3× the people clicked through to him from Google.",
   },
   {
     name: "Benrishi Electrical",
     where: "Electrician · West Chester, OH",
+    img: "/slides/results/benrishi-gsc.png",
+    alt: "Google Search Console impressions chart for Benrishi Electrical, June to September",
+    source: "Google Search Console · times shown on Google, per week",
     big: "+45%",
-    what: "Times shown on Google search, July to August. 177 reviews, 5.0",
+    bigLabel: "shown on Google, July → August",
+    means: "Every point on that line is people searching for an electrician and seeing his name. More of them in August than in July.",
   },
+];
+
+const RESULTS_LEADS: Result[] = [
   {
-    name: "Two Koats Painting",
-    where: "Painter · Virginia Beach, VA",
-    big: "#1",
-    what: "“painter in virginia beach” · Search Console, 24 Sept",
-  },
-  {
-    name: "A2Z Concrete",
-    where: "Concrete · Gainesville, FL",
-    big: "#1",
-    what: "“concrete contractor” · Search Console. Clicks up 50% in August",
+    name: "Potts Brothers",
+    where: "Remodeling · Arlington, VA",
+    img: "/slides/results/potts-ga4-leads.png",
+    alt: "Google Analytics events for Potts Brothers showing generate_lead 29 and click_to_call 9",
+    source: "Google Analytics · website, Aug – Sept",
+    big: "29 + 9",
+    bigLabel: "lead forms + taps to call",
+    means: "generate_lead is someone filling out the form. click_to_call is someone tapping their number. Real people asking for a price.",
   },
   {
     name: "SmithStraw",
     where: "Pine straw · Fairhope, AL",
-    big: "$7.09",
-    what: "Per lead from Google Ads on “pine straw near me”",
+    img: "/slides/results/smithstraw-ads.png",
+    alt: "Google Ads leads summary for SmithStraw showing 31 phone call leads and 18 contacts",
+    source: "Google Ads · Jan 24 – Sept 23",
+    big: "31",
+    bigLabel: "phone calls from Google Ads",
+    means: "Plus 18 more contacts. The phone rings from people searching for pine straw right now, not someday.",
   },
 ];
 
-export function ResultsWallSlide() {
+const RESULTS_RANKS: Result[] = [
+  {
+    name: "Two Koats Painting",
+    where: "Painter · Virginia Beach, VA",
+    img: "/slides/results/twokoats-gsc-queries.png",
+    alt: "Google Search Console queries for Two Koats Painting: painter at 1.2, exterior painters virginia beach at 3.4",
+    source: "Google Search Console · last 28 days",
+    big: "1.2",
+    bigLabel: "average spot for “painter”",
+    means: "Position is where he shows up on Google. 1.2 means the top, for 269 searches of “painter”. Top 5 for exterior painters in Virginia Beach.",
+  },
+  {
+    name: "A2Z Concrete",
+    where: "Concrete · Gainesville, FL",
+    img: "/slides/results/a2z-gsc-queries.png",
+    alt: "Google Search Console queries for A2Z Concrete: concrete near me 3.9, concrete work near me 2.1",
+    source: "Google Search Console · last 90 days",
+    big: "Page 1",
+    bigLabel: "for “near me” searches",
+    means: "These people never typed his name. They typed “concrete near me” and found A2Z on the first page.",
+  },
+];
+
+const RESULT_SLIDES = {
+  traffic: { n: 1, title: "More people finding them on Google.", results: RESULTS_TRAFFIC },
+  leads: { n: 2, title: "Forms filled out. Phones ringing.", results: RESULTS_LEADS },
+  ranks: { n: 3, title: "Where they show up on Google.", results: RESULTS_RANKS },
+} as const;
+
+function ResultsSlide({ which }: { which: keyof typeof RESULT_SLIDES }) {
+  const { n, title, results } = RESULT_SLIDES[which];
   return (
     <SlidePad>
-      <div className="flex items-end justify-between gap-8">
-        <div>
-          <Kicker>More results · Google&rsquo;s numbers, not mine</Kicker>
-          <Display className="mt-3 text-4xl min-[701px]:text-[4rem]">Six more businesses.</Display>
-        </div>
-        <p className="hidden max-w-[30ch] pb-1 text-right text-base leading-snug text-muted min-[901px]:block">
-          Real clients. Every number is from their Google Search Console, Analytics or Ads account.
-        </p>
-      </div>
-      <div className="mt-7 grid min-h-0 flex-1 grid-cols-1 gap-4 min-[901px]:grid-cols-3 min-[901px]:grid-rows-2">
-        {WALL.map((c) => (
+      <Kicker>Real results · {n} of 3 · straight from their Google accounts</Kicker>
+      <Display className="mt-2 text-4xl min-[701px]:text-[3.1rem]">{title}</Display>
+      <div className="mt-4 mb-2 flex min-h-0 flex-1 flex-col gap-4">
+        {results.map((r) => (
           <article
-            key={c.name}
-            className="flex min-h-0 flex-col justify-between rounded-xl bg-surface px-7 py-5 shadow-[var(--shadow-border)]"
+            key={r.name}
+            className="grid min-h-0 flex-1 grid-cols-1 overflow-hidden rounded-xl bg-surface shadow-[var(--shadow-border)] min-[901px]:grid-cols-[1.35fr_1fr]"
           >
-            <div>
-              <p className="font-display text-[1.9rem] font-semibold uppercase leading-snug tracking-display">{c.name}</p>
-              <p className="text-[1.2rem] text-subtle">{c.where}</p>
+            <div className="flex min-h-0 items-center justify-center bg-white p-4">
+              <img src={r.img} alt={r.alt} className="max-h-full max-w-full object-contain" />
             </div>
-            <div className="mt-4">
-              <p className="font-display text-[3.8rem] leading-none font-semibold tracking-display text-accent tabular-nums">
-                {c.big}
+            <div className="flex min-h-0 flex-col justify-center px-7 py-4">
+              <p className="text-[0.95rem] tracking-wide text-subtle uppercase">{r.source}</p>
+              <p className="mt-1 font-display text-[1.7rem] font-semibold uppercase leading-tight tracking-display">
+                {r.name} <span className="text-[1.1rem] font-normal tracking-normal text-subtle normal-case">· {r.where}</span>
               </p>
-              <p className="mt-2 text-[1.3rem] leading-snug text-fg">{c.what}</p>
+              <p className="mt-2 flex items-baseline gap-3">
+                <span className="font-display text-[3rem] leading-none font-semibold whitespace-nowrap tracking-display text-accent tabular-nums">
+                  {r.big}
+                </span>
+                <span className="text-[1.2rem] leading-snug text-fg">{r.bigLabel}</span>
+              </p>
+              <p className="mt-3 border-l-[3px] border-accent pl-3 text-[1.2rem] leading-snug text-muted">
+                <span className="font-semibold text-fg">What it means: </span>
+                {r.means}
+              </p>
             </div>
           </article>
         ))}
       </div>
     </SlidePad>
   );
+}
+
+export function ResultsTrafficSlide() {
+  return <ResultsSlide which="traffic" />;
+}
+
+export function ResultsLeadsSlide() {
+  return <ResultsSlide which="leads" />;
+}
+
+export function ResultsRanksSlide() {
+  return <ResultsSlide which="ranks" />;
 }
 
 /* ------------------------------------------------------------------------ */
