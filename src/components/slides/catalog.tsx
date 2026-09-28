@@ -310,7 +310,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "cta",
     title: "What happens next",
-    notes: "The reveal. I already pulled up every one of your businesses and scored it against the nine. I'll follow up with each of you to go over it: your score, where you come up when someone searches your trade and your town and who's above you, and your top fixes, yours to keep either way. Remember your number from the math slide. I have times Thursday and Friday: if you're available, type it in the chat. If not, I'll call each of you and we'll pick a time. Say 'Google's business search', never 'the map'. Leave it up for questions.",
+    notes: "The reveal. I already pulled up every one of your businesses and scored it against the nine. I'll follow up with each of you to go over it: your score, where you come up when someone searches your trade and your town and who's above you, and your top fixes, yours to keep either way. Remember your number from the math slide. I have times Thursday and Friday: type AUDIT in the chat, or your name and number, and I'll reach out right after the webinar to set up your call. If not, I'll call each of you and we'll pick a time. Say 'Google's business search', never 'the map'. Leave it up for questions.",
     Component: CtaSlide,
   },
 ];
