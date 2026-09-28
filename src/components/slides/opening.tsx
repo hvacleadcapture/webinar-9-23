@@ -8,6 +8,9 @@ export function StartingSlide() {
       <Display className="mt-6 max-w-[14ch] text-6xl min-[701px]:text-[7.2rem]">
         Starting at 7:10 PM EST
       </Display>
+      <Body className="mt-10 max-w-[34ch] text-2xl text-fg min-[701px]:text-3xl">
+        Drop your email or last 4 of your phone in the chat.
+      </Body>
     </SlidePad>
   );
 }

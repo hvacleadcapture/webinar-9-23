@@ -165,44 +165,23 @@ export function ProofClipsSlide() {
 export function CtaSlide() {
   return (
     <SlidePad className="justify-center">
-      <div className="grid items-center gap-12 min-[901px]:grid-cols-[1.1fr_0.9fr]">
-        <div>
-          <Kicker>Scan the code</Kicker>
-          <Display className="mt-4 max-w-[16ch] text-5xl min-[701px]:text-[4.4rem]">
-            20 minutes. I&rsquo;ll audit your business with you.
-          </Display>
-          <ul className="mt-8 space-y-4 text-xl text-fg">
-            <li className="flex gap-4">
-              <span className="mt-2 block h-px w-8 shrink-0 bg-accent" />
-              <span>Your Google profile, reviews and website, together.</span>
-            </li>
-            <li className="flex gap-4">
-              <span className="mt-2 block h-px w-8 shrink-0 bg-accent" />
-              <span>Exactly what you&rsquo;re missing, and how to fix it.</span>
-            </li>
-            <li className="flex gap-4">
-              <span className="mt-2 block h-px w-8 shrink-0 bg-accent" />
-              <span>Not a fit? You keep the plan.</span>
-            </li>
-          </ul>
-          <p className="mt-8 font-display text-2xl font-semibold uppercase tracking-display text-fg">
-            go.cjp-enterprises.com/start
-          </p>
-          <p className="mt-3 text-lg text-muted">
-            Your checklist of the nine: <span className="text-fg">{CHECKLIST_URL}</span>
-          </p>
-        </div>
-        <div className="flex flex-col items-center justify-center rounded-xl bg-fg p-8">
-          <img
-            src="/slides/qr-start.png"
-            alt="QR code to book a 20-minute audit call with Christian"
-            className="aspect-square w-full max-w-[360px] max-[700px]:max-w-[220px]"
-          />
-          <p className="mt-5 font-display text-sm tracking-kicker text-accent-fg uppercase">
-            Grab 20 minutes
-          </p>
-        </div>
-      </div>
+      <Kicker>What happens next</Kicker>
+      <Display className="mt-4 max-w-[18ch] text-5xl min-[701px]:text-[5rem]">
+        I audited every one of your businesses.
+      </Display>
+      <ul className="mt-10 space-y-5 text-2xl text-fg min-[701px]:text-3xl">
+        <li className="flex gap-4">
+          <span className="mt-4 block h-px w-10 shrink-0 bg-accent" />
+          <span>I&rsquo;m reaching out to every one of you tonight.</span>
+        </li>
+        <li className="flex gap-4">
+          <span className="mt-4 block h-px w-10 shrink-0 bg-accent" />
+          <span>We go over yours on a quick Google Meet.</span>
+        </li>
+      </ul>
+      <p className="mt-10 text-lg text-muted">
+        Your checklist of the nine: <span className="text-fg">{CHECKLIST_URL}</span>
+      </p>
     </SlidePad>
   );
 }

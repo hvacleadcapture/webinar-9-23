@@ -80,7 +80,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "starting",
     title: "Starting soon",
-    notes: "Hold slide before the webinar starts. We're live at 7:10 PM EST.",
+    notes: "Hold slide before the webinar starts. We're live at 7:10 PM EST. Say it out loud as people join: drop your email or the last 4 of your phone in the chat. That is the attendance list, and it is who gets the text tonight.",
     Component: StartingSlide,
   },
   {
@@ -116,7 +116,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "takehome",
     title: "The list goes home with you",
-    notes: "Say it out loud: don't copy the slides, the whole checklist is at go.cjp-enterprises.com/nine. Only write down your score. Then plant the hook: stick around to the end, questions plus an offer for everyone here. Don't say what it is yet. Leave it up for a slow count of five so people can scan the code.",
+    notes: "Say it out loud: don't copy the slides, the whole checklist is at go.cjp-enterprises.com/nine. Only write down your score. Then plant the hook: stick around to the end: questions, and I'll tell you what I found when I pulled up your business. Don't say what it is yet. Leave it up for a slow count of five so people can scan the code.",
     Component: TakeHomeSlide,
   },
   {
@@ -259,8 +259,8 @@ export const SLIDES: SlideDef[] = [
   },
   {
     id: "cta",
-    title: "Grab 20 minutes",
-    notes: "The close. Scan this, grab 20 minutes, I audit your business with you: Google profile, reviews, website. I tell you exactly what you're missing and how to fix it. If we're not a fit, you keep the plan. No discount. Leave it up for questions.",
+    title: "What happens next",
+    notes: "The close. Tell, don't ask: I audited every one of your businesses, and I'm reaching out to every one of you tonight and again tomorrow. We go over yours on a quick 15-20 minute Google Meet, the gaps and how to fix them. No book-a-call, no QR code, no discount. Leave it up for questions.",
     Component: CtaSlide,
   },
 ];
