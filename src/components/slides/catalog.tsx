@@ -260,7 +260,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "cta",
     title: "What happens next",
-    notes: "The close. Tell, don't ask: I audited every one of your businesses, and I'm reaching out to every one of you tonight and again tomorrow. We go over yours on a quick 15-20 minute Google Meet, the gaps and how to fix them. No book-a-call, no QR code, no discount. Leave it up for questions.",
+    notes: "The close. I audited every one of your businesses, and I'll follow up with each one of you to schedule a call to go over the audit. I have some times open Thursday and Friday if anyone wants to book in: if you're available, type in the chat. If not, I'll follow up with each of you by phone and we'll schedule a time to go over your audit results. No QR code, no discount. Leave it up for questions.",
     Component: CtaSlide,
   },
 ];

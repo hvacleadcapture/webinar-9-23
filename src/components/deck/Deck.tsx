@@ -4,6 +4,14 @@ import { SLIDES } from "@/components/slides/catalog";
 import { hydrateDeckFromHash, useDeck } from "@/lib/deck-store";
 import { cn } from "@/lib/utils";
 
+/**
+ * The stage's logical size. Every slide is laid out at this size and scaled to
+ * fit the window, so a SMALLER logical stage renders everything BIGGER. Keep it
+ * 16:9 and keep .deck-stage in styles.css in step.
+ */
+const STAGE_W = 1440;
+const STAGE_H = 810;
+
 export function Deck() {
   const index = useDeck((s) => s.index);
   const setTotal = useDeck((s) => s.setTotal);
@@ -47,7 +55,7 @@ export function Deck() {
         stage.style.transform = "none";
         return;
       }
-      const s = Math.min(frame.clientWidth / 1600, frame.clientHeight / 900);
+      const s = Math.min(frame.clientWidth / STAGE_W, frame.clientHeight / STAGE_H);
       stage.style.transform = `scale(${s})`;
     };
 

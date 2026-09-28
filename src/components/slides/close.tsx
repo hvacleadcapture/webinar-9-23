@@ -1,3 +1,4 @@
+import { MessageSquare, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CHECKLIST_URL } from "@/lib/nine";
 import { Display, Kicker, SlidePad } from "./primitives";
@@ -162,24 +163,45 @@ export function ProofClipsSlide() {
   );
 }
 
+/**
+ * The close. 28 Sept wording (Christian): I follow up with every one of you to
+ * go over your audit; Thursday and Friday are open, so if you're free, type in
+ * the chat; if not, I call you and we pick a time. Two cards, because it is
+ * two paths and the viewer only has to find the one that is theirs.
+ */
 export function CtaSlide() {
   return (
     <SlidePad className="justify-center">
-      <Kicker>What happens next</Kicker>
-      <Display className="mt-4 max-w-[18ch] text-5xl min-[701px]:text-[5rem]">
-        I audited every one of your businesses.
+      <Kicker>I audited every one of your businesses</Kicker>
+      <Display className="mt-4 max-w-[20ch] text-5xl min-[701px]:text-[4.9rem]">
+        I&rsquo;ll follow up with each one of you to go over <span className="text-accent">your audit.</span>
       </Display>
-      <ul className="mt-10 space-y-5 text-2xl text-fg min-[701px]:text-3xl">
-        <li className="flex gap-4">
-          <span className="mt-4 block h-px w-10 shrink-0 bg-accent" />
-          <span>I&rsquo;m reaching out to every one of you tonight.</span>
-        </li>
-        <li className="flex gap-4">
-          <span className="mt-4 block h-px w-10 shrink-0 bg-accent" />
-          <span>We go over yours on a quick Google Meet.</span>
-        </li>
-      </ul>
-      <p className="mt-10 text-lg text-muted">
+      <div className="mt-10 grid gap-6 min-[901px]:grid-cols-2">
+        <article className="rounded-xl bg-surface-warm px-9 py-7 shadow-[0_0_0_2px_var(--color-accent)]">
+          <div className="flex items-center gap-4">
+            <MessageSquare className="size-10 shrink-0 text-accent" strokeWidth={2} aria-hidden />
+            <p className="font-display text-3xl font-semibold uppercase tracking-display text-fg">
+              Thursday + Friday
+            </p>
+          </div>
+          <p className="mt-5 text-2xl leading-snug text-fg">
+            I have times open. Want one?{" "}
+            <span className="font-semibold text-accent">Type it in the chat.</span>
+          </p>
+        </article>
+        <article className="rounded-xl bg-surface px-9 py-7 shadow-[var(--shadow-border)]">
+          <div className="flex items-center gap-4">
+            <Phone className="size-10 shrink-0 text-accent" strokeWidth={2} aria-hidden />
+            <p className="font-display text-3xl font-semibold uppercase tracking-display text-fg">
+              Can&rsquo;t make those?
+            </p>
+          </div>
+          <p className="mt-5 text-2xl leading-snug text-fg">
+            I&rsquo;ll call each of you and we&rsquo;ll pick a time to go over your audit results.
+          </p>
+        </article>
+      </div>
+      <p className="mt-7 text-lg text-muted">
         Your checklist of the nine: <span className="text-fg">{CHECKLIST_URL}</span>
       </p>
     </SlidePad>

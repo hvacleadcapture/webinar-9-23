@@ -87,7 +87,7 @@ export function HouseGraphic({
     <div
       className={cn(
         "grid h-full min-h-0 items-center gap-8",
-        aside ? "grid-cols-[1.05fr_0.95fr] max-[700px]:grid-cols-1" : "grid-cols-1",
+        aside ? "grid-cols-[0.7fr_1.3fr] max-[700px]:grid-cols-1" : "grid-cols-1",
         className,
       )}
     >
@@ -267,7 +267,7 @@ function PricingAside({ highlight }: { highlight: HouseLayer }) {
           <article
             key={plan.name}
             className={cn(
-              "rounded-lg px-6 py-4 transition-opacity duration-[var(--motion-fast)]",
+              "rounded-lg px-6 py-3 transition-opacity duration-[var(--motion-fast)]",
               plan.layer === "reach"
                 ? "bg-surface-warm shadow-[0_0_0_1px_var(--color-accent)]"
                 : "bg-surface shadow-[var(--shadow-border)]",
@@ -275,19 +275,19 @@ function PricingAside({ highlight }: { highlight: HouseLayer }) {
             )}
           >
             <p className="font-display text-kicker tracking-kicker text-accent uppercase">{plan.kicker}</p>
-            <div className="mt-1 flex items-end justify-between gap-4">
+            <div className="flex items-end justify-between gap-4">
               <div>
                 <h2 className="font-display text-2xl font-semibold uppercase leading-snug tracking-display">
                   {plan.name}
                 </h2>
-                <p className="mt-1 text-sm text-muted">{plan.tag}</p>
+                <p className="text-sm text-muted">{plan.tag}</p>
               </div>
               <p className="text-right">
                 <span className="font-display text-3xl font-semibold text-accent">{plan.price}</span>
-                <span className="block text-sm text-subtle">/mo</span>
+                <span className="text-sm text-subtle">/mo</span>
               </p>
             </div>
-            <p className="mt-2 text-sm leading-snug text-muted">{plan.items.join(" · ")}</p>
+            <p className="mt-1 text-sm leading-snug text-muted">{plan.items.join(" · ")}</p>
           </article>
         );
       })}
@@ -304,15 +304,15 @@ function PathsAside({ highlight }: { highlight: HouseLayer }) {
           <article
             key={path.kicker}
             className={cn(
-              "rounded-lg bg-surface px-6 py-4 shadow-[var(--shadow-border)] transition-opacity duration-[var(--motion-fast)]",
+              "rounded-lg bg-surface px-6 py-3 shadow-[var(--shadow-border)] transition-opacity duration-[var(--motion-fast)]",
               !on && "opacity-30",
             )}
           >
             <p className="font-display text-kicker tracking-kicker text-accent uppercase">{path.kicker}</p>
-            <h2 className="mt-2 font-display text-2xl font-semibold uppercase leading-snug tracking-display">
+            <h2 className="mt-1 font-display text-2xl font-semibold uppercase leading-snug tracking-display">
               {path.title}
             </h2>
-            <p className="mt-2 text-base leading-snug text-fg">{path.body}</p>
+            <p className="mt-1 text-[1.4rem] leading-snug text-fg">{path.body}</p>
           </article>
         );
       })}
