@@ -212,9 +212,7 @@ export function CtaSlide() {
               <p className="font-display text-[1.9rem] font-semibold uppercase tracking-display text-fg">Thursday + Friday</p>
             </div>
             <p className="mt-2 text-[1.45rem] leading-snug text-fg">
-              I have times open. In the chat, type{" "}
-              <span className="font-semibold text-accent">&ldquo;AUDIT&rdquo;</span> or your name and number, and
-              I&rsquo;ll reach out right after this webinar to set up your call.
+              I have times open. Want one? <span className="font-semibold text-accent">Type it in the chat.</span>
             </p>
           </article>
           <article className="rounded-xl bg-surface px-7 py-5 shadow-[var(--shadow-border)]">
