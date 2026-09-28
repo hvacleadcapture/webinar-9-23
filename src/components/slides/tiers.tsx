@@ -22,9 +22,9 @@ function Split({
       <div className="flex min-h-0 flex-1 gap-10">
         <div className="flex min-w-0 flex-1 flex-col">
           <Kicker>{kicker}</Kicker>
-          <Display className="mt-4 text-5xl min-[701px]:text-[4.4rem]">{title}</Display>
+          <Display className="mt-4 text-5xl min-[701px]:text-[3.9rem]">{title}</Display>
           {score ? <Plain n={score} /> : null}
-          <ul className="mt-8 space-y-4">
+          <ul className="mt-6 space-y-3">
             {items.map((item) => (
               <DashItem key={item}>{item}</DashItem>
             ))}
@@ -70,9 +70,9 @@ export function ProfileSlide() {
       <div className="flex min-h-0 flex-1 gap-8">
         <div className="flex min-w-0 flex-1 flex-col">
           <Kicker>Tier one · 1 of 3</Kicker>
-          <Display className="mt-4 text-5xl min-[701px]:text-[4.4rem]">Your Google profile</Display>
+          <Display className="mt-4 text-5xl min-[701px]:text-[3.9rem]">Your Google profile</Display>
           <Plain n={1} />
-          <ul className="mt-8 space-y-4">
+          <ul className="mt-6 space-y-3">
             {["Right main category", "Every service listed", "Photo + post, last 30 days"].map((item) => (
               <DashItem key={item}>{item}</DashItem>
             ))}
@@ -120,14 +120,14 @@ export function WebsiteSlide() {
       <div className="flex min-h-0 flex-1 gap-8">
         <div className="flex min-w-0 flex-1 flex-col">
           <Kicker>Tier one · 3 of 3</Kicker>
-          <Display className="mt-4 text-5xl min-[701px]:text-[4.4rem]">Your website, in five seconds</Display>
+          <Display className="mt-4 text-5xl min-[701px]:text-[3.9rem]">Your website, in five seconds</Display>
           <Plain n={3} />
-          <ul className="mt-8 space-y-4">
+          <ul className="mt-6 space-y-3">
             {["What you do + where", "Licensed + insured", "Tap-to-call button", "All without scrolling"].map((item) => (
               <DashItem key={item}>{item}</DashItem>
             ))}
           </ul>
-          <p className="mt-7 text-sm text-subtle">M.E. Garlock · then compare what a stronger contractor site looks like.</p>
+          <p className="mt-5 text-sm text-subtle">M.E. Garlock · then compare what a stronger contractor site looks like.</p>
           <ScoreChip n={3} />
         </div>
         <div className="hidden w-[520px] shrink-0 flex-col gap-2 min-[1000px]:flex">
@@ -153,7 +153,7 @@ export function ServicePagesSlide() {
       <div className="flex min-h-0 flex-1 gap-10">
         <div className="flex min-w-0 flex-1 flex-col">
           <Kicker>Tier two · 1 of 2</Kicker>
-          <Display className="mt-4 text-5xl min-[701px]:text-[4.4rem]">
+          <Display className="mt-4 text-5xl min-[701px]:text-[3.9rem]">
             A page for every service
           </Display>
           <Plain n={4} />
@@ -164,14 +164,14 @@ export function ServicePagesSlide() {
           </ul>
           <ScoreChip n={4} />
         </div>
-        <div className="hidden w-[420px] shrink-0 flex-col gap-4 min-[901px]:flex">
+        <div className="hidden w-[460px] shrink-0 flex-col gap-3 min-[901px]:flex">
           <div className="rounded-lg bg-surface px-5 py-4 shadow-[var(--shadow-border)]">
             <p className="text-kicker tracking-kicker text-subtle uppercase">Most sites</p>
-            <p className="mt-2 font-mono text-lg text-muted">/services</p>
+            <p className="mt-1 font-mono text-base text-muted">/services</p>
           </div>
           <div className="rounded-lg bg-surface px-5 py-4 shadow-[var(--shadow-border)]">
             <p className="text-kicker tracking-kicker text-accent uppercase">The site above yours</p>
-            <ul className="mt-3 space-y-2 font-mono text-lg text-fg">
+            <ul className="mt-2 space-y-1 font-mono text-base text-fg">
               <li>/panel-upgrades</li>
               <li>/ev-charger-install</li>
               <li>/generator-hookup</li>
@@ -209,11 +209,11 @@ export function PostingSlide() {
       <div className="flex min-h-0 flex-1 gap-8">
         <div className="flex min-w-0 flex-1 flex-col">
           <Kicker>Tier two · 2 of 2</Kicker>
-          <Display className="mt-4 text-5xl min-[701px]:text-[4.4rem]">
+          <Display className="mt-4 text-5xl min-[701px]:text-[3.9rem]">
             We post. Every week. For you.
           </Display>
           <Plain n={5} />
-          <ul className="mt-8 space-y-4">
+          <ul className="mt-6 space-y-3">
             {["Something new, last 7 days", "Google. Site. Facebook. Instagram.", "We automate all of it"].map((item) => (
               <DashItem key={item}>{item}</DashItem>
             ))}
@@ -278,19 +278,19 @@ export function CitationsSlide() {
       <div className="flex min-h-0 flex-1 gap-8">
         <div className="flex min-w-0 flex-1 flex-col">
           <Kicker>Tier three · 3 of 4</Kicker>
-          <Display className="mt-4 text-5xl min-[701px]:text-[4.4rem]">
+          <Display className="mt-4 text-5xl min-[701px]:text-[3.9rem]">
             Citations and local links
           </Display>
           <Plain n={8} />
-          <ul className="mt-8 space-y-4">
+          <ul className="mt-6 space-y-3">
             {["Same name, address, phone", "Everywhere you're listed", "Your social profiles count too"].map((item) => (
               <DashItem key={item}>{item}</DashItem>
             ))}
           </ul>
-          <p className="mt-7 text-sm text-subtle">Potts Brothers · Google, Instagram, Facebook, Angi, BBB, Houzz, Nextdoor and more.</p>
+          <p className="mt-5 text-sm text-subtle">Potts Brothers · Google, Instagram, Facebook, Angi, BBB, Houzz, Nextdoor and more.</p>
           <ScoreChip n={8} />
         </div>
-        <div className="hidden w-[560px] shrink-0 flex-col gap-2 min-[1000px]:flex">
+        <div className="hidden w-[440px] shrink-0 flex-col gap-2 min-[1000px]:flex">
           {[
             ["/slides/user-added/potts-links-top-blurred.png", "Potts Brothers search results and social profiles"],
             ["/slides/user-added/potts-links-middle.png", "Potts Brothers local links and profiles"],
@@ -340,8 +340,8 @@ export function CheckpointSlide({ tier }: { tier: 1 | 2 }) {
       <div className="flex min-h-0 flex-1 gap-10">
         <div className="flex min-w-0 flex-1 flex-col justify-center">
           <Kicker>Quick check · tier {tier === 1 ? "one" : "two"} done</Kicker>
-          <Display className="mt-4 text-5xl min-[701px]:text-6xl">Where we are.</Display>
-          <ol className="mt-10 space-y-6">
+          <Display className="mt-4 text-5xl min-[701px]:text-[4.4rem]">Where we are.</Display>
+          <ol className="mt-6 space-y-3">
             {done.map((c) => (
               <li key={c.n} className="flex gap-5">
                 <span className="slide-num w-14 shrink-0 font-display text-3xl font-semibold text-accent">
@@ -354,7 +354,7 @@ export function CheckpointSlide({ tier }: { tier: 1 | 2 }) {
               </li>
             ))}
           </ol>
-          <p className="mt-10 text-xl text-fg">
+          <p className="mt-6 text-xl text-fg">
             {left} to go. Lost on any of these? Put it in the chat now.
           </p>
         </div>

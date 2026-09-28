@@ -121,7 +121,7 @@ export function ScoreChip({ n }: { n: number }) {
         toggle(n);
       }}
       className={cn(
-        "mt-8 inline-flex items-center gap-3 rounded-md px-4 py-3 text-sm font-semibold tracking-wide uppercase transition-[background-color,color,transform] duration-[var(--motion-quick)] ease-[var(--ease-out)] active:scale-[0.96]",
+        "mt-6 inline-flex items-center gap-3 rounded-md px-4 py-3 text-sm font-semibold tracking-wide uppercase transition-[background-color,color,transform] duration-[var(--motion-quick)] ease-[var(--ease-out)] active:scale-[0.96]",
         on ? "bg-accent text-accent-fg" : "bg-surface-2 text-muted",
       )}
     >
@@ -151,17 +151,17 @@ export function NineRail({ active }: { active?: number }) {
 
   let n = 0;
   return (
-    <aside className="flex w-72 shrink-0 flex-col gap-6 border-l border-line pl-8 max-[700px]:hidden">
+    <aside className="flex w-64 shrink-0 flex-col gap-5 border-l border-line pl-7 max-[700px]:hidden">
       {items.map(([tier, ...rest]) => (
         <div key={tier}>
           <p className="font-display text-kicker tracking-kicker text-subtle">{tier}</p>
-          <ul className="mt-3 space-y-2">
+          <ul className="mt-2.5 space-y-1.5">
             {rest.map((label) => {
               n += 1;
               const i = n;
               const is = active === i;
               return (
-                <li key={label} className={cn("text-sm leading-snug", is ? "text-accent" : "text-muted")}>
+                <li key={label} className={cn("text-[1.2rem] leading-snug", is ? "text-accent" : "text-muted")}>
                   <span className="slide-num mr-2 text-subtle">{String(i).padStart(2, "0")}</span>
                   {label}
                 </li>

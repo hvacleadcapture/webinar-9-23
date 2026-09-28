@@ -1,17 +1,47 @@
+import { MessageSquare } from "lucide-react";
 import { CHECKLIST_URL } from "@/lib/nine";
 import { Body, Display, HouseGraphic, Kicker, SlidePad } from "./primitives";
 
+/**
+ * The hold slide people sit on while the room fills, so it is the one they
+ * look at longest. The time is the biggest thing on it by a distance, and the
+ * one thing we need from them (email or last 4 in the chat -- the attendance
+ * list) gets its own card instead of trailing under the headline.
+ */
 export function StartingSlide() {
   return (
-    <SlidePad className="justify-center">
-      <Kicker>We'll get going shortly</Kicker>
-      <Display className="mt-6 max-w-[14ch] text-6xl min-[701px]:text-[7.2rem]">
-        Starting at 7:10 PM EST
-      </Display>
-      <Body className="mt-10 max-w-[34ch] text-2xl text-fg min-[701px]:text-3xl">
-        Drop your email or last 4 of your phone in the chat.
-      </Body>
-    </SlidePad>
+    <div className="relative h-full overflow-hidden">
+      <div
+        aria-hidden
+        className="house-glow pointer-events-none absolute top-[8%] left-[-12%] h-[90%] w-[70%] opacity-60 max-[700px]:hidden"
+      />
+      <SlidePad className="relative z-10 justify-center">
+        <p className="flex items-center gap-3 font-display text-[length:var(--text-kicker)] font-medium tracking-kicker text-accent uppercase">
+          <span className="live-dot size-2.5 rounded-full bg-accent" />
+          We&rsquo;ll get going shortly
+        </p>
+        <div className="mt-6 grid items-center gap-12 min-[901px]:grid-cols-[1.2fr_0.8fr]">
+          <div>
+            <p className="font-display text-4xl font-semibold uppercase leading-tight tracking-display text-muted min-[701px]:text-[4.2rem]">
+              Starting at
+            </p>
+            <p className="mt-2 font-display font-semibold uppercase leading-[0.85] tracking-display">
+              <span className="block text-[6rem] text-accent min-[701px]:text-[13.5rem]">7:10 PM</span>
+              <span className="mt-3 block text-5xl text-fg min-[701px]:text-[5.5rem]">EST</span>
+            </p>
+          </div>
+          <div className="relative rounded-xl bg-surface-warm px-10 py-10 shadow-[0_0_0_2px_var(--color-accent)]">
+            <MessageSquare className="size-14 text-accent" strokeWidth={2} aria-hidden />
+            <p className="mt-6 font-display text-kicker tracking-kicker text-accent uppercase">
+              While you wait
+            </p>
+            <p className="mt-3 text-3xl leading-snug font-medium text-fg min-[701px]:text-[2.9rem]">
+              Drop your email or last 4 of your phone in the chat.
+            </p>
+          </div>
+        </div>
+      </SlidePad>
+    </div>
   );
 }
 
@@ -159,11 +189,11 @@ export function ScenariosSlide() {
     <SlidePad className="justify-center">
       <Kicker>Companies who work with us</Kicker>
       <Display className="mt-4 text-5xl min-[701px]:text-6xl">3 scenarios</Display>
-      <div className="mt-12 grid flex-1 gap-5 min-[901px]:grid-cols-3">
+      <div className="mt-8 grid flex-1 gap-5 min-[901px]:grid-cols-3">
         {items.map((item) => (
           <article
             key={item.n}
-            className="flex flex-col justify-between rounded-xl bg-surface px-8 py-10 shadow-[var(--shadow-border)]"
+            className="flex flex-col justify-between rounded-xl bg-surface px-8 py-8 shadow-[var(--shadow-border)]"
           >
             <p className="font-display text-6xl font-semibold leading-none tracking-display text-accent">
               {item.n}

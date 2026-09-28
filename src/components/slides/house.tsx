@@ -88,11 +88,11 @@ export function StructureSlide() {
     <SlidePad>
       <Kicker>How I work</Kicker>
       <Display className="mt-3 text-4xl">How I structure my services.</Display>
-      <Body className="mt-3 max-w-[54ch]">
+      <Body className="mt-2 max-w-[60ch] leading-snug">
         I can help you wherever you are in the journey. I am not going to push ads on you if you don't
         need them.
       </Body>
-      <div className="mt-5 min-h-0 flex-1">
+      <div className="mt-3 min-h-0 flex-1">
         <HouseGraphic mode="paths" />
       </div>
     </SlidePad>
@@ -104,10 +104,10 @@ export function HousePricingSlide() {
     <SlidePad>
       <Kicker>Where each plan sits</Kicker>
       <Display className="mt-3 text-4xl">The house, with a price.</Display>
-      <Body className="mt-3 max-w-[46ch]">
+      <Body className="mt-2 max-w-[46ch]">
         Foundation. Frame. Roof. Pick the level you need. Not more.
       </Body>
-      <div className="mt-2 min-h-0 flex-1">
+      <div className="mt-1 min-h-0 flex-1">
         <HouseGraphic mode="pricing" />
       </div>
     </SlidePad>
@@ -174,14 +174,21 @@ export function WhatYouGetSlide() {
   ];
   return (
     <SlidePad>
-      <Kicker>What you actually get</Kicker>
-      <Display className="mt-3 text-4xl">Check by check.</Display>
-      <div className="mt-6 grid min-h-0 gap-5 min-[901px]:grid-cols-2">
+      <div className="flex items-end justify-between gap-8">
+        <div>
+          <Kicker>What you actually get</Kicker>
+          <Display className="mt-3 text-4xl">Check by check.</Display>
+        </div>
+        <p className="max-w-[30ch] pb-1 text-right text-base leading-snug text-muted">
+          Pro, $997: all nine, plus we run your Google ads. Month to month on all three.
+        </p>
+      </div>
+      <div className="mt-5 grid min-h-0 gap-5 min-[901px]:grid-cols-2">
         {cols.map((col) => (
           <section
             key={col.name}
             className={cn(
-              "flex flex-col rounded-xl px-7 py-6",
+              "flex flex-col rounded-xl px-7 py-5",
               col.name === "Growth"
                 ? "bg-surface-warm shadow-[0_0_0_2px_var(--color-accent)]"
                 : "bg-surface shadow-[var(--shadow-border)]",
@@ -195,22 +202,19 @@ export function WhatYouGetSlide() {
               <p className="font-display text-xl font-semibold uppercase tracking-display text-accent">{col.count}</p>
             </div>
             <p className="mt-1 text-base text-muted">{col.lead}</p>
-            <ul className="mt-5 space-y-4">
+            <ul className="mt-3 space-y-2">
               {col.checks.map((c) => (
                 <li key={c.n} className="flex items-baseline gap-4">
                   <span className="slide-num w-9 shrink-0 font-display text-xl font-semibold text-accent">
                     {String(c.n).padStart(2, "0")}
                   </span>
-                  <span className="text-lg leading-snug text-fg">{c.weDo}</span>
+                  <span className="text-base leading-snug text-fg">{c.weDo}</span>
                 </li>
               ))}
             </ul>
           </section>
         ))}
       </div>
-      <p className="mt-5 text-lg text-muted">
-        Pro, $997: all nine, plus we run your Google ads. Month to month on all three.
-      </p>
     </SlidePad>
   );
 }
