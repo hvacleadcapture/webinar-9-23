@@ -32,7 +32,7 @@ import {
 } from "./house";
 import { AdsProofSlide, CtaSlide, ProofClipsSlide } from "./close";
 import { MissedCallDemoSlide } from "./demo";
-import { AutoGlossSlide, PriceCompareSlide, ReferenceCallSlide, ResultsWallSlide } from "./credibility";
+import { AutoGlossSlide, PriceCompareSlide, ReferenceCallSlide, ResultsLeadsSlide, ResultsRanksSlide, ResultsTrafficSlide } from "./credibility";
 
 export type SlideDef = {
   id: string;
@@ -110,10 +110,22 @@ export const SLIDES: SlideDef[] = [
     Component: ProofSlide,
   },
   {
-    id: "results-wall",
-    title: "Six more businesses",
-    notes: "Rapid-fire, one line each. Every number is from their own Search Console, Analytics or Ads. The #1s are Search Console average position for that search, not the map, so say 'on Google search'. Benrishi: no licence talk.",
-    Component: ResultsWallSlide,
+    id: "results-traffic",
+    title: "Real results: traffic",
+    notes: "Screenshots straight out of their Google accounts. Point at the line, then read 'what it means'. AutoGloss: new site Sept 10, clicks from Google went 12 to 42 over the next 17 days. Benrishi: shown on Google 45% more in August than July. No licence talk on Benrishi.",
+    Component: ResultsTrafficSlide,
+  },
+  {
+    id: "results-leads",
+    title: "Real results: leads + calls",
+    notes: "Potts: 29 lead forms and 9 taps to call from the website, Aug to Sept, Google Analytics. SmithStraw: 31 phone calls from Google Ads plus 18 contacts. This is the phone ringing.",
+    Component: ResultsLeadsSlide,
+  },
+  {
+    id: "results-ranks",
+    title: "Real results: rankings",
+    notes: "Position is the average spot on Google search, lower is better. Two Koats: 1.2 for 'painter' across 269 searches, 3.4 for exterior painters Virginia Beach. A2Z: page one for concrete near me, concrete work near me. Say 'on Google search', not 'number one on the map'.",
+    Component: ResultsRanksSlide,
   },
   {
     id: "autogloss",
