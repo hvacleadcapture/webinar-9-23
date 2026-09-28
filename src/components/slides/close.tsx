@@ -1,4 +1,4 @@
-import { MessageSquare, Phone } from "lucide-react";
+import { Check, MessageSquare, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CHECKLIST_URL } from "@/lib/nine";
 import { Display, Kicker, SlidePad } from "./primitives";
@@ -164,45 +164,70 @@ export function ProofClipsSlide() {
 }
 
 /**
- * The close. 28 Sept wording (Christian): I follow up with every one of you to
- * go over your audit; Thursday and Friday are open, so if you're free, type in
- * the chat; if not, I call you and we pick a time. Two cards, because it is
- * two paths and the viewer only has to find the one that is theirs.
+ * The close, as a reveal (28 Sept, second pass). The scorecard already exists
+ * for every registrant with a business name -- cjp-frontdesk's webinarAudit
+ * runs it before the session: a score out of the nine (the rows visible from
+ * outside), one "trade + town" search in Google's business search with the
+ * businesses above them, and the findings per row. So the slide promises only
+ * that. It never says "map pack" (the rank check is Google's business search,
+ * one search of about ten), and it never promises a result.
+ *
+ * Christian's wording stays: I follow up with each of you; Thursday and Friday
+ * are open, type in the chat; if not, I call you and we pick a time.
  */
+const ON_THE_CALL = [
+  "Your score out of the nine",
+  "Where you come up when someone searches your trade + your town, and who’s above you",
+  "Your top fixes, in order. Yours to keep, whether you work with me or not",
+];
+
 export function CtaSlide() {
   return (
     <SlidePad className="justify-center">
-      <Kicker>I audited every one of your businesses</Kicker>
-      <Display className="mt-4 max-w-[20ch] text-5xl min-[701px]:text-[4.9rem]">
-        I&rsquo;ll follow up with each one of you to go over <span className="text-accent">your audit.</span>
+      <Kicker>I already pulled up every one of your businesses</Kicker>
+      <Display className="mt-4 text-5xl min-[701px]:text-[5rem]">
+        Your score is <span className="text-accent">ready.</span>
       </Display>
-      <div className="mt-10 grid gap-6 min-[901px]:grid-cols-2">
-        <article className="rounded-xl bg-surface-warm px-9 py-7 shadow-[0_0_0_2px_var(--color-accent)]">
-          <div className="flex items-center gap-4">
-            <MessageSquare className="size-10 shrink-0 text-accent" strokeWidth={2} aria-hidden />
-            <p className="font-display text-3xl font-semibold uppercase tracking-display text-fg">
-              Thursday + Friday
-            </p>
-          </div>
-          <p className="mt-5 text-2xl leading-snug text-fg">
-            I have times open. Want one?{" "}
-            <span className="font-semibold text-accent">Type it in the chat.</span>
+      <div className="mt-8 grid gap-8 min-[901px]:grid-cols-[1.1fr_0.9fr]">
+        <div>
+          <p className="font-display text-kicker tracking-kicker text-subtle uppercase">
+            When I follow up, you get:
           </p>
-        </article>
-        <article className="rounded-xl bg-surface px-9 py-7 shadow-[var(--shadow-border)]">
-          <div className="flex items-center gap-4">
-            <Phone className="size-10 shrink-0 text-accent" strokeWidth={2} aria-hidden />
-            <p className="font-display text-3xl font-semibold uppercase tracking-display text-fg">
-              Can&rsquo;t make those?
-            </p>
-          </div>
-          <p className="mt-5 text-2xl leading-snug text-fg">
-            I&rsquo;ll call each of you and we&rsquo;ll pick a time to go over your audit results.
+          <ul className="mt-4 space-y-3.5">
+            {ON_THE_CALL.map((item) => (
+              <li key={item} className="flex gap-3.5 text-[1.55rem] leading-snug text-fg">
+                <Check className="mt-1.5 size-6 shrink-0 text-accent" strokeWidth={3} aria-hidden />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-[1.3rem] leading-snug text-muted">
+            Remember your number: <span className="text-fg">one more job a week × 52.</span> It&rsquo;s a quick Google Meet.
           </p>
-        </article>
+        </div>
+        <div className="flex flex-col gap-4">
+          <article className="rounded-xl bg-surface-warm px-7 py-5 shadow-[0_0_0_2px_var(--color-accent)]">
+            <div className="flex items-center gap-3">
+              <MessageSquare className="size-8 shrink-0 text-accent" strokeWidth={2} aria-hidden />
+              <p className="font-display text-[1.9rem] font-semibold uppercase tracking-display text-fg">Thursday + Friday</p>
+            </div>
+            <p className="mt-2 text-[1.45rem] leading-snug text-fg">
+              I have times open. Want one? <span className="font-semibold text-accent">Type it in the chat.</span>
+            </p>
+          </article>
+          <article className="rounded-xl bg-surface px-7 py-5 shadow-[var(--shadow-border)]">
+            <div className="flex items-center gap-3">
+              <Phone className="size-8 shrink-0 text-accent" strokeWidth={2} aria-hidden />
+              <p className="font-display text-[1.9rem] font-semibold uppercase tracking-display text-fg">Can&rsquo;t make those?</p>
+            </div>
+            <p className="mt-2 text-[1.45rem] leading-snug text-fg">
+              I&rsquo;ll call each of you and we&rsquo;ll pick a time to go over your audit results.
+            </p>
+          </article>
+        </div>
       </div>
-      <p className="mt-7 text-lg text-muted">
-        Your checklist of the nine: <span className="text-fg">{CHECKLIST_URL}</span>
+      <p className="mt-6 text-[1.15rem] text-subtle">
+        Your checklist of the nine: <span className="text-muted">{CHECKLIST_URL}</span>
       </p>
     </SlidePad>
   );

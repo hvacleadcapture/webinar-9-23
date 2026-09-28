@@ -30,7 +30,12 @@ export function ScoreRecapSlide() {
           <span className="text-subtle"> / 9</span>
         </p>
       </div>
-      <ol className="mt-8 grid flex-1 grid-cols-1 gap-3 min-[901px]:grid-cols-3">
+      <p className="mt-2 text-[1.35rem] text-muted">
+        That&rsquo;s the one you gave yourself.{" "}
+        <span className="text-fg">I already ran the real one on your business.</span>{" "}
+        <span className="text-accent">You get it at the end.</span>
+      </p>
+      <ol className="mt-6 grid flex-1 grid-cols-1 gap-3 min-[901px]:grid-cols-3">
         {NINE.map((item) => {
           const on = Boolean(marks[item.n]);
           return (
