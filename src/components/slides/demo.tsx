@@ -151,3 +151,6 @@ export function MissedCallDemoSlide() {
     </SlidePad>
   );
 }
+
+/** The thread, for the in-slide phone demo (demos-b.tsx). */
+export { STEPS as MISSED_CALL_STEPS };
