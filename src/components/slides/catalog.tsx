@@ -1,13 +1,11 @@
 import type { ComponentType } from "react";
 import {
   PenSlide,
-  ProofSlide,
   ScenariosSlide,
   StartingSlide,
   TakeHomeSlide,
   TitleSlide,
   WholeListSlide,
-  WhySlide,
 } from "./opening";
 import {
   AiSlide,
@@ -19,21 +17,20 @@ import {
   ProfileSlide,
   ReviewsSlide,
   ServicePagesSlide,
-  TierHeader,
   WebsiteSlide,
 } from "./tiers";
 import {
-  HousePricingSlide,
   MathSlide,
   PyramidSlide,
   WhatYouGetSlide,
   ScoreRecapSlide,
   StructureSlide,
 } from "./house";
-import { AdsProofSlide, CtaSlide, ProofClipsSlide } from "./close";
+import { CtaSlide, ProofClipsSlide } from "./close";
 import { MissedCallDemoSlide } from "./demo";
 import { AfterYesSlide, SignalSlide, SignalTourSlide } from "./signal";
-import { AutoGlossSlide, ObjectionsSlide, PriceCompareSlide, ReferenceCallSlide, ResultsLeadsSlide, ResultsRanksSlide, ResultsTrafficSlide } from "./credibility";
+import { AdsDemoSlide, AutoGlossLiveSlide, RdOutcomeSlide, ReviewDemoSlide } from "./outcomes";
+import { ObjectionsSlide, PriceCompareSlide, ReferenceCallSlide, ResultsLeadsSlide, ResultsRanksSlide, ResultsTrafficSlide } from "./credibility";
 
 export type SlideDef = {
   id: string;
@@ -42,294 +39,240 @@ export type SlideDef = {
   Component: ComponentType;
 };
 
-function T1() {
-  return (
-    <TierHeader
-      n="Tier one"
-      title="You have it. Does it pass?"
-      sub="Google profile, reviews, website."
-      active={1}
-    />
-  );
-}
 function Check1() {
   return <CheckpointSlide tier={1} />;
 }
 function Check2() {
   return <CheckpointSlide tier={2} />;
 }
-function T2() {
-  return (
-    <TierHeader
-      n="Tier two"
-      title="Found for more than your name"
-      sub="A page for every service. Posting, every week — we automate it."
-      active={4}
-    />
-  );
-}
-function T3() {
-  return (
-    <TierHeader
-      n="Tier three"
-      title="The part almost nobody does"
-      sub="AI visibility. Keywords. Citations. When the phone rings."
-      active={6}
-    />
-  );
-}
 
 export const SLIDES: SlideDef[] = [
   {
     id: "starting",
     title: "Starting soon",
-    notes: "Hold slide before the webinar starts. We're live at 7:10 PM EST. Say it out loud as people join: drop your email or the last 4 of your phone in the chat. That is the attendance list, and it is who gets the text tonight.",
+    notes: "[hold] Hold slide before the webinar starts. We're live at 7:10 PM EST. Say it out loud as people join: drop your email or the last 4 of your phone in the chat. That is the attendance list, and it is who gets the text tonight.",
     Component: StartingSlide,
   },
   {
     id: "reference",
     title: "Reference call",
-    notes: "You clicked a random ad, you have no idea who I am. So before anything else: a reference call, live. Call Duncan at R&D Plumbing, Baldwin County, Alabama. Brand-new company, came to us in July with nothing: no site, no logo, no Google profile. Let him say what it's been like working with us. Don't put numbers in his mouth: he has no reviews yet and his Google profile is still in verification, so keep it to the experience. Call him Duncan.",
+    notes: "[~3 min] You clicked a random ad, you have no idea who I am. So before anything else: a reference call, live. Call Duncan at R&D Plumbing, Baldwin County, Alabama. Brand-new company, came to us in July with nothing: no site, no logo, no Google profile. Let him say what it's been like working with us. Don't put numbers in his mouth: he has no reviews yet and his Google profile is still in verification, so keep it to the experience. Call him Duncan.",
     Component: ReferenceCallSlide,
+  },
+  {
+    id: "rd-outcome",
+    title: "R&D: brand new to $20,000 job",
+    notes: "[~1 min] Straight after Duncan hangs up. It plays itself: July, nothing. We built the site. A lead comes in off the website. One $20,000 job. Say it once and let the number sit. The $20,000 is YOUR figure; it isn't in the client record, so be ready to back it if Duncan is still on. Change it in outcomes.tsx (RD_JOB) if it's off.",
+    Component: RdOutcomeSlide,
   },
   {
     id: "title",
     title: "The nine things",
-    notes: "Start on time. Promise the list, never an outcome.",
+    notes: "[~0.5 min] Start on time. Promise the list, never an outcome.",
     Component: TitleSlide,
-  },
-  {
-    id: "why",
-    title: "Why you're here",
-    notes: "One line. Leverage technology to grow the business. Don't add a speech.",
-    Component: WhySlide,
-  },
-  {
-    id: "proof",
-    title: "Client results",
-    notes: "Potts Brothers, Mission Decks, M.E. Garlock. Google's numbers, not ours. Point at leads, form starts, and the Garlock organic-search screenshot. Don't oversell.",
-    Component: ProofSlide,
   },
   {
     id: "results-traffic",
     title: "Real results: traffic",
-    notes: "Screenshots straight out of their Google accounts. Point at the line, then read 'what it means'. AutoGloss: new site Sept 10, clicks from Google went 12 to 42 over the next 17 days. Benrishi: shown on Google 45% more in August than July. No licence talk on Benrishi.",
+    notes: "[~1 min] Screenshots straight out of their Google accounts. Point at the line, then read 'what it means'. AutoGloss: new site Sept 10, clicks from Google went 12 to 42 over the next 17 days. Benrishi: shown on Google 45% more in August than July. No licence talk on Benrishi.",
     Component: ResultsTrafficSlide,
   },
   {
     id: "results-leads",
     title: "Real results: leads + calls",
-    notes: "Potts: 29 lead forms and 9 taps to call from the website, Aug to Sept, Google Analytics. SmithStraw: 31 phone calls from Google Ads plus 18 contacts. This is the phone ringing.",
+    notes: "[~1 min] Potts: 29 lead forms and 9 taps to call from the website, Aug to Sept, Google Analytics. SmithStraw: 31 phone calls from Google Ads plus 18 contacts. This is the phone ringing.",
     Component: ResultsLeadsSlide,
   },
   {
     id: "results-ranks",
     title: "Real results: rankings",
-    notes: "Position is the average spot on Google search, lower is better. Two Koats: 1.2 for 'painter' across 269 searches, 3.4 for exterior painters Virginia Beach. A2Z: page one for concrete near me, concrete work near me. Say 'on Google search', not 'number one on the map'.",
+    notes: "[~1 min] Position is the average spot on Google search, lower is better. Two Koats: 1.2 for 'painter' across 269 searches, 3.4 for exterior painters Virginia Beach. A2Z: page one for concrete near me, concrete work near me. Say 'on Google search', not 'number one on the map'.",
     Component: ResultsRanksSlide,
   },
   {
     id: "autogloss",
     title: "Case study: AutoGloss",
-    notes: "Jeff Miller, detailing, Fuquay-Varina NC. New site went up September 10. 18 real leads in the next two weeks, 10 from the site and 8 from the ads page. Clicks from Google search 42 vs 12. Cost per click down from $3.80 to $2.71. Don't mention revenue, and don't say veteran-owned.",
-    Component: AutoGlossSlide,
+    notes: "[~1.5 min] It animates: leads land one by one, then the clicks bar. Jeff Miller, detailing, Fuquay-Varina NC. New site went up September 10. 18 real leads in the next two weeks, 10 from the site and 8 from the ads page. Clicks from Google search 42 vs 12. Cost per click down from $3.80 to $2.71. Don't mention revenue, and don't say veteran-owned.",
+    Component: AutoGlossLiveSlide,
   },
   {
     id: "scenarios",
     title: "Three scenarios",
-    notes: "Hundreds of contractors. Most are in one of these three. No fault of their own.",
+    notes: "[~1 min] Hundreds of contractors. Most are in one of these three. No fault of their own.",
     Component: ScenariosSlide,
   },
   {
     id: "pen",
     title: "Score yourself",
-    notes: "Pace: this crowd includes owners with zero background. Read the plain-words line (the one with the orange bar) on every check before the bullets. Pen and paper. Mean it. If you have to think, it's a no. At the end you will ask for the number.",
+    notes: "[~0.5 min] Pace: this crowd includes owners with zero background. Read the plain-words line (the one with the orange bar) on every check before the bullets. Pen and paper. Mean it. If you have to think, it's a no. At the end you will ask for the number.",
     Component: PenSlide,
   },
   {
     id: "takehome",
     title: "The list goes home with you",
-    notes: "Say it out loud: don't copy the slides, the whole checklist is at go.cjp-enterprises.com/nine. Only write down your score. Then plant the hook: stick around to the end, I already pulled up every one of your businesses and scored it, and at the end I'll tell you how to get yours. Don't say the number or what's in it yet. Leave it up for a slow count of five so people can scan the code.",
+    notes: "[~0.5 min] Say it out loud: don't copy the slides, the whole checklist is at go.cjp-enterprises.com/nine. Only write down your score. Then plant the hook: stick around to the end, I already pulled up every one of your businesses and scored it, and at the end I'll tell you how to get yours. Don't say the number or what's in it yet. Leave it up for a slow count of five so people can scan the code.",
     Component: TakeHomeSlide,
   },
   {
     id: "list",
     title: "The whole list",
-    notes: "Finite list. Not a secret. Nine things in three tiers. Keep moving.",
+    notes: "[~0.5 min] Finite list. Not a secret. Nine things in three tiers. Keep moving.",
     Component: WholeListSlide,
-  },
-  {
-    id: "t1",
-    title: "Tier one",
-    notes: "Most of you have all three. The question is whether they pass.",
-    Component: T1,
   },
   {
     id: "profile",
     title: "Google profile",
-    notes: "Right category, every service, photo and post in last 30 days. Three real Google Business Profiles are shown on the right.",
+    notes: "[~2 min] Right category, every service, photo and post in last 30 days. Three real Google Business Profiles are shown on the right.",
     Component: ProfileSlide,
   },
   {
     id: "reviews",
     title: "Reviews",
-    notes: "Freshness + replies. Fix tonight: reply to last five.",
+    notes: "[~1.5 min] Freshness + replies. Fix tonight: reply to last five.",
     Component: ReviewsSlide,
+  },
+  {
+    id: "review-demo",
+    title: "Job done, review asked",
+    notes: "[~1 min] Let it play, talk over it. You tap Closed, they get asked in seconds, five stars go to Google. Unhappy customers tell you first. Say it's an example conversation. Outcome line: more fresh reviews on the same Google page means more of the people who find you actually call. Don't quote a percentage.",
+    Component: ReviewDemoSlide,
   },
   {
     id: "website",
     title: "Website in five seconds",
-    notes: "Garlock plus two stronger contractor website examples on the right. What, where, licensed, tap-to-call — no scroll. That's the bar.",
+    notes: "[~2 min] Garlock plus two stronger contractor website examples on the right. What, where, licensed, tap-to-call — no scroll. That's the bar.",
     Component: WebsiteSlide,
   },
   {
     id: "check1",
     title: "Quick check: tier one",
-    notes: "Slow down here. Say each one back in one line. Then stop talking and read the chat for ten seconds. Answer a question in ten seconds, or park it once for Q&A.",
+    notes: "[~0.5 min] Slow down here. Say each one back in one line. Then stop talking and read the chat for ten seconds. Answer a question in ten seconds, or park it once for Q&A.",
     Component: Check1,
-  },
-  {
-    id: "t2",
-    title: "Tier two",
-    notes: "Two things. Found for more than your own name.",
-    Component: T2,
   },
   {
     id: "pages",
     title: "A page per job",
-    notes: "If it makes you money, it gets its own page.",
+    notes: "[~1.5 min] If it makes you money, it gets its own page.",
     Component: ServicePagesSlide,
   },
   {
     id: "posting",
     title: "Posting every week",
-    notes: "Two examples: a contractor blog and Google Business Profile posts. Lean on automation. We post to Google and the site, plus Facebook and Instagram. Do NOT call socials backlinks.",
+    notes: "[~1.5 min] Two examples: a contractor blog and Google Business Profile posts. Lean on automation. We post to Google and the site, plus Facebook and Instagram. Do NOT call socials backlinks.",
     Component: PostingSlide,
   },
   {
     id: "check2",
     title: "Quick check: tier two",
-    notes: "Same as before. Say the two back. Read the chat. Tier three is the least familiar part for most people, so go slower there than you think you need to.",
+    notes: "[~0.5 min] Same as before. Say the two back. Read the chat. Tier three is the least familiar part for most people, so go slower there than you think you need to.",
     Component: Check2,
-  },
-  {
-    id: "t3",
-    title: "Tier three",
-    notes: "This is where it gets past the basics. Move.",
-    Component: T3,
   },
   {
     id: "ai",
     title: "AI visibility",
-    notes: "Capped at 90 seconds. Don't say GEO or AEO.",
+    notes: "[~1.5 min] Capped at 90 seconds. Don't say GEO or AEO.",
     Component: AiSlide,
   },
   {
     id: "keywords",
     title: "Keywords + rankings",
-    notes: "Checking from the office tells you nothing.",
+    notes: "[~1.5 min] Checking from the office tells you nothing.",
     Component: KeywordsSlide,
   },
   {
     id: "citations",
     title: "Citations + links",
-    notes: "Potts Brothers search results showing local links and social profiles. Tedious, not hard.",
+    notes: "[~1 min] Potts Brothers search results showing local links and social profiles. Tedious, not hard.",
     Component: CitationsSlide,
   },
   {
     id: "phone",
     title: "When the phone rings",
-    notes: "The missed-call screenshot is the visual. The point is simple: if the phone rings and nobody answers, text back immediately. That's nine. Add up the score.",
+    notes: "[~0.5 min] The missed-call screenshot is the visual. The point is simple: if the phone rings and nobody answers, text back immediately. That's nine. Add up the score.",
     Component: PhoneSlide,
   },
   {
     id: "missed-call-demo",
     title: "Missed call, text back",
-    notes: "Let it play, talk over it. You miss the call because you're on a job, the text goes out by itself in seconds, they text back instead of calling the next guy, job booked. Say it's an example conversation, not a real customer. Hit Play again if the chat wants to see it twice.",
+    notes: "[~1 min] Let it play, talk over it. You miss the call because you're on a job, the text goes out by itself in seconds, they text back instead of calling the next guy, job booked. Say it's an example conversation, not a real customer. Hit Play again if the chat wants to see it twice.",
     Component: MissedCallDemoSlide,
   },
   {
     id: "score",
     title: "Your score",
-    notes: "Ask for the number in the chat. Read the line on screen: that's the one you gave yourself, I already ran the real one on your business, you get it at the end. Then tie the nine back into the house.",
+    notes: "[~1 min] Ask for the number in the chat. Read the line on screen: that's the one you gave yourself, I already ran the real one on your business, you get it at the end. Then tie the nine back into the house.",
     Component: ScoreRecapSlide,
   },
   {
     id: "math",
     title: "What is it costing you?",
-    notes: "Slow down. Ask all three out loud and wait for the chat. Then the math: their average job times one more a week, times 52. Their number, never ours. Tell one real client story here in plain contractor words (what the phone was doing before, what it does now) using only numbers from the proof slide. No invented stats.",
+    notes: "[~2 min] Slow down. Ask all three out loud and wait for the chat. Then the math: their average job times one more a week, times 52. Their number, never ours. Tell one real client story here in plain contractor words (what the phone was doing before, what it does now) using only numbers from the proof slide. No invented stats.",
     Component: MathSlide,
   },
   {
     id: "pyramid",
     title: "The house",
-    notes: "Reputation at the bottom. Ranking in the middle. Reach on the roof. Don't invert it.",
+    notes: "[~1 min] Reputation at the bottom. Ranking in the middle. Reach on the roof. Don't invert it.",
     Component: PyramidSlide,
   },
   {
     id: "structure",
     title: "How I structure my services",
-    notes: "No prices yet. Some guys only need the foundation. Some need foundation + frame. Some are ready for ads. Meet them where they are. Do not push ads.",
+    notes: "[~1 min] No prices yet. Some guys only need the foundation. Some need foundation + frame. Some are ready for ads. Meet them where they are. Do not push ads.",
     Component: StructureSlide,
   },
   {
     id: "signal",
     title: "Every lead, on your phone",
-    notes: "This is the pitch, say it plainly: this is what you're paying for, not just a website. Signal comes with every plan. Walk the four left to right: phone buzzes the second a lead comes in, you see what they need and their photos before you drive, you text back from your business number not your cell, and when you close the job the review ask goes out by itself. No app store, it's a link they add to their home screen. The screens are a made-up HVAC company, say so if asked.",
+    notes: "[~2 min] This is the pitch, say it plainly: this is what you're paying for, not just a website. Signal comes with every plan. Walk the four left to right: phone buzzes the second a lead comes in, you see what they need and their photos before you drive, you text back from your business number not your cell, and when you close the job the review ask goes out by itself. No app store, it's a link they add to their home screen. The screens are a made-up HVAC company, say so if asked.",
     Component: SignalSlide,
   },
   {
     id: "signal-tour",
     title: "One lead, start to finish",
-    notes: "Hit play, it's muted, talk over it. The beats: form comes in, phone buzzes, they get a text back right away. Tap to call, everything they said is right there. Ask for photos, see the job before you get in the truck. Book the visit from the lead. Customers text back, you answer from your business number. Tap Closed, the customer gets asked how you did: happy goes to Google, unhappy tells you first so you can make it right. Skip ahead if the room is restless; the still slide already made the point.",
+    notes: "[~2.5 min] Hit play, it's muted, talk over it. The beats: form comes in, phone buzzes, they get a text back right away. Tap to call, everything they said is right there. Ask for photos, see the job before you get in the truck. Book the visit from the lead. Customers text back, you answer from your business number. Tap Closed, the customer gets asked how you did: happy goes to Google, unhappy tells you first so you can make it right. Skip ahead if the room is restless; the still slide already made the point.",
     Component: SignalTourSlide,
   },
   {
     id: "piece-by-piece",
     title: "Piece by piece vs one plan",
-    notes: "If you went out and bought all of this separately, low-end small-business prices, it's $1,760 to $4,834 a month, plus $2,500 to $10,000 for the website. Walk down the checks: Essentials already covers the website, reviews and missed-call text back. Growth is everything but the ads. Ad spend isn't in any of these numbers. Sources for every range are in credibility.tsx.",
+    notes: "[~2 min] If you went out and bought all of this separately, low-end small-business prices, it's $1,760 to $4,834 a month, plus $2,500 to $10,000 for the website. Walk down the checks: Essentials already covers the website, reviews and missed-call text back. Growth is everything but the ads. Ad spend isn't in any of these numbers. Sources for every range are in credibility.tsx.",
     Component: PriceCompareSlide,
-  },
-  {
-    id: "house-pricing",
-    title: "The house, priced",
-    notes: "Same house. Price next to each level. Essentials is the foundation. Growth is the frame. Pro is the roof. Next slide spells out what each one does.",
-    Component: HousePricingSlide,
   },
   {
     id: "what-you-get",
     title: "What you get, check by check",
-    notes: "This answers the Hometown Air note: say exactly what each price buys. Essentials covers four of the nine. Growth covers all nine. Walk the Growth column line by line. Posts are twice a week. Signal, the app from two slides back, comes with all three. If asked about ads: that's Pro, only once the foundation is working.",
+    notes: "[~2 min] This answers the Hometown Air note: say exactly what each price buys. Essentials covers four of the nine. Growth covers all nine. Walk the Growth column line by line. Posts are twice a week. Signal, the app from a few slides back, comes with all three. If asked about ads: that's Pro, only once the foundation is working.",
     Component: WhatYouGetSlide,
   },
   {
-    id: "ads-proof",
-    title: "When you're ready for ads",
-    notes: "This is the transition into paid advertising. A2Z: 25 tracked leads. One job was a $37,000 driveway on roughly $3,000 in ad spend, about $500/month. Richard: 49 tracked results, including 31 phone call leads. Do not imply every client gets the same outcome.",
-    Component: AdsProofSlide,
+    id: "ads-demo",
+    title: "When you are ready for ads",
+    notes: "[~1.5 min] The transition into ads, and it plays itself. A2Z Concrete: about $3,000 in ad spend at roughly $500 a month, 25 tracked leads, and one of them was a $37,000 driveway. Let the number land. Then Richard at SmithStraw: 49 tracked results, 31 of them phone calls. Don't imply every client gets this. Foundation first, always.",
+    Component: AdsDemoSlide,
   },
   {
     id: "clips",
     title: "Hear it from the owners",
-    notes: "Click play on Micah and Richard. These are the two YouTube testimonials provided for the webinar.",
+    notes: "[~3 min] Click play on Micah and Richard. These are the two YouTube testimonials provided for the webinar.",
     Component: ProofClipsSlide,
   },
   {
     id: "after-yes",
     title: "When you say yes",
-    notes: "Take the mystery out of signing up. Five steps: the 20-minute call on their audit, the onboarding call where we get their info once and the build starts that day, we build the site, Google profile and job pages, Signal goes on their phone, then every week after it keeps running. Land the headline: we do the work, you answer the phone. Don't promise a go-live date. Read the bottom line out loud: month to month, domain, Google page, reviews and leads stay theirs. Never say they own the website.",
+    notes: "[~1 min] Take the mystery out of signing up. Five steps: the 20-minute call on their audit, the onboarding call where we get their info once and the build starts that day, we build the site, Google profile and job pages, Signal goes on their phone, then every week after it keeps running. Land the headline: we do the work, you answer the phone. Don't promise a go-live date. Read the bottom line out loud: month to month, domain, Google page, reviews and leads stay theirs. Never say they own the website.",
     Component: AfterYesSlide,
   },
   {
     id: "objections",
     title: "What you're probably thinking",
-    notes: "Answer them before the chat does. Agree first, never argue, never knock their guy. Referrals: good, but they Google you before they call. Website guy: good, what does he do every month? Burned before: don't take my word, month to month, cancel any time, every number from your own Google account.",
+    notes: "[~2 min] Answer them before the chat does. Agree first, never argue, never knock their guy. Referrals: good, but they Google you before they call. Website guy: good, what does he do every month? Burned before: don't take my word, month to month, cancel any time, every number from your own Google account.",
     Component: ObjectionsSlide,
   },
   {
     id: "cta",
     title: "What happens next",
-    notes: "The reveal. I already pulled up every one of your businesses and scored it against the nine. I'll follow up with each of you to go over it: your score, where you come up when someone searches your trade and your town and who's above you, and your top fixes, yours to keep either way. Remember your number from the math slide. I have times Thursday and Friday: if you're available, type it in the chat. If not, I'll call each of you and we'll pick a time. Say 'Google's business search', never 'the map'. Leave it up for questions.",
+    notes: "[~2 min] The reveal. I already pulled up every one of your businesses and scored it against the nine. I'll follow up with each of you to go over it: your score, where you come up when someone searches your trade and your town and who's above you, and your top fixes, yours to keep either way. Remember your number from the math slide. I have times Thursday and Friday: if you're available, type it in the chat. If not, I'll call each of you and we'll pick a time. Say 'Google's business search', never 'the map'. Leave it up for questions.",
     Component: CtaSlide,
   },
 ];
