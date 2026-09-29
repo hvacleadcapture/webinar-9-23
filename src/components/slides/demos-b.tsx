@@ -2,7 +2,18 @@ import type { ReactNode } from "react";
 import { AlertTriangle, Check, MessageSquare, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { appear, prog, typed } from "./demo-kit";
-import { MISSED_CALL_STEPS } from "./demo";
+import {
+  Banner,
+  Calendar,
+  CallScreen,
+  LockScreen,
+  PhoneShell,
+  SignalScreen,
+  SmsScreen,
+  TapRing,
+  Thread,
+  riseIn,
+} from "./signal-app";
 
 /**
  * In-slide demos for checks 6–9. Each is a pure function of t (ms since the
@@ -332,22 +343,141 @@ export function CitationsDemo(t: number): ReactNode {
  * https://411locals.us/small-business-owners-dont-answer-62-of-phone-calls/
  * "62% of phone calls to small businesses are left unanswered" (411 Locals,
  * 18 Jan 2016). It is old and from a marketing firm; the slide names both so
- * he isn't overselling it. No real client conversation exists to show, so the
- * thread stays the labelled example, slowed down 1.5x.
+ * he isn't overselling it.
+ *
+ * 29 Sept (later): the walkthrough is Signal itself, both phones. R&D is the
+ * business; the caller, the times and the conversation are an illustration
+ * (no real client thread exists to show), and the slide says so.
  */
 const STAT_PCT = 62;
-const THREAD_AT = 4500;
-const THREAD_SPEED = 1.5;
+const CALLER = "(251) 555-0182";
+const BIZ = "R&D Plumbing Co.";
+const AUTO = "Hey, sorry we missed your call! We're on a job. What can we help with? - R&D Plumbing Co.";
+const ASK = "Water heater's leaking in the garage. Can someone come tomorrow?";
+const REPLY = "Yep, I can be there at 9am. Does that work?";
+const OK = "Perfect, see you then!";
 
-export const PHONE_MS = 18500;
+const RING_AT = 2800;
+const MISSED_AT = 5400;
+const AUTO_AT = 6400;
+const ASK_TYPE_AT = 8000;
+const ASK_SENT = 10900;
+const OPEN_AT = 12900;
+const REPLY_TYPE_AT = 14300;
+const REPLY_SENT = 17200;
+const OK_AT = 19000;
+const CAL_TAP = 21200;
+
+export const PHONE_MS = 28000;
+
+function CallerPhone({ t }: { t: number }) {
+  if (t < AUTO_AT) {
+    return (
+      <PhoneShell scale={0.55} height={680}>
+        {t < RING_AT ? (
+          <LockScreen />
+        ) : (
+          <CallScreen name={BIZ} status={t < MISSED_AT ? "calling…" : "No answer"} />
+        )}
+      </PhoneShell>
+    );
+  }
+  const typing = t >= ASK_TYPE_AT && t < ASK_SENT ? typed(ASK, t, ASK_TYPE_AT, 24) : "";
+  const bubbles = [
+    { text: AUTO, meta: "7:42 PM · seconds after the call", style: riseIn(t, AUTO_AT + 100) },
+    ...(t >= ASK_SENT ? [{ text: ASK, me: true, meta: "7:44 PM", style: riseIn(t, ASK_SENT) }] : []),
+    ...(t >= REPLY_SENT + 500 ? [{ text: REPLY, style: riseIn(t, REPLY_SENT + 500) }] : []),
+    ...(t >= OK_AT ? [{ text: OK, me: true, style: riseIn(t, OK_AT) }] : []),
+  ];
+  return (
+    <PhoneShell scale={0.55} height={680} statusDark bg="#fff">
+      <SmsScreen from={BIZ} bubbles={bubbles} composer={t < ASK_SENT ? typing : ""} />
+    </PhoneShell>
+  );
+}
+
+function OwnerPhone({ t }: { t: number }) {
+  const buzz = (from: number) => (t > from && t < from + 700 ? Math.sin((t - from) / 18) * 4 : 0);
+  if (t < OPEN_AT) {
+    return (
+      <PhoneShell scale={0.55} height={680} shake={buzz(MISSED_AT) + buzz(ASK_SENT + 300)}>
+        <LockScreen time="7:44">
+          <div style={{ display: "grid", gap: 8 }}>
+            {t > MISSED_AT ? (
+              <div style={riseIn(t, MISSED_AT)}>
+                <Banner icon="phone" title="Missed call" body={CALLER} />
+              </div>
+            ) : null}
+            {t > AUTO_AT ? (
+              <div style={riseIn(t, AUTO_AT)}>
+                <Banner title="Signal · auto-text sent" body={`To ${CALLER}: "${AUTO.slice(0, 44)}…"`} />
+              </div>
+            ) : null}
+            {t > ASK_SENT + 300 ? (
+              <div style={{ ...riseIn(t, ASK_SENT + 300), position: "relative" }}>
+                <Banner title={`New message · ${CALLER}`} body={ASK} />
+                <TapRing t={t} at={OPEN_AT - 500} dark />
+              </div>
+            ) : null}
+          </div>
+        </LockScreen>
+      </PhoneShell>
+    );
+  }
+  const onCal = t > CAL_TAP + 300;
+  const draft = t >= REPLY_TYPE_AT && t < REPLY_SENT ? typed(REPLY, t, REPLY_TYPE_AT, 20) : "";
+  const bubbles = [
+    { text: AUTO, you: true, meta: "Automatic · 7:42 PM" },
+    { text: ASK, meta: "7:44 PM" },
+    ...(t >= REPLY_SENT ? [{ text: REPLY, you: true, meta: "7:58 PM · from your business number", style: riseIn(t, REPLY_SENT) }] : []),
+    ...(t >= OK_AT + 400 ? [{ text: OK, meta: "7:59 PM", style: riseIn(t, OK_AT + 400) }] : []),
+  ];
+  return (
+    <PhoneShell scale={0.55} height={680}>
+      <SignalScreen
+        org={BIZ}
+        view={onCal ? "calendar" : "messages"}
+        counts={{ calendar: onCal ? 1 : 0 }}
+        t={t}
+        tapTab={{ view: "calendar", at: CAL_TAP }}
+        scroll={onCal ? 150 : 150 + 90 * prog(t, OK_AT + 400, 600)}
+      >
+        {onCal ? (
+          <div style={riseIn(t, CAL_TAP + 300)}>
+            <Calendar
+              summary="1 visit tomorrow"
+              highlight={CALLER}
+              days={[
+                {
+                  label: "Tomorrow",
+                  visits: [{ time: "9:00 AM", who: CALLER, what: "Water heater leak", where: "Daphne, AL", phone: CALLER }],
+                },
+              ]}
+            />
+          </div>
+        ) : (
+          <Thread name={CALLER} phone="Called 7:42 PM · missed" bubbles={bubbles} draft={t < REPLY_SENT ? draft : ""} tapSend={REPLY_SENT - 300} t={t} />
+        )}
+      </SignalScreen>
+    </PhoneShell>
+  );
+}
+
+function phoneCaption(t: number) {
+  if (t < MISSED_AT) return "A customer calls. You're on a job.";
+  if (t < ASK_TYPE_AT) return "Missed. A text goes out by itself.";
+  if (t < OPEN_AT) return "They text back instead of calling the next guy.";
+  if (t < REPLY_SENT) return "You answer from your business number.";
+  if (t < CAL_TAP) return "Booked, between jobs.";
+  return "On the calendar. The lead stayed yours.";
+}
+
 export function PhoneDemo(t: number): ReactNode {
   const pct = Math.round(STAT_PCT * prog(t, 500, 1800));
-  const lastStep = MISSED_CALL_STEPS[MISSED_CALL_STEPS.length - 1].at;
-  const savedAt = THREAD_AT + lastStep * THREAD_SPEED + 900;
   return (
     <div className="flex h-full flex-col gap-3">
-      <div style={appear(0, 600)} className="flex items-center gap-4 rounded-xl bg-surface px-4 py-3 shadow-[var(--shadow-border)]">
-        <p className="slide-num w-24 shrink-0 font-display text-[3rem] leading-none font-semibold text-accent tabular-nums">
+      <div style={appear(0, 600)} className="flex items-center gap-4 rounded-xl bg-surface px-4 py-2.5 shadow-[var(--shadow-border)]">
+        <p className="slide-num w-24 shrink-0 font-display text-[2.8rem] leading-none font-semibold text-accent tabular-nums">
           {pct}%
         </p>
         <div className="min-w-0">
@@ -355,34 +485,18 @@ export function PhoneDemo(t: number): ReactNode {
           <p className="mt-0.5 text-[0.78rem] text-subtle">411 Locals study, Jan 2016 · 411locals.us</p>
         </div>
       </div>
-
-      <div className="mx-auto w-full max-w-[440px] min-h-0 flex-1 rounded-[2.4rem] bg-[#050505] p-2.5 shadow-[0_0_0_2px_#2e2e2e,0_40px_90px_-30px_rgba(0,0,0,0.9)]">
-        <div className="flex h-full flex-col overflow-hidden rounded-[2rem] bg-bg-elevated">
-          <div className="flex items-center gap-3 border-b border-line px-5 pt-4 pb-3">
-            <span className="flex size-9 items-center justify-center rounded-full bg-surface-2">
-              <MessageSquare className="size-5 text-accent" aria-hidden />
-            </span>
-            <span className="flex-1">
-              <span className="block text-[1.1rem] font-semibold text-fg">New customer</span>
-              <span className="block text-[0.85rem] text-subtle">Example conversation</span>
-            </span>
-          </div>
-          <div className="flex flex-1 flex-col justify-end gap-2 overflow-hidden px-4 pb-3 [&_p]:text-[0.95rem] [&_span]:text-[0.85rem]">
-            {MISSED_CALL_STEPS.map((s, i) =>
-              t >= THREAD_AT + s.at * THREAD_SPEED ? (
-                <div key={i} style={appear(0, 600)}>
-                  {s.node}
-                </div>
-              ) : null,
-            )}
-            {t >= savedAt ? (
-              <div style={appear(0, 600)} className="flex justify-center">
-                <span className="rounded-full bg-[#15803d] px-4 py-1.5 font-semibold text-white">Lead saved · it stayed yours</span>
-              </div>
-            ) : null}
-          </div>
+      <div className="flex items-start justify-center gap-3">
+        <div className="flex flex-col items-center">
+          <CallerPhone t={t} />
+          <p className="mt-1 text-[0.85rem] text-subtle">The caller</p>
+        </div>
+        <div className="flex flex-col items-center">
+          <OwnerPhone t={t} />
+          <p className="mt-1 text-[0.85rem] text-subtle">R&amp;D, in Signal</p>
         </div>
       </div>
+      <p className="text-center font-display text-lg font-semibold uppercase leading-tight tracking-display text-fg">{phoneCaption(t)}</p>
+      <p className="text-center text-[0.78rem] text-subtle">Sample caller and conversation (illustration).</p>
     </div>
   );
 }

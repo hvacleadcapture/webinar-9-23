@@ -1,0 +1,921 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@700;800&display=swap");
+/* Scoped copy of the real Signal (cjp-crm) styles, via ~/cjp-signal-video/src/app.css.
+   Regenerate with scratch scope-css.cjs; everything lives under .sigapp. */
+/* Generated from cjp-crm origin/main app/globals.css + app/alerts/signal.css (light theme only). Do not edit by hand; see scripts/build-css.sh */
+.sigapp{--font-sans:'Inter',ui-sans-serif,system-ui,sans-serif;--font-display:'Sora';--radius-card:0.75rem;}
+
+.sigapp {
+  color-scheme: light;
+
+  --bg:            #f6f7f9;
+  --surface:       #ffffff;
+  --surface-muted: #f1f5f9;
+  --surface-sunk:  #eef2f6;
+  --border:        #e2e8f0;
+  --border-strong: #cbd5e1;
+
+  --text:          #0f172a;
+  --text-muted:    #64748b;
+  --text-subtle:   #94a3b8;
+  --text-invert:   #ffffff;
+
+  --accent:        #2563eb;
+  --accent-hover:  #1d4ed8;
+  --accent-soft:   #eff6ff;
+
+  --positive:      #16a34a;
+  --positive-soft: #f0fdf4;
+  --warning:       #d97706;
+  --warning-soft:  #fffbeb;
+  --danger:        #dc2626;
+  --danger-soft:   #fef2f2;
+
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.06), 0 1px 3px rgb(15 23 42 / 0.04);
+  --shadow-pop:  0 10px 30px rgb(15 23 42 / 0.12), 0 2px 8px rgb(15 23 42 / 0.06);
+}
+
+
+
+.sigapp * { box-sizing: border-box; }
+
+.sigapp, .sigapp {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Never let the page itself scroll sideways; wide content scrolls in its own box. */
+.sigapp { overflow-x: hidden; }
+
+.sigapp a { color: inherit; text-decoration: none; }
+
+.sigapp button, .sigapp input, .sigapp select, .sigapp textarea { font: inherit; color: inherit; }
+
+/* Visible focus, always. A contractor tabbing through a quote form needs it. */
+.sigapp :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Components. Kept as real classes rather than repeated utility strings so the
+   whole app changes shape from one place.
+   -------------------------------------------------------------------------- */
+
+.sigapp .surface {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.sigapp .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;           /* 44px — the tap-target floor */
+  padding: 0 1rem;
+  border-radius: 0.6rem;
+  border: 1px solid transparent;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, opacity 120ms ease;
+  white-space: nowrap;
+}
+.sigapp .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.sigapp .btn-primary { background: var(--accent); color: #fff; }
+.sigapp .btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
+
+.sigapp .btn-secondary {
+  background: var(--surface);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+.sigapp .btn-secondary:hover:not(:disabled) { background: var(--surface-muted); }
+
+.sigapp .btn-ghost { background: transparent; color: var(--text-muted); }
+.sigapp .btn-ghost:hover:not(:disabled) { background: var(--surface-muted); color: var(--text); }
+
+.sigapp .btn-danger { background: var(--danger); color: #fff; }
+
+.sigapp .btn-sm { min-height: 2.25rem; padding: 0 0.75rem; font-size: 0.875rem; }
+
+.sigapp .field {
+  display: block;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 0.6rem;
+  font-size: 1rem;               /* 16px stops iOS zooming the page on focus */
+}
+.sigapp .field::placeholder { color: var(--text-subtle); }
+.sigapp .field:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: var(--accent); }
+
+.sigapp .label {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.sigapp .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.sigapp .muted { color: var(--text-muted); }
+.sigapp .subtle { color: var(--text-subtle); }
+
+.sigapp .tabular { font-variant-numeric: tabular-nums; }
+
+/* Main content beside a sidebar. Collapses to one column on anything narrower
+   than a laptop, because the fixed 2fr/1fr split let the sidebar card sit on
+   top of the main column's notices at tablet widths. */
+.sigapp .two-col {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+}
+.sigapp .two-col > * { min-width: 0; }
+@media (max-width: 900px) {
+  .sigapp .two-col { grid-template-columns: minmax(0, 1fr); }
+}
+
+.sigapp .scroll-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+/* Screen-reader-only, for labels the design does not show. */
+.sigapp .sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* The board card being dragged. */
+.sigapp .dragging { opacity: 0.4; }
+.sigapp .drop-target {
+  background: var(--accent-soft);
+  outline: 2px dashed var(--accent);
+  outline-offset: -4px;
+}
+/* ==========================================================================
+   Signal — the client-facing skin.
+
+   Scoped under `.sig` so nothing here leaks into the CRM. The rules: one
+   display face (Sora) for the words that carry weight, generous tap targets,
+   colour only where it means something (status, the call button), and
+   motion that is felt rather than seen.
+   ========================================================================== */
+
+.sigapp .sig {
+  --sig-band: linear-gradient(135deg, #0b1120 0%, #14264f 55%, #1d4ed8 140%);
+  --sig-glow: radial-gradient(60% 80% at 100% 0%, rgb(96 165 250 / 0.35), transparent 70%);
+  --sig-radius: 1.125rem;
+  --sig-shadow: 0 1px 2px rgb(15 23 42 / 0.05), 0 8px 24px -12px rgb(15 23 42 / 0.18);
+  --sig-rail: var(--accent);
+  --sig-new: #2563eb;
+  --sig-contacted: #7c3aed;
+  --sig-closed: #16a34a;
+  --sig-lost: #94a3b8;
+  --sig-warm: #f59e0b;
+  min-height: 100dvh;
+  background:
+    radial-gradient(80% 40% at 50% -10%, rgb(37 99 235 / 0.10), transparent 60%),
+    var(--bg);
+}
+
+
+.sigapp .sig-main {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0 1rem 4rem;
+}
+
+/* ---- Header band -------------------------------------------------------- */
+
+.sigapp .sig-band {
+  position: relative;
+  overflow: hidden;
+  margin: 0 -1rem;
+  padding: calc(1.25rem + env(safe-area-inset-top, 0px)) 1.25rem 1.5rem;
+  background: var(--sig-band);
+  color: #fff;
+  border-radius: 0 0 1.5rem 1.5rem;
+}
+.sigapp .sig-band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--sig-glow);
+  pointer-events: none;
+}
+.sigapp .sig-band-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.sigapp .sig-band-logo {
+  height: 2.125rem;
+  width: auto;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 6px rgb(0 0 0 / 0.35));
+}
+.sigapp .sig-band-title {
+  font-family: var(--font-display), var(--font-sans);
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.sigapp .sig-band-org {
+  margin-top: 0.3rem;
+  font-size: 0.8125rem;
+  color: rgb(255 255 255 / 0.72);
+  line-height: 1.2;
+}
+.sigapp .sig-band-link {
+  margin-left: auto;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgb(255 255 255 / 0.12);
+  border: 1px solid rgb(255 255 255 / 0.18);
+  white-space: nowrap;
+}
+
+/* ---- Tabs --------------------------------------------------------------- */
+
+.sigapp .sig-tabs {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 0.25rem;
+  margin-top: 1rem;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: var(--surface-sunk);
+  border: 1px solid var(--border);
+}
+@media (max-width: 380px) { .sigapp .sig-tabs .sig-tab { font-size: 0.8125rem; gap: 0.25rem; } }
+.sigapp .sig-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  min-height: 2.5rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+.sigapp .sig-tab.is-active {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 1px 2px rgb(15 23 42 / 0.08), 0 4px 12px -6px rgb(15 23 42 / 0.2);
+}
+.sigapp .sig-tab-count {
+  min-width: 1.25rem;
+  padding: 0 0.375rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+  text-align: center;
+}
+
+/* ---- Cards -------------------------------------------------------------- */
+
+.sigapp .sig .surface,
+.sigapp .sig-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--sig-radius);
+  box-shadow: var(--sig-shadow);
+}
+
+.sigapp .sig-card {
+  position: relative;
+  padding: 1rem 1rem 1rem 1.125rem;
+  animation: sig-rise 360ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(min(var(--i, 0), 8) * 45ms);
+}
+.sigapp .sig-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.875rem;
+  bottom: 0.875rem;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: var(--sig-rail);
+}
+.sigapp .sig-card[data-status='new'] { --sig-rail: var(--sig-new); }
+.sigapp .sig-card[data-status='contacted'] { --sig-rail: var(--sig-contacted); }
+.sigapp .sig-card[data-status='closed'] { --sig-rail: var(--sig-closed); }
+.sigapp .sig-card[data-status='not_closed'] { --sig-rail: var(--sig-lost); }
+.sigapp .sig-card[data-type='review'] { --sig-rail: var(--sig-warm); }
+.sigapp .sig-card[data-type='ranking'] { --sig-rail: var(--sig-closed); }
+.sigapp .sig-card[data-type='call'] { --sig-rail: var(--sig-warm); }
+
+@keyframes sig-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.sigapp .sig-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.sigapp .sig-kicker {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.sigapp .sig-card[data-status='new'] .sig-kicker { color: var(--sig-new); }
+.sigapp .sig-time {
+  font-size: 0.75rem;
+  color: var(--text-subtle);
+  font-variant-numeric: tabular-nums;
+}
+.sigapp .sig-body {
+  margin-top: 0.375rem;
+  white-space: pre-line;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Lead details */
+.sigapp .sig-lead-name {
+  margin-top: 0.5rem;
+  font-family: var(--font-display), var(--font-sans);
+  font-size: 1.1875rem;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+}
+.sigapp .sig-lead-city {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+.sigapp .sig-facts {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: 0.625rem;
+}
+.sigapp .sig-fact {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.sigapp .sig-fact > span:first-child {
+  width: 3.5rem;
+  flex-shrink: 0;
+  color: var(--text-subtle);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding-top: 0.125rem;
+}
+.sigapp .sig-fact > span:last-child { min-width: 0; word-break: break-word; }
+
+.sigapp .sig-actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.sigapp .sig-actions.is-single { grid-template-columns: 1fr; }
+.sigapp .sig-call {
+  min-height: 3rem;
+  font-size: 1rem;
+  border-radius: 0.875rem;
+  box-shadow: 0 6px 16px -8px rgb(37 99 235 / 0.7);
+}
+.sigapp .sig-call svg { width: 1.125rem; height: 1.125rem; }
+.sigapp .sig-text {
+  min-height: 3rem;
+  border-radius: 0.875rem;
+  padding: 0 1rem;
+}
+
+/* Status chips */
+.sigapp .sig-track {
+  margin-top: 0.875rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--border);
+}
+.sigapp .sig-chips { display: flex; gap: 0.375rem; flex-wrap: wrap; }
+.sigapp .sig-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2.25rem;
+  padding: 0 0.875rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease, transform 100ms ease;
+}
+.sigapp .sig-chip:active { transform: scale(0.97); }
+.sigapp .sig-chip::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--border-strong);
+  transition: background-color 140ms ease;
+}
+.sigapp .sig-chip[aria-pressed='true'] {
+  color: #fff;
+  border-color: transparent;
+}
+.sigapp .sig-chip[data-status='contacted'][aria-pressed='true'] { background: var(--sig-contacted); }
+.sigapp .sig-chip[data-status='closed'][aria-pressed='true'] { background: var(--sig-closed); }
+.sigapp .sig-chip[data-status='not_closed'][aria-pressed='true'] { background: var(--text-muted); }
+.sigapp .sig-chip[aria-pressed='true']::before { background: rgb(255 255 255 / 0.9); }
+
+.sigapp .sig-note {
+  display: block;
+  width: 100%;
+  margin-top: 0.625rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 0.75rem;
+  background: var(--surface-muted);
+  border: 1px solid transparent;
+  color: var(--text);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  text-align: left;
+  white-space: pre-wrap;
+  cursor: pointer;
+}
+.sigapp .sig-note:hover { border-color: var(--border-strong); }
+
+.sigapp .sig-row { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+.sigapp .sig-error { margin: 0.5rem 0 0; font-size: 0.8125rem; color: var(--danger); }
+.sigapp .sig-booked {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--sig-closed);
+}
+
+/* Book a visit inline */
+.sigapp .sig-book { margin-top: 0.625rem; }
+.sigapp .sig-book-form {
+  display: grid;
+  gap: 0.625rem;
+  padding: 0.875rem;
+  border-radius: 0.875rem;
+  background: var(--surface-muted);
+}
+.sigapp .sig-field { display: grid; gap: 0.3rem; }
+.sigapp .sig-field > span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.sigapp .sig-field > span em { font-style: normal; font-weight: 400; color: var(--text-subtle); }
+.sigapp .sig-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.625rem; }
+@media (max-width: 380px) { .sigapp .sig-field-row { grid-template-columns: 1fr; } }
+
+/* ---- Stats -------------------------------------------------------------- */
+
+.sigapp .sig-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin: 0.75rem 0 0;
+}
+.sigapp .sig-stat {
+  padding: 0.875rem 0.75rem;
+  border-radius: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--sig-shadow);
+  text-align: center;
+}
+.sigapp .sig-stat dd {
+  margin: 0;
+  font-family: var(--font-display), var(--font-sans);
+  font-size: 1.75rem;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.sigapp .sig-stat dt {
+  margin-top: 0.375rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.sigapp .sig-stat.is-accent dd { color: var(--accent); }
+.sigapp .sig-stat.is-good dd { color: var(--sig-closed); }
+.sigapp .sig-stat.is-bad dd { color: var(--danger); }
+
+.sigapp .sig-section-title {
+  margin: 1.5rem 0 0;
+  font-family: var(--font-display), var(--font-sans);
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+.sigapp .sig-feed-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  margin-top: 1.5rem;
+}
+.sigapp .sig-feed-head .sig-section-title { margin: 0; }
+.sigapp .sig-list {
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.sigapp .sig-empty {
+  margin-top: 0.75rem;
+  padding: 1.75rem 1.25rem;
+  border-radius: var(--sig-radius);
+  border: 1px dashed var(--border-strong);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.sigapp .sig-empty p { margin: 0.5rem 0 0; }
+.sigapp .sig-empty-icon { font-size: 1.75rem; }
+
+/* ---- Calendar ----------------------------------------------------------- */
+
+.sigapp .sig-cal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.sigapp .sig-cal-summary {
+  margin-top: 0.2rem;
+  font-family: var(--font-display), var(--font-sans);
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+}
+.sigapp .sig-sheet {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  padding: 1rem;
+  border-radius: var(--sig-radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-pop);
+  animation: sig-rise 260ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  grid-column: 1 / -1;
+  flex-basis: 100%;
+}
+.sigapp .sig-sheet-title {
+  font-family: var(--font-display), var(--font-sans);
+  font-size: 1.0625rem;
+}
+.sigapp .sig-cal-head:has(.sig-sheet) { flex-wrap: wrap; }
+
+.sigapp .sig-days { display: grid; gap: 1rem; margin-top: 1rem; }
+.sigapp .sig-day {
+  animation: sig-rise 360ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(min(var(--i, 0), 8) * 45ms);
+}
+.sigapp .sig-day-label {
+  margin: 0 0 0.5rem 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.sigapp .sig-day.is-today .sig-day-label { color: var(--accent); }
+.sigapp .sig-visits {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-radius: var(--sig-radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--sig-shadow);
+  overflow: hidden;
+}
+.sigapp .sig-visit {
+  display: grid;
+  grid-template-columns: 4.25rem 1fr;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+}
+.sigapp .sig-visit + .sig-visit { border-top: 1px solid var(--border); }
+.sigapp .sig-visit-time {
+  font-family: var(--font-display), var(--font-sans);
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.sigapp .sig-day.is-today .sig-visit-time { color: var(--sig-warm); }
+.sigapp .sig-visit-body { min-width: 0; }
+.sigapp .sig-visit-who { font-weight: 700; font-size: 1rem; line-height: 1.3; }
+.sigapp .sig-visit-what { margin-top: 0.125rem; font-size: 0.875rem; color: var(--text-muted); }
+.sigapp .sig-visit-where {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: rgb(37 99 235 / 0.35);
+  text-underline-offset: 2px;
+}
+
+/* ---- Footer ------------------------------------------------------------- */
+
+.sigapp .sig-foot {
+  margin-top: 2.5rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.sigapp .sig-foot a { color: var(--accent); font-weight: 600; }
+
+/* ---- Not a real lead / duplicates --------------------------------------- */
+
+.sigapp .sig-dupe {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.625rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: calc(var(--sig-radius) - 4px);
+  background: color-mix(in srgb, var(--warning, #f59e0b) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--warning, #f59e0b) 40%, transparent);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.sigapp .sig-done {
+  margin: 0.625rem 0 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+.sigapp .sig-hint {
+  margin: -0.25rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--text-subtle);
+}
+.sigapp .sig-subscribe { margin-top: 1rem; }
+
+/* ---- Messages ----------------------------------------------------------- */
+
+.sigapp .sig-notice {
+  margin-top: 0.75rem;
+  padding: 0.75rem 0.875rem;
+  border-radius: calc(var(--sig-radius) - 4px);
+  background: color-mix(in srgb, var(--warning) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--warning) 40%, transparent);
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+.sigapp .sig-convos { list-style: none; margin: 0.75rem 0 0; padding: 0; display: grid; gap: 0.5rem; }
+.sigapp .sig-convo {
+  position: relative;
+  display: block;
+  padding: 0.75rem 2.5rem 0.75rem 0.875rem;
+  border-radius: var(--sig-radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: inherit;
+  text-decoration: none;
+}
+.sigapp .sig-convo-top { display: flex; justify-content: space-between; gap: 0.5rem; align-items: baseline; }
+.sigapp .sig-convo-name { font-weight: 650; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sigapp .sig-convo-last {
+  margin-top: 0.2rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sigapp .sig-convo.is-unread .sig-convo-name, .sigapp .sig-convo.is-unread .sig-convo-last { color: var(--text); font-weight: 700; }
+.sigapp .sig-convo-dot {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 1.35rem;
+  height: 1.35rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+.sigapp .sig-thread { margin-top: 0.75rem; }
+.sigapp .sig-thread-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid var(--border);
+}
+.sigapp .sig-thread-head > div { flex: 1; }
+.sigapp .sig-back { font-weight: 650; text-decoration: none; color: var(--accent); white-space: nowrap; }
+.sigapp .sig-thread-name { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sigapp .sig-thread-phone { font-size: 0.8125rem; color: var(--text-muted); }
+.sigapp .sig-bubbles { list-style: none; margin: 0.875rem 0 0; padding: 0; display: grid; gap: 0.5rem; }
+.sigapp .sig-bubble { max-width: 85%; display: grid; gap: 0.2rem; }
+.sigapp .sig-bubble.is-them { justify-self: start; }
+.sigapp .sig-bubble.is-you { justify-self: end; text-align: right; }
+.sigapp .sig-bubble-body {
+  padding: 0.55rem 0.8rem;
+  border-radius: 1rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  text-align: left;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+.sigapp .sig-bubble.is-them .sig-bubble-body { background: var(--surface); border: 1px solid var(--border); border-bottom-left-radius: 0.3rem; }
+.sigapp .sig-bubble.is-you .sig-bubble-body { background: var(--accent); color: #fff; border-bottom-right-radius: 0.3rem; }
+.sigapp .sig-bubble.is-failed .sig-bubble-body { opacity: 0.6; }
+.sigapp .sig-bubble-meta { font-size: 0.72rem; color: var(--text-subtle); }
+.sigapp .sig-bubble.is-failed .sig-bubble-meta { color: var(--danger); }
+.sigapp .sig-composer {
+  position: sticky;
+  bottom: 0;
+  margin-top: 0.875rem;
+  padding: 0.625rem 0 calc(0.625rem + env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  align-items: end;
+  background: var(--bg, var(--surface));
+}
+.sigapp .sig-composer textarea { resize: none; }
+
+/* ---- Compact lead rows (2026-09-28) -------------------------------------- */
+
+.sigapp .sig-older { display: block; width: fit-content; margin: 0.75rem auto 0; }
+
+.sigapp .sig-list:has(.sig-card.is-row) { gap: 0.5rem; }
+.sigapp .sig-card.is-row { padding: 0.625rem 0.625rem 0.625rem 1rem; }
+.sigapp .sig-card.is-row::before { top: 0.625rem; bottom: 0.625rem; }
+.sigapp .sig-row-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+}
+.sigapp .sig-row-main {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 0.125rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.sigapp .sig-row-title {
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sigapp .sig-row-sub {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sigapp .sig-card[data-status='new'] .sig-row-sub { color: var(--sig-new); }
+.sigapp .sig-row-call {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+}
+.sigapp .sig-row-call svg { width: 1.125rem; height: 1.125rem; }
+.sigapp .sig-row-body {
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--border);
+}
+/* The row already says who it is; the open card starts at the call button. */
+.sigapp .sig-row-body .sig-lead-name { display: none; }
+
+/* ---- Alerts status, once on -------------------------------------------- */
+
+.sigapp .sig-alerts-on {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+.sigapp .sig-alerts-dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: rgb(34 197 94); flex-shrink: 0; }
+.sigapp .sig-alerts-test {
+  margin-left: auto;
+  padding: 0.25rem 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ---- Pocket recorder ----------------------------------------------------- */
+
+.sigapp .sig-pocket-open { display: block; width: 100%; margin-top: 1.25rem; }
+.sigapp .sig-pocket-line { margin-top: 1.25rem; }
+.sigapp .sig-step {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+/* ---- Photos on a lead (2026-09-29) ----------------------------------------- */
+
+.sigapp .sig-photos { margin-top: 0.75rem; }
+.sigapp .sig-photos-head { font-size: 0.8125rem; font-weight: 700; color: var(--text-muted); }
+.sigapp .sig-photo-grid {
+  list-style: none;
+  margin: 0.375rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.375rem;
+}
+.sigapp .sig-photo-grid a { display: block; aspect-ratio: 1; border-radius: 0.625rem; overflow: hidden; background: var(--surface-muted); }
+.sigapp .sig-photo-grid img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sigapp .sig-photos-said { margin: 0.5rem 0 0; font-size: 0.875rem; line-height: 1.45; }
+
+/* Video overrides: Remotion drives all motion, so CSS animation is off. */
+.sigapp .sig-band{padding-top:calc(1.25rem + 44px)}

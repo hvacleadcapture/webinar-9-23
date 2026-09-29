@@ -1,3 +1,4 @@
+import { ClipboardCheck, Hammer, Repeat, Smartphone, Video } from "lucide-react";
 import { Display, Kicker, SlidePad } from "./primitives";
 
 /**
@@ -71,16 +72,16 @@ export function SignalTourSlide() {
 }
 
 /**
- * What happens after they say yes, so nobody signs up wondering what comes
- * next. Every step is from the /start → /signup flow and plans.ts; no
- * turnaround times on purpose, none are promised anywhere else.
+ * What happens after they say yes. 29 Sept 2026: fewer words, more visual.
+ * Every step is from the /start → /signup flow and plans.ts; no turnaround
+ * times, none are promised anywhere else.
  */
 const STEPS = [
-  { title: "20-minute call", line: "We go over your audit. Pick a plan, or don't." },
-  { title: "Onboarding call", line: "Your info and logins, once. The build starts that day." },
-  { title: "We build it", line: "Website, Google profile, a page for every job." },
-  { title: "Signal on your phone", line: "Every lead buzzes you. Missed calls get a text back." },
-  { title: "Every week after", line: "Reviews asked after every job. Growth adds posts twice a week and a monthly report." },
+  { Icon: Video, title: "20-min call", line: "Your audit" },
+  { Icon: ClipboardCheck, title: "Onboarding", line: "Your info, once" },
+  { Icon: Hammer, title: "We build", line: "Site · Google · pages" },
+  { Icon: Smartphone, title: "Signal", line: "Leads on your phone" },
+  { Icon: Repeat, title: "Every week", line: "Posts · reviews · rankings" },
 ];
 
 export function AfterYesSlide() {
@@ -90,22 +91,29 @@ export function AfterYesSlide() {
       <Display className="mt-3 text-4xl min-[701px]:text-[3.3rem]">
         We do the work. <span className="text-accent">You answer the phone.</span>
       </Display>
-      <ol className="mt-8 grid content-start gap-4 min-[901px]:grid-cols-5">
-        {STEPS.map((s, i) => (
-          <li key={s.title} className="flex flex-col rounded-xl bg-surface px-5 py-5 shadow-[var(--shadow-border)]">
-            <span className="slide-num font-display text-3xl font-semibold text-accent">
-              {String(i + 1).padStart(2, "0")}
+      <ol className="relative mt-20 grid content-start gap-6 min-[901px]:grid-cols-5">
+        <span aria-hidden className="absolute top-[3.25rem] right-[10%] left-[10%] hidden h-1 rounded-full bg-line min-[901px]:block" />
+        <span
+          aria-hidden
+          className="absolute top-[3.25rem] left-[10%] hidden h-1 origin-left rounded-full bg-accent min-[901px]:block"
+          style={{ right: "10%", transform: "scaleX(0)", animation: "grow-w 2600ms var(--ease-out) 300ms forwards" }}
+        />
+        {STEPS.map(({ Icon, title, line }, i) => (
+          <li
+            key={title}
+            className="relative flex flex-col items-center text-center"
+            style={{ opacity: 0, animation: `rise-in 480ms var(--ease-out) ${300 + i * 500}ms forwards` }}
+          >
+            <span className="flex size-[6.5rem] items-center justify-center rounded-full bg-surface-warm shadow-[0_0_0_3px_var(--color-accent)]">
+              <Icon className="size-12 text-accent" strokeWidth={1.75} aria-hidden />
             </span>
-            <p className="mt-2 font-display text-lg font-semibold uppercase leading-tight tracking-display text-fg">
-              {s.title}
-            </p>
-            <p className="mt-2 text-base leading-snug text-muted">{s.line}</p>
+            <p className="mt-5 font-display text-2xl font-semibold uppercase tracking-display text-fg">{title}</p>
+            <p className="mt-1 text-lg text-muted">{line}</p>
           </li>
         ))}
       </ol>
-      <p className="mt-6 text-lg text-muted">
-        Month to month. Cancel any time.{" "}
-        <span className="text-fg">Your domain, Google page, reviews and leads stay yours.</span>
+      <p className="mt-auto text-center text-xl text-muted">
+        Month to month. <span className="text-fg">Your domain, Google page, reviews and leads stay yours.</span>
       </p>
     </SlidePad>
   );

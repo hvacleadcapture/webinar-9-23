@@ -131,9 +131,8 @@ export function Stat({ value, label }: { value: string; label: string }) {
 
 export function NineRail({ active }: { active?: number }) {
   const items = [
-    ["TIER 1", "Google profile", "Reviews", "Website, 5 seconds"],
-    ["TIER 2", "A page per job", "Posting, every week"],
-    ["TIER 3", "AI visibility", "Keywords + rankings", "Citations + links", "When the phone rings"],
+    ["TIER 1 · REPUTATION", "Google profile", "Reviews", "Website, 5 seconds", "When the phone rings"],
+    ["TIER 2 · RANKING", "A page per job", "Posting, every week", "AI visibility", "Keywords + rankings", "Citations + links"],
   ] as const;
 
   let n = 0;
