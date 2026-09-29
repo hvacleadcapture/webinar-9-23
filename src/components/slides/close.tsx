@@ -205,25 +205,22 @@ export function CtaSlide() {
             Remember your number: <span className="text-fg">one more job a week × 52.</span> It&rsquo;s a quick Google Meet.
           </p>
         </div>
-        <div className="flex flex-col gap-4">
-          <article className="rounded-xl bg-surface-warm px-7 py-5 shadow-[0_0_0_2px_var(--color-accent)]">
+        <div className="flex flex-col justify-center gap-5">
+          <article className="rounded-xl bg-surface-warm px-8 py-7 shadow-[0_0_0_2px_var(--color-accent)]">
             <div className="flex items-center gap-3">
-              <MessageSquare className="size-8 shrink-0 text-accent" strokeWidth={2} aria-hidden />
-              <p className="font-display text-[1.9rem] font-semibold uppercase tracking-display text-fg">Thursday + Friday</p>
+              <MessageSquare className="size-9 shrink-0 text-accent" strokeWidth={2} aria-hidden />
+              <p className="font-display text-[2.2rem] font-semibold uppercase tracking-display text-fg">Want to book?</p>
             </div>
-            <p className="mt-2 text-[1.45rem] leading-snug text-fg">
-              I have times open. Want one? <span className="font-semibold text-accent">Type it in the chat.</span>
+            <p className="mt-2 text-[1.6rem] leading-snug text-fg">
+              <span className="font-semibold text-accent">Type it in the chat.</span>
             </p>
           </article>
-          <article className="rounded-xl bg-surface px-7 py-5 shadow-[var(--shadow-border)]">
-            <div className="flex items-center gap-3">
-              <Phone className="size-8 shrink-0 text-accent" strokeWidth={2} aria-hidden />
-              <p className="font-display text-[1.9rem] font-semibold uppercase tracking-display text-fg">Can&rsquo;t make those?</p>
-            </div>
-            <p className="mt-2 text-[1.45rem] leading-snug text-fg">
-              I&rsquo;ll call each of you and we&rsquo;ll pick a time to go over your audit results.
-            </p>
-          </article>
+          <p className="flex items-start gap-3 px-2 text-[1.5rem] leading-snug text-fg">
+            <Phone className="mt-1 size-7 shrink-0 text-accent" strokeWidth={2} aria-hidden />
+            <span>
+              Either way, I&rsquo;m following up with every one of you.
+            </span>
+          </p>
         </div>
       </div>
       <p className="mt-6 text-[1.15rem] text-subtle">

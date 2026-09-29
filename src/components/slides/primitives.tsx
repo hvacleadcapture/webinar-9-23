@@ -110,25 +110,12 @@ export function DashItem({ children }: { children: ReactNode }) {
   );
 }
 
-export function ScoreChip({ n }: { n: number }) {
-  const on = useDeck((s) => s.marks[n]);
-  const toggle = useDeck((s) => s.toggleMark);
-  return (
-    <button
-      type="button"
-      onClick={(e) => {
-        e.stopPropagation();
-        toggle(n);
-      }}
-      className={cn(
-        "mt-6 inline-flex items-center gap-3 rounded-md px-4 py-3 text-sm font-semibold tracking-wide uppercase transition-[background-color,color,transform] duration-[var(--motion-quick)] ease-[var(--ease-out)] active:scale-[0.96]",
-        on ? "bg-accent text-accent-fg" : "bg-surface-2 text-muted",
-      )}
-    >
-      {on ? <Check className="size-4" strokeWidth={2.5} /> : <Minus className="size-4" />}
-      {on ? "Point counted" : "Tap if you pass"}
-    </button>
-  );
+/**
+ * Retired 29 Sept 2026: Christian presents and the audience can't click, so
+ * there is no "tap if you pass" button. Kept as a no-op so callers compile.
+ */
+export function ScoreChip(_: { n: number }) {
+  return null;
 }
 
 export function Stat({ value, label }: { value: string; label: string }) {

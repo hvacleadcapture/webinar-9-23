@@ -25,7 +25,6 @@ export function Deck() {
   const toggleOverview = useDeck((s) => s.toggleOverview);
   const toggleHelp = useDeck((s) => s.toggleHelp);
   const closeOverlays = useDeck((s) => s.closeOverlays);
-  const score = useDeck((s) => s.score());
 
   const stageRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
@@ -154,9 +153,6 @@ export function Deck() {
           CJP Enterprises · Live
         </p>
         <p className="text-sm text-subtle">
-          Score <span className="slide-num text-fg">{score}</span>
-          <span className="text-subtle"> / 9</span>
-          <span className="mx-3 text-line-strong">·</span>
           <span className="slide-num">
             {index + 1} / {SLIDES.length}
           </span>
