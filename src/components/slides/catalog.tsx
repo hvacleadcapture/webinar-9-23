@@ -27,9 +27,8 @@ import {
   StructureSlide,
 } from "./house";
 import { CtaSlide, ProofClipsSlide } from "./close";
-import { MissedCallDemoSlide } from "./demo";
 import { AfterYesSlide, SignalSlide, SignalTourSlide } from "./signal";
-import { AdsDemoSlide, AutoGlossLiveSlide, RdOutcomeSlide, ReviewDemoSlide } from "./outcomes";
+import { AdsDemoSlide, AutoGlossLiveSlide, RdOutcomeSlide } from "./outcomes";
 import { ObjectionsSlide, PriceCompareSlide, ReferenceCallSlide, ResultsLeadsSlide, ResultsRanksSlide, ResultsTrafficSlide } from "./credibility";
 
 export type SlideDef = {
@@ -122,25 +121,19 @@ export const SLIDES: SlideDef[] = [
   {
     id: "profile",
     title: "Google profile",
-    notes: "[~2 min] Right category, every service, photo and post in last 30 days. Three real Google Business Profiles are shown on the right.",
+    notes: "[~2 min] The animation plays first: we get in and optimize it (category, every service, a photo, a post) until the profile is complete. Then the three real profiles fade in. Say: we go in there and optimize it completely for you. Right category, every service, photo and post in last 30 days. Three real Google Business Profiles are shown on the right.",
     Component: ProfileSlide,
   },
   {
     id: "reviews",
     title: "Reviews",
-    notes: "[~1.5 min] Freshness + replies. Fix tonight: reply to last five.",
+    notes: "[~1.5 min] Animation first: you tap Closed, the review ask goes out, five stars land on Google, the owner reply goes on. Then the real 4-vs-92 comparison fades in. Freshness + replies. Fix tonight: reply to last five.",
     Component: ReviewsSlide,
-  },
-  {
-    id: "review-demo",
-    title: "Job done, review asked",
-    notes: "[~1 min] Let it play, talk over it. You tap Closed, they get asked in seconds, five stars go to Google. Unhappy customers tell you first. Say it's an example conversation. Outcome line: more fresh reviews on the same Google page means more of the people who find you actually call. Don't quote a percentage.",
-    Component: ReviewDemoSlide,
   },
   {
     id: "website",
     title: "Website in five seconds",
-    notes: "[~2 min] Garlock plus two stronger contractor website examples on the right. What, where, licensed, tap-to-call — no scroll. That's the bar.",
+    notes: "[~2 min] Animation first: Duncan's real site, five-second test, then it scrolls the whole build. Then the three example sites fade in. Garlock plus two stronger contractor website examples on the right. What, where, licensed, tap-to-call — no scroll. That's the bar.",
     Component: WebsiteSlide,
   },
   {
@@ -152,13 +145,13 @@ export const SLIDES: SlideDef[] = [
   {
     id: "pages",
     title: "A page per job",
-    notes: "[~1.5 min] If it makes you money, it gets its own page.",
+    notes: "[~1.5 min] Animation first: R&D's real service and town pages fill in (16 of them), then a Daphne search lands on his Daphne page (that search is an illustration). If it makes you money, it gets its own page.",
     Component: ServicePagesSlide,
   },
   {
     id: "posting",
     title: "Posting every week",
-    notes: "[~1.5 min] Two examples: a contractor blog and Google Business Profile posts. Lean on automation. We post to Google and the site, plus Facebook and Instagram. Do NOT call socials backlinks.",
+    notes: "[~1.5 min] Animation first: Wednesday and Saturday posts write themselves and publish to Google, the site, Facebook and Instagram. Two examples: a contractor blog and Google Business Profile posts. Lean on automation. We post to Google and the site, plus Facebook and Instagram. Do NOT call socials backlinks.",
     Component: PostingSlide,
   },
   {
@@ -170,32 +163,26 @@ export const SLIDES: SlideDef[] = [
   {
     id: "ai",
     title: "AI visibility",
-    notes: "[~1.5 min] Capped at 90 seconds. Don't say GEO or AEO.",
+    notes: "[~1.5 min] Animation first: the code behind the site gets read, then ChatGPT names the business. Example company. Capped at 90 seconds. Don't say GEO or AEO.",
     Component: AiSlide,
   },
   {
     id: "keywords",
     title: "Keywords + rankings",
-    notes: "[~1.5 min] Checking from the office tells you nothing.",
+    notes: "[~1.5 min] Animation first: rankings climb, then the grid shows ranks from 25 spots around town. Example company. Checking from the office tells you nothing.",
     Component: KeywordsSlide,
   },
   {
     id: "citations",
     title: "Citations + links",
-    notes: "[~1 min] Potts Brothers search results showing local links and social profiles. Tedious, not hard.",
+    notes: "[~1 min] Animation first: wrong listings get fixed one by one until 9 of 9 match, then local links get added. Example company. Potts Brothers search results showing local links and social profiles. Tedious, not hard.",
     Component: CitationsSlide,
   },
   {
     id: "phone",
     title: "When the phone rings",
-    notes: "[~0.5 min] The missed-call screenshot is the visual. The point is simple: if the phone rings and nobody answers, text back immediately. That's nine. Add up the score.",
+    notes: "[~1.5 min] The missed-call demo now plays right on this slide and stays up. Talk over it: you miss the call, the text goes out by itself, they text back, job booked. The point is simple: if the phone rings and nobody answers, text back immediately. That's nine. Add up the score.",
     Component: PhoneSlide,
-  },
-  {
-    id: "missed-call-demo",
-    title: "Missed call, text back",
-    notes: "[~1 min] Let it play, talk over it. You miss the call because you're on a job, the text goes out by itself in seconds, they text back instead of calling the next guy, job booked. Say it's an example conversation, not a real customer. Hit Play again if the chat wants to see it twice.",
-    Component: MissedCallDemoSlide,
   },
   {
     id: "score",
