@@ -61,7 +61,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "rd-outcome",
     title: "R&D: brand new to $20,000 job",
-    notes: "[~1 min] Straight after Duncan hangs up. It plays itself: July, nothing. We built the site. A lead comes in off the website. One $20,000 job. Say it once and let the number sit. The $20,000 is YOUR figure; it isn't in the client record, so be ready to back it if Duncan is still on. Change it in outcomes.tsx (RD_JOB) if it's off.",
+    notes: "[~1.5 min] Straight after Duncan hangs up. It plays itself, slowly: someone Googles a plumber in Baldwin County, R&D comes up, his real site scrolls, an estimate request goes in, it lands in Signal on his phone, he marks it Closed and notes $20,000. Say it once and let the number sit. The $20,000 is YOUR figure (not in the client record yet): confirm it with Duncan. Change it in outcomes.tsx (RD_JOB) if it's off.",
     Component: RdOutcomeSlide,
   },
   {
@@ -91,7 +91,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "autogloss",
     title: "Case study: AutoGloss",
-    notes: "[~1.5 min] It animates: leads land one by one, then the clicks bar. Jeff Miller, detailing, Fuquay-Varina NC. New site went up September 10. 18 real leads in the next two weeks, 10 from the site and 8 from the ads page. Clicks from Google search 42 vs 12. Cost per click down from $3.80 to $2.71. Don't mention revenue, and don't say veteran-owned.",
+    notes: "[~1.5 min] It plays slowly: Jeff's real site scrolls while his leads land one by one, 18 in two weeks (10 from the site, 8 from the ads page), then clicks from Google go 12 to 42. Site went up September 10. Don't mention revenue, and don't say veteran-owned.",
     Component: AutoGlossLiveSlide,
   },
   {
@@ -151,7 +151,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "posting",
     title: "Posting every week",
-    notes: "[~1.5 min] Animation first: Wednesday and Saturday posts write themselves and publish to Google, the site, Facebook and Instagram. Two examples: a contractor blog and Google Business Profile posts. Lean on automation. We post to Google and the site, plus Facebook and Instagram. Do NOT call socials backlinks.",
+    notes: "[~1.5 min] Animation plays and holds: R&D's real posts go up every Wednesday and Saturday, on the website blog and the Google Business Profile. That's it: NOT Facebook or Instagram. Say: we write it and post it, you don't touch it.",
     Component: PostingSlide,
   },
   {
@@ -187,7 +187,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "score",
     title: "Your score",
-    notes: "[~1 min] Ask for the number in the chat. Read the line on screen: that's the one you gave yourself, I already ran the real one on your business, you get it at the end. Then tie the nine back into the house.",
+    notes: "[~1 min] Nobody can click anything, so ask out loud: count up your nine, put the number in the chat. Read the line on screen: I already ran the real one on your business, you get it at the end. Then tie the nine back into the house.",
     Component: ScoreRecapSlide,
   },
   {
@@ -229,13 +229,13 @@ export const SLIDES: SlideDef[] = [
   {
     id: "what-you-get",
     title: "What you get, check by check",
-    notes: "[~2 min] This answers the Hometown Air note: say exactly what each price buys. Essentials covers four of the nine. Growth covers all nine. Walk the Growth column line by line. Posts are twice a week. Signal, the app from a few slides back, comes with all three. If asked about ads: that's Pro, only once the foundation is working.",
+    notes: "[~1.5 min] The grid: the nine down the side, the three plans across. Essentials covers four of the nine (reviews, website, AI-readable site, missed-call text back). Growth covers all nine. Pro adds the ads. Walk the Growth column. Signal, the app, comes with all three. Month to month.",
     Component: WhatYouGetSlide,
   },
   {
     id: "ads-demo",
     title: "When you are ready for ads",
-    notes: "[~1.5 min] The transition into ads, and it plays itself. A2Z Concrete: about $3,000 in ad spend at roughly $500 a month, 25 tracked leads, and one of them was a $37,000 driveway. Let the number land. Then Richard at SmithStraw: 49 tracked results, 31 of them phone calls. Don't imply every client gets this. Foundation first, always.",
+    notes: "[~1.5 min] The transition into ads. Say it: now the foundation's in, we have everything we need to start scaling, so we go get more traffic. Steve at A2Z Concrete did exactly that: about six months of ads, about $3,000 spent (roughly $500 a month), 25 tracked leads, so about $120 a lead. One of those leads was a $37,000 driveway, and that one job paid for the whole service and all the ad spend. Only after the foundation. Don't imply every client gets this.",
     Component: AdsDemoSlide,
   },
   {
@@ -259,7 +259,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "cta",
     title: "What happens next",
-    notes: "[~2 min] The reveal. I already pulled up every one of your businesses and scored it against the nine. I'll follow up with each of you to go over it: your score, where you come up when someone searches your trade and your town and who's above you, and your top fixes, yours to keep either way. Remember your number from the math slide. I have times Thursday and Friday: if you're available, type it in the chat. If not, I'll call each of you and we'll pick a time. Say 'Google's business search', never 'the map'. Leave it up for questions.",
+    notes: "[~2 min] The reveal. I already pulled up every one of your businesses and scored it against the nine. When we go over it you get your score, where you come up when someone searches your trade and your town and who is above you, and your top fixes, yours to keep either way. Then the ask: want to book? Type it in the chat. And either way, I am following up with every one of you. Say Google business search, never the map. Leave it up for questions.",
     Component: CtaSlide,
   },
 ];

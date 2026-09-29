@@ -1,461 +1,688 @@
-import type { ReactNode } from "react";
-import { Check, Image as ImageIcon, MessageSquare, Star } from "lucide-react";
+import type { CSSProperties, ReactNode } from "react";
+import { Check, Globe, MapPin, Navigation, Phone, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Browser, GoogleSearch, Result, Tap, appear, prog, typed } from "./demo-kit";
+import { appear, prog } from "./demo-kit";
 
 /**
- * Demos for checks 1-5 (29 Sept 2026, "show it, don't tell it"). Each is a
- * pure function of t (ms since the slide mounted); DemoThenPicture re-renders
- * it every 100ms and fades to the real screenshots when it ends.
+ * Demos for checks 1-5, second pass (29 Sept 2026, later): slower, built on
+ * real client captures, and each one ENDS on its finished frame and holds it
+ * (no fade to screenshots any more).
  *
- * Elements that appear mid-demo are mounted conditionally (`t > x`) and
- * animate with appear(0), so their animation starts when they mount.
- * Client names, services, reviews and post titles are real (autoglossnc.com,
- * rdplumbingco.com, read 29 Sept 2026); the mechanics around them are tagged
- * "how it works" or "Illustration".
+ * Pure functions of t (ms since the slide mounted). Anything that appears
+ * mid-demo is mounted with `t > x` and animates with appear(0).
+ *
+ * Real sources, captured 29 Sept 2026 into /public/slides/proof:
+ *   - Google profiles: /slides/user-added/{93-electric,benrishi,two-koats}-gbp.png
+ *     (names, ratings, review counts, categories, hours, Two Koats' address,
+ *     phone and description as shown there; blurred fields left out).
+ *   - Sites: megarlockconstruction.com, autoglossnc.com, gordoncraneco.com
+ *     (full-page, 800px wide).
+ *   - R&D's service, town and blog pages, rdplumbingco.com (top of page).
+ * Benrishi: no licence talk, per the Benrishi rules.
  */
 
-const pop = appear(0, 360);
+const pop = appear(0, 420);
 
-function Tag({ children }: { children: ReactNode }) {
+/** The kit's rAF clock can hand the first frame a slightly negative t. */
+const clampT = (t: number) => (Number.isFinite(t) && t > 0 ? t : 0);
+
+function Tag({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <span className="rounded-full bg-surface-2 px-2.5 py-0.5 text-[0.85rem] uppercase tracking-wide text-subtle">
+    <span
+      className={cn(
+        "rounded-full bg-black/60 px-2.5 py-0.5 text-[0.8rem] uppercase tracking-wide text-white/80",
+        className,
+      )}
+    >
       {children}
     </span>
   );
 }
 
-function Meter({ value, label }: { value: number; label: string }) {
+function Stars({ n = 5, className }: { n?: number; className?: string }) {
   return (
-    <div>
-      <div className="flex justify-between text-[0.95rem]">
-        <span className="text-muted">{label}</span>
-        <span className="slide-num font-semibold text-accent tabular-nums">{Math.round(value)}%</span>
+    <span className={cn("inline-flex", className)}>
+      {Array.from({ length: 5 }, (_, i) => (
+        <Star
+          key={i}
+          className={cn("size-[1em]", i < Math.round(n) ? "fill-[#fbbc04] text-[#fbbc04]" : "fill-[#dadce0] text-[#dadce0]")}
+          aria-hidden
+        />
+      ))}
+    </span>
+  );
+}
+
+/** Browser chrome sized to its screenshot (the kit's Browser has a fixed height, which crops page captures). */
+function Frame({ url, children }: { url: string; children: ReactNode }) {
+  return (
+    <div className="overflow-hidden rounded-xl bg-white shadow-[0_0_0_2px_#2e2e2e,0_30px_70px_-30px_rgba(0,0,0,0.9)]">
+      <div className="flex items-center gap-2 bg-[#e4e4e0] px-3 py-2">
+        <span className="size-2.5 rounded-full bg-[#ff5f57]" />
+        <span className="size-2.5 rounded-full bg-[#febc2e]" />
+        <span className="size-2.5 rounded-full bg-[#28c840]" />
+        <span className="ml-2 flex-1 truncate rounded-md bg-white px-2.5 py-0.5 text-[0.85rem] text-[#555]">{url}</span>
       </div>
-      <div className="mt-1.5 h-3 overflow-hidden rounded-full bg-bg">
-        <div className="h-full rounded-full bg-accent" style={{ width: `${value}%` }} />
+      {children}
+    </div>
+  );
+}
+
+/** Fades a block in over 600ms from `at`. */
+function fade(t: number, at: number, ms = 600): CSSProperties {
+  const k = prog(t, at, ms);
+  return { opacity: k, transform: `translateY(${(1 - k) * 10}px)` };
+}
+
+/* ------------------------------------------------------------------------ */
+/*  1 · Google profile, set up right: 93 Electric → Benrishi → Two Koats     */
+/* ------------------------------------------------------------------------ */
+
+type Gbp = {
+  strip: string;
+  name: string;
+  rating: string;
+  count: number;
+  category: string;
+  address?: string;
+  phone?: string;
+  hours: string;
+  about?: string;
+  button: string;
+};
+
+const GBPS: Gbp[] = [
+  {
+    strip: "/slides/proof/gbp-93-strip.png",
+    name: "93 Electric",
+    rating: "5.0",
+    count: 66,
+    category: "Electrician in Ravalli County, Montana",
+    address: "Stevensville, MT 59870",
+    phone: "(406) 519-9513",
+    hours: "Closes 7 PM",
+    button: "Book online",
+  },
+  {
+    strip: "/slides/proof/gbp-benrishi-strip.png",
+    name: "Benrishi Electrical",
+    rating: "5.0",
+    count: 177,
+    category: "Electrician",
+    hours: "Closes 5 PM",
+    button: "Save",
+  },
+  {
+    strip: "/slides/proof/gbp-twokoats-strip.png",
+    name: "Two Koats Painting, LLC",
+    rating: "5.0",
+    count: 160,
+    category: "Painter in Virginia Beach, Virginia",
+    address: "249 Central Park Ave Ste 300-68, Virginia Beach, VA 23462",
+    phone: "(757) 288-1905",
+    hours: "",
+    about: "Residential and commercial painter offering interior and exterior painting services and house painting.",
+    button: "Directions",
+  },
+];
+
+const PER_PROFILE = 6200;
+export const PROFILE_MS = 23_000;
+
+const CHECKLIST = ["Category", "Hours", "Phone + website", "Photos", "Weekly post"];
+
+/** The Google knowledge-panel look. `k` = seconds into this profile's build (ms). */
+function GbpPanel({ g, k }: { g: Gbp; k: number }) {
+  const on = (at: number) => k >= at;
+  return (
+    <div className="overflow-hidden rounded-2xl bg-white text-[#202124] shadow-[0_0_0_1px_#dadce0,0_30px_70px_-30px_rgba(0,0,0,0.9)]">
+      <div className="relative">
+        <img src={g.strip} alt="" className="h-[118px] w-full object-cover" />
+        {on(3600) ? (
+          <span style={pop} className="absolute bottom-2 left-2 rounded-full bg-[#1a73e8] px-3 py-1 text-[0.85rem] font-medium text-white">
+            + Job photos added
+          </span>
+        ) : null}
+      </div>
+      <div className="px-5 pt-3 pb-4">
+        <p className="text-[1.45rem] leading-tight">{g.name}</p>
+        <p className="mt-1 flex items-center gap-1.5 text-[1rem]">
+          {g.rating} <Stars className="text-[1rem]" /> <span className="text-[#1a0dab]">{g.count} Google reviews</span>
+        </p>
+        <p className="min-h-[1.4rem] text-[0.98rem] text-[#70757a]" style={fade(k, 500)}>
+          {g.category}
+        </p>
+        <div className="mt-3 flex gap-2" style={fade(k, 1300)}>
+          {[
+            [Globe, "Website"],
+            [Navigation, g.button === "Book online" ? "Directions" : g.button],
+            [Phone, "Call"],
+          ].map(([Icon, label]) => {
+            const I = Icon as typeof Globe;
+            return (
+              <span key={label as string} className="flex items-center gap-1.5 rounded-full border border-[#dadce0] px-3 py-1.5 text-[0.9rem] text-[#1a73e8]">
+                <I className="size-4" aria-hidden />
+                {label as string}
+              </span>
+            );
+          })}
+        </div>
+        {g.button === "Book online" ? (
+          <p className="mt-2 rounded-full bg-[#1a73e8] py-1.5 text-center text-[0.95rem] font-medium text-white" style={fade(k, 1600)}>
+            Book online
+          </p>
+        ) : null}
+        <div className="mt-3 space-y-1 border-t border-[#e8eaed] pt-3 text-[0.92rem]" style={fade(k, 2200)}>
+          {g.about ? <p className="text-[#3c4043]">{g.about}</p> : null}
+          {g.address ? (
+            <p>
+              <b>Address:</b> {g.address}
+            </p>
+          ) : null}
+          {g.phone ? (
+            <p>
+              <b>Phone:</b> <span className="text-[#1a0dab]">{g.phone}</span>
+            </p>
+          ) : null}
+          {g.hours ? (
+            <p>
+              <b>Hours:</b> <span className="text-[#188038]">Open</span> · {g.hours}
+            </p>
+          ) : null}
+        </div>
+        {on(4400) ? (
+          <div style={pop} className="mt-3 rounded-lg border border-[#dadce0] px-3 py-2">
+            <p className="text-[0.8rem] uppercase tracking-wide text-[#70757a]">Updates · this week</p>
+            <p className="text-[0.95rem]">New post published to the profile</p>
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+export function ProfileDemo(t: number) {
+  t = clampT(t);
+  const idx = Math.min(2, Math.floor(t / PER_PROFILE));
+  const k = t - idx * PER_PROFILE;
+  const final = t >= PER_PROFILE * 3;
+  if (final) {
+    return (
+      <div className="flex h-full flex-col gap-2.5">
+        <p style={pop} className="font-display text-xl font-semibold uppercase tracking-display text-fg">
+          Three real profiles. <span className="text-accent">Every box filled.</span>
+        </p>
+        {GBPS.map((g, i) => (
+          <div
+            key={g.name}
+            style={appear(i * 200, 420)}
+            className="flex items-center gap-3 overflow-hidden rounded-xl bg-white p-2.5 text-[#202124] shadow-[0_0_0_1px_#dadce0]"
+          >
+            <img src={g.strip} alt="" className="h-[88px] w-[150px] shrink-0 rounded-lg object-cover object-left" />
+            <div className="min-w-0">
+              <p className="truncate text-[1.15rem] leading-tight">{g.name}</p>
+              <p className="mt-0.5 flex items-center gap-1 text-[0.92rem]">
+                {g.rating} <Stars className="text-[0.9rem]" /> <span className="text-[#1a0dab]">{g.count} reviews</span>
+              </p>
+              <p className="truncate text-[0.88rem] text-[#70757a]">{g.category}</p>
+              <p className="mt-1 flex items-center gap-1 text-[0.85rem] text-[#188038]">
+                <Check className="size-3.5" strokeWidth={3} aria-hidden /> Optimized
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  const g = GBPS[idx];
+  const done = CHECKLIST.filter((_, i) => k >= 700 + i * 900).length;
+  return (
+    <div className="flex h-full flex-col gap-3">
+      <div className="flex items-center justify-between">
+        <p className="text-[1rem] text-muted">
+          Setting up <span className="text-fg">{g.name}</span>
+        </p>
+        <span className="text-[0.95rem] text-subtle">{idx + 1} of 3</span>
+      </div>
+      <div key={idx} style={appear(0, 500)}>
+        <GbpPanel g={g} k={k} />
+      </div>
+      <div className="flex flex-wrap gap-1.5">
+        {CHECKLIST.map((c, i) => (
+          <span
+            key={c}
+            className={cn(
+              "flex items-center gap-1 rounded-full px-2.5 py-1 text-[0.85rem] transition-colors",
+              i < done ? "bg-accent text-accent-fg" : "bg-surface-2 text-subtle",
+            )}
+          >
+            {i < done ? <Check className="size-3.5" strokeWidth={3} aria-hidden /> : null}
+            {c}
+          </span>
+        ))}
       </div>
     </div>
   );
 }
 
 /* ------------------------------------------------------------------------ */
-/*  1 · Google profile, optimized (AutoGloss)                                */
+/*  2 · Reviews: a painter nearby vs Two Koats, and the automatic ask        */
 /* ------------------------------------------------------------------------ */
 
 /**
- * Real: the Google name, the six services (autoglossnc.com service pages) and
- * "5.0 · 91 Google reviews" (on autoglossnc.com, 29 Sept 2026). The primary
- * category isn't recorded in clients/autogloss.md, so the demo fills empty
- * fields and never claims a "before" value.
+ * Two Koats: 5.0 · 160 Google reviews (two-koats-gbp.png). The painter nearby
+ * is unnamed and tagged Illustration. No review text is invented: the new
+ * review shows as stars only.
  */
-export const PROFILE_MS = 10500;
+export const REVIEWS_MS = 19_000;
 
-const GBP_NAME = "AUTOGLOSS Detailing & Ceramic Coating";
-const GBP_SERVICES = [
-  "Ceramic Coating",
-  "Paint Correction",
-  "Car Detailing",
-  "Interior Detailing",
-  "Exterior Detailing",
-  "Machine Polishing",
+function ReviewHeader({
+  name,
+  rating,
+  count,
+  last,
+  strong,
+  tag,
+}: {
+  name: string;
+  rating: number;
+  count: number;
+  last: string;
+  strong?: boolean;
+  tag?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "relative rounded-xl bg-white px-4 py-3 text-[#202124]",
+        strong ? "shadow-[0_0_0_3px_var(--color-accent)]" : "shadow-[0_0_0_1px_#dadce0]",
+      )}
+    >
+      {tag ? <Tag className="absolute top-2 right-2 bg-[#f1f3f4] text-[#5f6368]">{tag}</Tag> : null}
+      <p className="text-[1.15rem] leading-tight">{name}</p>
+      <p className="mt-1 flex items-center gap-1.5 text-[1rem]">
+        {rating.toFixed(1)} <Stars n={rating} className="text-[1rem]" />
+        <span className="text-[#1a0dab]">{count} Google reviews</span>
+      </p>
+      <p className="text-[0.88rem] text-[#70757a]">{last}</p>
+    </div>
+  );
+}
+
+export function ReviewsDemo(t: number) {
+  t = clampT(t);
+  if (t >= 13_500) {
+    return (
+      <div className="flex h-full flex-col justify-center gap-4">
+        <p style={pop} className="font-display text-xl font-semibold uppercase tracking-display text-fg">
+          Same town. Same trade. <span className="text-accent">Who gets the call?</span>
+        </p>
+        <div className="grid grid-cols-2 gap-3">
+          <div style={appear(150)} className="rounded-xl bg-white px-4 py-5 text-center text-[#202124] shadow-[0_0_0_1px_#dadce0]">
+            <p className="text-[0.95rem] text-[#70757a]">A painter nearby</p>
+            <p className="slide-num mt-1 font-display text-[4rem] leading-none font-semibold">4</p>
+            <p className="text-[0.95rem]">Google reviews</p>
+            <Stars n={4} className="mt-2 text-[1.1rem]" />
+            <p className="mt-2 text-[0.8rem] text-[#9aa0a6]">Illustration</p>
+          </div>
+          <div style={appear(400)} className="rounded-xl bg-white px-4 py-5 text-center text-[#202124] shadow-[0_0_0_3px_var(--color-accent)]">
+            <p className="text-[0.95rem] text-[#70757a]">Two Koats Painting</p>
+            <p className="slide-num mt-1 font-display text-[4rem] leading-none font-semibold text-[#188038]">160</p>
+            <p className="text-[0.95rem]">Google reviews</p>
+            <Stars className="mt-2 text-[1.1rem]" />
+            <p className="mt-2 text-[0.8rem] text-[#9aa0a6]">5.0 · Virginia Beach</p>
+          </div>
+        </div>
+        <p style={appear(900)} className="text-center text-[1.1rem] text-muted">
+          Every job gets asked. <span className="text-fg">That&rsquo;s how you get to 160.</span>
+        </p>
+      </div>
+    );
+  }
+  return (
+    <div className="flex h-full flex-col gap-3">
+      <p className="text-[1rem] text-muted">&ldquo;painter virginia beach&rdquo;</p>
+      <div style={fade(t, 200)}>
+        <ReviewHeader name="A painter nearby" rating={4} count={4} last="Last review: 8 months ago" tag="Illustration" />
+      </div>
+      <div style={fade(t, 1200)}>
+        <ReviewHeader name="Two Koats Painting, LLC" rating={5} count={160} last="Painter in Virginia Beach, Virginia" strong />
+      </div>
+      {t > 3200 ? (
+        <div style={pop} className="flex flex-1 flex-col gap-2.5 rounded-2xl bg-bg-elevated px-4 py-3 shadow-[var(--shadow-border)]">
+          <div className="flex items-center justify-between">
+            <p className="text-[0.95rem] text-subtle">Customer&rsquo;s phone</p>
+            <Tag className="bg-surface-2 text-subtle">How the ask works</Tag>
+          </div>
+          <p className="self-center rounded-full bg-surface-2 px-3 py-1 text-[0.9rem] text-fg">
+            <Check className="mr-1 inline size-4 text-accent" strokeWidth={3} aria-hidden />
+            Job marked done
+          </p>
+          {t > 4800 ? (
+            <p style={pop} className="max-w-[90%] self-end rounded-2xl rounded-br-md bg-accent px-4 py-2.5 text-[1rem] leading-snug text-accent-fg">
+              Thanks for choosing Two Koats! How did we do? Tap a star to leave a Google review.
+            </p>
+          ) : null}
+          {t > 7000 ? (
+            <div className="flex gap-1.5 self-start px-1">
+              {[0, 1, 2, 3, 4].map((i) => (
+                <Star
+                  key={i}
+                  style={appear(i * 260, 360)}
+                  className="size-9 fill-[#fbbc04] text-[#fbbc04]"
+                  aria-hidden
+                />
+              ))}
+            </div>
+          ) : null}
+          {t > 9600 ? (
+            <div style={pop} className="rounded-xl bg-white px-4 py-2.5 text-[#202124]">
+              <p className="text-[0.85rem] text-[#70757a]">Posted to Google · Two Koats Painting</p>
+              <p className="flex items-center gap-1.5 text-[1rem]">
+                <Stars className="text-[1rem]" /> New 5-star review · just now
+              </p>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/*  3 · Website in five seconds: Garlock, AutoGloss, Gordon Crane, all on    */
+/*  screen; focus moves one at a time and ends back on Garlock's hero.       */
+/* ------------------------------------------------------------------------ */
+
+type Site = { src: string; url: string; name: string; checks: string[]; depth: number };
+
+/** depth = how far down the focused site scrolls, as a % of the page's own height. */
+const SITES: Site[] = [
+  {
+    src: "/slides/proof/garlock-scroll.jpg",
+    url: "megarlockconstruction.com",
+    name: "M.E. Garlock Construction",
+    checks: ["Custom homes", "Boonville + North Country", "Tap to call"],
+    depth: 20,
+  },
+  {
+    src: "/slides/proof/autogloss-scroll.jpg",
+    url: "autoglossnc.com",
+    name: "AutoGloss",
+    checks: ["Detailing + ceramic coating", "Fuquay-Varina", "Tap to call"],
+    depth: 20,
+  },
+  {
+    src: "/slides/proof/gordon-scroll.jpg",
+    url: "gordoncraneco.com",
+    name: "Gordon Crane Co.",
+    checks: ["Crane service", "Southwest Florida", "Tap to call"],
+    depth: 26,
+  },
 ];
 
-export const ProfileDemo = (t: number): ReactNode => {
-  const cat = typed("Car detailing service", t, 700, 18);
-  const servicesShown = GBP_SERVICES.filter((_, i) => t > 2600 + i * 400).length;
-  const upload = prog(t, 5400, 1400);
-  const strength =
-    25 + (t > 2000 ? 20 : 0) + servicesShown * 5 + (upload >= 1 ? 10 : 0) + (t > 7600 ? 15 : 0);
+const PER_SITE = 9400;
+const BACK_TO_GARLOCK = PER_SITE * 3;
+export const WEBSITE_MS = 32_500;
+
+/** A browser whose viewport is `h` px tall, showing a full-page capture scrolled `y`% down. */
+function Viewport({ site, h, y, small }: { site: Site; h: number; y: number; small?: boolean }) {
   return (
-    <div className="flex h-full w-full flex-col gap-3 rounded-2xl bg-bg-elevated p-5 shadow-[var(--shadow-border)]">
-      <div>
-        <div className="flex items-center justify-between gap-3">
-          <p className="truncate text-[1.15rem] font-semibold text-fg">Edit profile</p>
-          <Tag>AutoGloss · how we set it up</Tag>
-        </div>
-        <p className="mt-1 text-[1rem] text-muted">
-          {GBP_NAME} · <span className="text-[#f5b301]">5.0 ★</span> · 91 Google reviews
-        </p>
+    <div className={cn("overflow-hidden rounded-lg bg-white", small ? "shadow-[0_0_0_1px_#2e2e2e]" : "shadow-[0_0_0_2px_var(--color-accent),0_30px_70px_-30px_rgba(0,0,0,0.9)]")}>
+      <div className={cn("flex items-center gap-1.5 bg-[#e4e4e0]", small ? "px-2 py-1" : "px-3 py-2")}>
+        <span className={cn("rounded-full bg-[#ff5f57]", small ? "size-1.5" : "size-2.5")} />
+        <span className={cn("rounded-full bg-[#febc2e]", small ? "size-1.5" : "size-2.5")} />
+        <span className={cn("rounded-full bg-[#28c840]", small ? "size-1.5" : "size-2.5")} />
+        <span className={cn("ml-1.5 flex-1 truncate rounded bg-white text-[#555]", small ? "px-1.5 text-[0.65rem]" : "px-2.5 py-0.5 text-[0.85rem]")}>{site.url}</span>
       </div>
-
-      <div className="rounded-xl bg-surface px-4 py-3">
-        <p className="text-[0.85rem] uppercase tracking-wide text-subtle">Primary category</p>
-        <p className="mt-1 flex min-h-[1.8rem] items-center text-[1.2rem] text-fg">
-          {cat}
-          {t < 2000 ? <span className="ml-0.5 h-5 w-0.5 animate-pulse bg-fg" /> : null}
-          {t > 2000 ? <Check style={pop} className="ml-2 size-5 text-accent" strokeWidth={3} aria-hidden /> : null}
-        </p>
+      <div className="overflow-hidden" style={{ height: h }}>
+        <img src={site.src} alt={site.name} className="block w-full" style={{ transform: `translateY(-${y}%)` }} />
       </div>
+    </div>
+  );
+}
 
-      <div className="rounded-xl bg-surface px-4 py-3">
-        <p className="text-[0.85rem] uppercase tracking-wide text-subtle">Services</p>
-        <div className="mt-2 flex min-h-[4.6rem] flex-wrap gap-2">
-          {GBP_SERVICES.slice(0, servicesShown).map((s) => (
-            <span key={s} style={pop} className="rounded-full bg-accent px-3 py-1 text-[0.95rem] font-semibold text-accent-fg">
-              + {s}
+export function WebsiteDemo(t: number) {
+  t = clampT(t);
+  const back = t >= BACK_TO_GARLOCK;
+  const idx = back ? 0 : Math.min(2, Math.floor(t / PER_SITE));
+  const k = back ? 6000 : t - idx * PER_SITE;
+  const s = SITES[idx];
+  // land on the hero and hold while the clock runs, slow scroll, ease back up
+  const down = back ? 0 : prog(k, 5400, 2600);
+  const up = back ? 0 : prog(k, 8000, 1000);
+  const y = s.depth * down * (1 - up);
+  const secs = Math.max(0, 5 - Math.floor(k / 1000));
+  const others = SITES.filter((_, i) => i !== idx);
+  return (
+    <div className="flex h-full flex-col gap-3">
+      <p className="text-[1rem] text-muted">
+        {back ? (
+          <>
+            Five seconds. <span className="text-fg">They know who you are.</span>
+          </>
+        ) : (
+          <>
+            <span className="text-fg">{s.name}</span> · the five-second test
+          </>
+        )}
+      </p>
+      <div className="grid grid-cols-[1fr_190px] gap-3">
+        <div className="relative">
+          <div key={`${idx}-${back}`} style={appear(0, 600)}>
+            <Viewport site={s} h={372} y={y} />
+          </div>
+          {!back && k < 5200 ? (
+            <span className="slide-num absolute top-12 right-3 flex size-14 items-center justify-center rounded-full bg-accent font-display text-3xl font-semibold text-accent-fg shadow-lg">
+              {secs}
             </span>
+          ) : null}
+        </div>
+        <div className="flex flex-col gap-3">
+          {others.map((o) => (
+            <div key={o.url} className="opacity-70">
+              <Viewport site={o} h={150} y={0} small />
+              <p className="mt-1 truncate text-[0.8rem] text-subtle">{o.name}</p>
+            </div>
           ))}
         </div>
       </div>
-
-      <div className="flex items-center gap-3 rounded-xl bg-surface px-4 py-3">
-        <span className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-surface-2">
-          <ImageIcon className="size-6 text-accent" aria-hidden />
-        </span>
-        <div className="min-w-0 flex-1">
-          <p className="text-[0.95rem] text-fg">{t > 5400 ? "Uploading job photo" : "Add job photo"}</p>
-          <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-bg">
-            <div className="h-full rounded-full bg-accent" style={{ width: `${upload * 100}%` }} />
-          </div>
-        </div>
-      </div>
-
-      <div className="min-h-[3.4rem]">
-        {t > 7600 ? (
-          <div style={pop} className="flex items-center gap-2 rounded-xl bg-[#14301d] px-4 py-3 text-[1rem] text-[#86efac]">
-            <Check className="size-5" strokeWidth={3} aria-hidden />
-            Post published to the profile
-          </div>
-        ) : null}
-      </div>
-
-      <div className="mt-auto rounded-xl bg-surface px-4 py-3">
-        <Meter value={Math.min(100, strength)} label="Profile filled in" />
-        {t > 9000 ? (
-          <p style={pop} className="mt-2 text-[1.05rem] font-semibold text-fg">
-            Every box filled. <span className="text-accent">Done for you.</span>
-          </p>
-        ) : null}
+      <div className="flex flex-wrap gap-2">
+        {s.checks.map((c, i) =>
+          back || k > 1000 + i * 1200 ? (
+            <span key={`${idx}-${c}`} style={pop} className="flex items-center gap-1.5 rounded-full bg-accent px-3 py-1.5 text-[0.92rem] font-semibold text-accent-fg">
+              <Check className="size-4" strokeWidth={3} aria-hidden />
+              {c}
+            </span>
+          ) : null,
+        )}
       </div>
     </div>
   );
-};
+}
 
 /* ------------------------------------------------------------------------ */
-/*  2 · Reviews: asked automatically, a real one lands (AutoGloss)           */
+/*  4 · A page for every service: R&D's real pages                           */
+/* ------------------------------------------------------------------------ */
+
+const PAGES = [
+  { src: "/slides/proof/svc-emergency.jpg", url: "/services/emergency-service" },
+  { src: "/slides/proof/svc-commercial.jpg", url: "/services/commercial-construction" },
+  { src: "/slides/proof/svc-newcon.jpg", url: "/services/residential-new-construction" },
+  { src: "/slides/proof/svc-repairs.jpg", url: "/services/repairs-and-service" },
+  { src: "/slides/proof/svc-filtration.jpg", url: "/services/whole-house-water-filtration" },
+  { src: "/slides/proof/area-fairhope.jpg", url: "/service-areas/fairhope" },
+  { src: "/slides/proof/area-daphne.jpg", url: "/service-areas/daphne" },
+  { src: "/slides/proof/area-gulf-shores.jpg", url: "/service-areas/gulf-shores" },
+];
+/** R&D has 5 service pages and 11 town pages (rdplumbingco.com nav, 29 Sept). */
+const TOTAL_PAGES = 16;
+const PER_PAGE = 2000;
+export const SERVICE_PAGES_MS = 21_500;
+
+export function ServicePagesDemo(t: number) {
+  t = clampT(t);
+  const gridAt = PER_PAGE * PAGES.length + 300;
+  if (t >= gridAt) {
+    return (
+      <div className="flex h-full flex-col gap-3">
+        <p style={pop} className="font-display text-xl font-semibold uppercase tracking-display text-fg">
+          One page per job. <span className="text-accent">One per town.</span>
+        </p>
+        <div className="grid grid-cols-3 gap-2">
+          {PAGES.map((p, i) => (
+            <figure key={p.url} style={appear(i * 90, 380)}>
+              <img src={p.src} alt="" className="aspect-[16/10] w-full rounded-md object-cover object-top shadow-[0_0_0_1px_#2e2e2e]" />
+              <figcaption className="mt-0.5 truncate font-mono text-[0.75rem] text-subtle">{p.url}</figcaption>
+            </figure>
+          ))}
+          <div style={appear(800, 380)} className="flex aspect-[16/10] flex-col items-center justify-center rounded-md bg-surface-2 text-center">
+            <p className="slide-num font-display text-3xl font-semibold text-accent">+{TOTAL_PAGES - PAGES.length}</p>
+            <p className="text-[0.8rem] text-muted">more town pages</p>
+          </div>
+        </div>
+        <p style={appear(1000)} className="mt-auto rounded-lg bg-surface px-4 py-3 text-[1.05rem] text-fg shadow-[var(--shadow-border)]">
+          <span className="slide-num font-display text-2xl font-semibold text-accent">{TOTAL_PAGES}</span> pages Google can show for R&amp;D Plumbing
+        </p>
+      </div>
+    );
+  }
+  const idx = Math.min(PAGES.length - 1, Math.floor(t / PER_PAGE));
+  const p = PAGES[idx];
+  return (
+    <div className="flex h-full flex-col gap-3">
+      <div className="flex items-baseline justify-between">
+        <p className="text-[1rem] text-muted">rdplumbingco.com</p>
+        <p className="text-[1rem] text-fg">
+          <span className="slide-num font-display text-2xl font-semibold text-accent">{idx + 1}</span> pages
+        </p>
+      </div>
+      <div key={idx} style={appear(0, 450)}>
+        <Frame url={`rdplumbingco.com${p.url}`}>
+          <img src={p.src} alt="" className="block w-full" />
+        </Frame>
+      </div>
+      <div className="grid grid-cols-8 gap-1">
+        {PAGES.map((q, i) => (
+          <div
+            key={q.url}
+            className={cn("h-10 overflow-hidden rounded-sm transition-opacity", i <= idx ? "opacity-100" : "opacity-15")}
+          >
+            <img src={q.src} alt="" className="h-full w-full object-cover object-top" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/*  5 · Posting: every Wednesday + Saturday, website blog + Google profile   */
 /* ------------------------------------------------------------------------ */
 
 /**
- * The ask (text, stars) is an illustration of how the request works. The
- * review that lands is real: Erika Rankin's Google review, quoted on
- * autoglossnc.com's "91 five-star reviews" section (read 29 Sept 2026).
- * No owner reply is written in Jeff's voice; the chip just says one posted.
+ * Real R&D posts and dates (rdplumbingco.com/blog, 29 Sept): Wed 2 Sept
+ * "She Thought Her Septic Tank Was Bad…", Sat 5 Sept "Convenience Store
+ * Plumbing…". R&D's Google profile was still in verification on 29 Sept, so
+ * the Google-profile copy is tagged Illustration. Blog + Google only: no
+ * Facebook or Instagram (Christian, 29 Sept).
  */
-export const REVIEWS_MS = 11000;
+const WEEK = [
+  ["Mon", "31"],
+  ["Tue", "1"],
+  ["Wed", "2"],
+  ["Thu", "3"],
+  ["Fri", "4"],
+  ["Sat", "5"],
+  ["Sun", "6"],
+] as const;
 
-export const ReviewsDemo = (t: number): ReactNode => {
-  const stars = [0, 1, 2, 3, 4].filter((i) => t > 2900 + i * 170).length;
+const POSTS = [
+  {
+    day: "Wed",
+    src: "/slides/proof/post-wed.jpg",
+    title: "She Thought Her Septic Tank Was Bad. It Was the Line Under Her House.",
+    at: 1200,
+  },
+  {
+    day: "Sat",
+    src: "/slides/proof/post-sat.jpg",
+    title: "Convenience Store Plumbing: Food Service, Restrooms and Floor Drains",
+    at: 7600,
+  },
+];
+export const POSTING_MS = 19_500;
+
+export function PostingDemo(t: number) {
+  t = clampT(t);
+  const finalAt = 14_000;
+  const posted = POSTS.filter((p) => t >= p.at + 3600).map((p) => p.day);
+  const active = [...POSTS].reverse().find((p) => t >= p.at);
   return (
-    <div className="flex h-full w-full flex-col gap-3">
-      <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl bg-bg-elevated shadow-[var(--shadow-border)]">
-        <div className="flex items-center gap-3 border-b border-line px-4 py-3">
-          <span className="flex size-9 items-center justify-center rounded-full bg-surface-2">
-            <MessageSquare className="size-4 text-accent" aria-hidden />
-          </span>
-          <span className="flex-1 text-[1.05rem] font-semibold text-fg">Your customer</span>
-          <Tag>How the ask works</Tag>
+    <div className="flex h-full flex-col gap-3">
+      <div className="grid grid-cols-7 gap-1">
+        {WEEK.map(([d, n]) => {
+          const done = posted.includes(d as "Wed" | "Sat");
+          const live = active?.day === d && !done && t < finalAt;
+          return (
+            <div
+              key={d}
+              className={cn(
+                "flex flex-col items-center rounded-md py-1.5 text-[0.85rem] transition-colors",
+                done ? "bg-accent text-accent-fg" : live ? "bg-surface-2 text-fg shadow-[0_0_0_2px_var(--color-accent)]" : "bg-surface text-subtle",
+              )}
+            >
+              <span>{d}</span>
+              <span className="slide-num font-semibold">{done ? <Check className="size-4" strokeWidth={3} aria-hidden /> : n}</span>
+            </div>
+          );
+        })}
+      </div>
+      {t >= finalAt ? (
+        <div className="flex min-h-0 flex-1 flex-col gap-3">
+          <div style={appear(0, 500)}>
+            <Frame url="rdplumbingco.com/blog">
+              <img src="/slides/proof/blog.jpg" alt="R&D Plumbing blog" className="block w-full" />
+            </Frame>
+          </div>
+          <p style={appear(400)} className="font-display text-lg font-semibold uppercase tracking-display text-fg">
+            Every Wednesday and Saturday. <span className="text-accent">You didn&rsquo;t touch it.</span>
+          </p>
+          <p style={appear(700)} className="text-[0.9rem] text-muted">Website blog + Google profile · R&amp;D Plumbing&rsquo;s real posts</p>
         </div>
-        <div className="flex flex-1 flex-col justify-end gap-2.5 px-4 pb-4">
-          {t > 300 ? (
-            <div style={pop} className="flex items-center justify-center gap-2 rounded-full bg-surface-2 px-3 py-1.5 text-[0.95rem] text-fg">
-              <Check className="size-4 text-accent" strokeWidth={3} aria-hidden />
-              Job marked <b>Closed</b>
-            </div>
-          ) : null}
-          {t > 1300 ? (
-            <div style={pop} className="flex flex-col items-end">
-              <p className="max-w-[90%] rounded-2xl rounded-br-md bg-accent px-4 py-2 text-[1rem] leading-snug text-accent-fg">
-                Thanks for choosing AutoGloss! How did we do? Tap a star.
-              </p>
-              <span className="mt-1 text-[0.85rem] text-subtle">Sent automatically</span>
-            </div>
-          ) : null}
-          <div className="flex h-8 gap-1">
-            {[0, 1, 2, 3, 4].map((i) =>
-              i < stars ? <Star key={i} style={pop} className="size-8 fill-[#f5b301] text-[#f5b301]" aria-hidden /> : null,
+      ) : active ? (
+        <div key={active.day} className="flex min-h-0 flex-1 flex-col gap-3">
+          <div style={appear(0, 500)}>
+            <Frame url={`rdplumbingco.com/blog · ${active.day === "Wed" ? "Wed Sept 2" : "Sat Sept 5"}`}>
+              <img src={active.src} alt="" className="block w-full" />
+            </Frame>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              ["Website blog", active.at + 1400, false],
+              ["Google profile", active.at + 2600, true],
+            ].map(([label, at, illus]) =>
+              t >= (at as number) ? (
+                <div key={label as string} style={pop} className="rounded-lg bg-white px-3 py-2 text-[#202124]">
+                  <p className="flex items-center gap-1.5 text-[0.9rem] font-semibold">
+                    {label === "Website blog" ? <Globe className="size-4 text-[#1a73e8]" aria-hidden /> : <MapPin className="size-4 text-[#ea4335]" aria-hidden />}
+                    {label as string}
+                    <Check className="ml-auto size-4 text-[#188038]" strokeWidth={3} aria-hidden />
+                  </p>
+                  <p className="line-clamp-1 text-[0.8rem] text-[#5f6368]">{active.title}</p>
+                  {illus ? <p className="text-[0.7rem] text-[#9aa0a6]">Illustration</p> : null}
+                </div>
+              ) : (
+                <div key={label as string} className="rounded-lg bg-surface px-3 py-2 text-[0.9rem] text-subtle">
+                  {label as string}
+                </div>
+              ),
             )}
-          </div>
-          {t > 4200 ? (
-            <div style={pop} className="rounded-xl bg-surface-2 px-3 py-2 text-[0.95rem] text-fg">
-              Sent to the Google page ↓
-            </div>
-          ) : null}
-        </div>
-      </div>
-
-      <div className="flex min-h-0 flex-[1.1] flex-col rounded-2xl bg-white px-5 py-4 text-[#1a1a1a]">
-        <div className="flex items-baseline justify-between gap-3">
-          <p className="truncate text-[1.05rem] font-semibold">AUTOGLOSS Detailing &amp; Ceramic Coating</p>
-          <p className="shrink-0 text-[1rem]">
-            <span className="font-semibold">5.0</span> <span className="text-[#f5b301]">★</span> · 91 reviews
-          </p>
-        </div>
-        {t > 5600 ? (
-          <div style={pop} className="mt-3 rounded-lg bg-[#f1f5f1] px-3 py-2">
-            <p className="text-[0.95rem]">
-              <b>Erika R.</b> <span className="text-[#f5b301]">★★★★★</span> <span className="text-[#777]">Google review</span>
-            </p>
-            <p className="mt-1 text-[0.95rem] leading-snug">
-              &ldquo;Jeff did an amazing job removing a painted on pinstripe from my new Jeep Grand Cherokee! He
-              responded quickly to my call&hellip;&rdquo;
-            </p>
-            {t > 7600 ? (
-              <span style={pop} className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#e8f0fe] px-2.5 py-0.5 text-[0.85rem] text-[#1a73e8]">
-                <Check className="size-3.5" strokeWidth={3} aria-hidden />
-                Reply posted
-              </span>
-            ) : null}
-          </div>
-        ) : null}
-        {t > 9000 ? (
-          <p style={pop} className="mt-auto text-[1rem] font-semibold">
-            Asked every job. Answered every time.
-          </p>
-        ) : null}
-      </div>
-    </div>
-  );
-};
-
-/* ------------------------------------------------------------------------ */
-/*  3 · Website: five seconds, then the whole real build                     */
-/* ------------------------------------------------------------------------ */
-
-export const WEBSITE_MS = 12000;
-
-export const WebsiteDemo = (t: number): ReactNode => {
-  const secs = Math.max(0, 5 - Math.floor(t / 1000));
-  const scroll = prog(t, 5600, 5400);
-  const checks = ["What + where", "Licensed + insured", "Tap to call"];
-  return (
-    <div className="flex h-full w-full flex-col gap-3">
-      <div className="relative">
-        <Browser url="rdplumbingco.com">
-          <img
-            src="/slides/proof/rd-scroll.jpg"
-            alt="R&D Plumbing Co. website, top to bottom"
-            className="w-full"
-            style={{ transform: `translateY(calc(${-scroll} * (100% - 430px)))` }}
-          />
-          {t < 5400 ? (
-            <div className="absolute top-3 right-3 flex size-16 items-center justify-center rounded-full bg-black/80 font-display text-[2rem] font-semibold text-white tabular-nums">
-              {secs}
-            </div>
-          ) : null}
-        </Browser>
-      </div>
-      <div className="flex min-h-[3rem] flex-wrap gap-2">
-        {t < 5600
-          ? checks.map((c, i) =>
-              t > 1200 + i * 1100 ? (
-                <span key={c} style={pop} className="flex items-center gap-1.5 rounded-full bg-accent px-3 py-1.5 text-[1rem] font-semibold text-accent-fg">
-                  <Check className="size-4" strokeWidth={3} aria-hidden />
-                  {c}
-                </span>
-              ) : null,
-            )
-          : null}
-        {t >= 5600 && t < 10800 ? (
-          <span style={pop} className="rounded-full bg-surface-2 px-3 py-1.5 text-[1rem] text-fg">
-            Services · gallery · service areas · FAQ · free estimate
-          </span>
-        ) : null}
-        {t >= 10800 ? (
-          <span style={pop} className="font-display text-[1.4rem] font-semibold uppercase tracking-display text-fg">
-            Built right. <span className="text-accent">Not a template.</span>
-          </span>
-        ) : null}
-      </div>
-    </div>
-  );
-};
-
-/* ------------------------------------------------------------------------ */
-/*  4 · A page for every service (R&D's real pages)                          */
-/* ------------------------------------------------------------------------ */
-
-export const SERVICE_PAGES_MS = 12000;
-
-const RD_SERVICES: [string, string][] = [
-  ["Emergency Service", "emergency-service"],
-  ["Commercial Construction", "commercial-construction"],
-  ["Residential New Construction", "residential-new-construction"],
-  ["Repairs & Service", "repairs-and-service"],
-  ["Whole-House Water Filtration", "whole-house-water-filtration"],
-];
-const RD_AREAS = [
-  "Fairhope", "Daphne", "Spanish Fort", "Foley", "Gulf Shores", "Orange Beach",
-  "Loxley", "Robertsdale", "Silverhill", "Bay Minette", "Mobile",
-];
-const slug = (s: string) => s.toLowerCase().replace(/ /g, "-");
-
-export const ServicePagesDemo = (t: number): ReactNode => {
-  const svc = RD_SERVICES.filter((_, i) => t > 300 + i * 450).length;
-  const areas = RD_AREAS.filter((_, i) => t > 2700 + i * 260).length;
-  const pages = svc + areas;
-  const search = t > 7000;
-  return (
-    <div className="flex h-full w-full flex-col gap-3">
-      {!search ? (
-        <div className="flex min-h-0 flex-1 flex-col rounded-2xl bg-white px-5 py-4 text-[#1a1a1a]">
-          <div className="flex items-center justify-between border-b border-[#e5e5e5] pb-2">
-            <p className="text-[1.05rem] font-bold">R&amp;D PLUMBING CO.</p>
-            <p className="text-[0.95rem] text-[#555]">Services ▾ · Service areas ▾</p>
-          </div>
-          <div className="mt-3 grid min-h-0 flex-1 grid-cols-2 gap-x-4">
-            <ul className="space-y-1.5">
-              <li className="text-[0.8rem] font-semibold uppercase tracking-wide text-[#888]">Services</li>
-              {RD_SERVICES.slice(0, svc).map(([name, s]) => (
-                <li key={s} style={pop}>
-                  <p className="text-[0.95rem] font-semibold leading-tight">{name}</p>
-                  <p className="truncate font-mono text-[0.75rem] text-[#15803d]">/services/{s}</p>
-                </li>
-              ))}
-            </ul>
-            <ul className="space-y-0.5">
-              <li className="text-[0.8rem] font-semibold uppercase tracking-wide text-[#888]">Service areas</li>
-              {RD_AREAS.slice(0, areas).map((a) => (
-                <li key={a} style={pop} className="flex items-baseline justify-between gap-2">
-                  <span className="text-[0.95rem] font-semibold">{a}</span>
-                  <span className="truncate font-mono text-[0.72rem] text-[#15803d]">/{slug(a)}</span>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       ) : (
-        <div style={pop} className="relative min-h-0 flex-1 overflow-hidden rounded-2xl bg-white text-[#1a1a1a]">
-          <GoogleSearch q="emergency plumber daphne al" t={t} typeAt={7300}>
-            {t > 8600 ? (
-              <div style={pop} className="relative">
-                <Result
-                  label="rdplumbingco.com › service-areas › daphne"
-                  title="Plumber in Daphne, AL · R&D Plumbing Co."
-                  line="Emergency plumbing in Daphne and across Baldwin County…"
-                  hot
-                />
-                {t > 9400 ? <Tap at={0} /> : null}
-              </div>
-            ) : null}
-            {t > 8600 ? (
-              <>
-                <Result label="example.com" title="Another plumber" line="Services · About · Contact" />
-                <Result label="example.com" title="A directory listing" line="Top 10 plumbers near you" />
-              </>
-            ) : null}
-          </GoogleSearch>
-          <span className="absolute top-4 right-4 rounded-full bg-[#eee] px-2.5 py-0.5 text-[0.8rem] uppercase tracking-wide text-[#777]">
-            Illustration
-          </span>
-        </div>
+        <p className="text-[1rem] text-muted">This week&rsquo;s posts…</p>
       )}
-      <div className="flex items-center justify-between rounded-xl bg-surface px-4 py-3 shadow-[var(--shadow-border)]">
-        <p className="text-[1.05rem] text-fg">
-          <span className="slide-num font-display text-[1.8rem] font-semibold text-accent tabular-nums">{pages}</span>{" "}
-          pages Google can show
-        </p>
-        {t > 10000 ? (
-          <p style={pop} className="text-[1rem] font-semibold text-fg">
-            One per job. One per town.
-          </p>
-        ) : null}
-      </div>
     </div>
   );
-};
-
-/* ------------------------------------------------------------------------ */
-/*  5 · Posting: Wednesday + Saturday, every week                            */
-/* ------------------------------------------------------------------------ */
-
-export const POSTING_MS = 11500;
-
-const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const CHANNELS = ["Google", "Website", "Facebook", "Instagram"];
-/** Real titles from rdplumbingco.com/blog (read 29 Sept 2026). */
-const POSTS = [
-  { day: 2, at: 400, title: "Grinder Pump Failures: What Baldwin County Property Owners Need to Know" },
-  { day: 5, at: 4400, title: "She Thought Her Septic Tank Was Bad. It Was the Line Under Her House." },
-];
-
-export const PostingDemo = (t: number): ReactNode => {
-  const current = t < POSTS[1].at ? POSTS[0] : POSTS[1];
-  const local = t - current.at;
-  const published = CHANNELS.filter((_, i) => local > 2000 + i * 300).length;
-  const nextWeek = t > 8400;
-  return (
-    <div className="flex h-full w-full flex-col gap-3 rounded-2xl bg-bg-elevated p-5 shadow-[var(--shadow-border)]">
-      <div className="flex items-center justify-between">
-        <p className="text-[1.2rem] font-semibold text-fg">Posting calendar</p>
-        <Tag>R&amp;D Plumbing&rsquo;s real posts</Tag>
-      </div>
-
-      {[0, 1].map((week) =>
-        week === 1 && !nextWeek ? null : (
-          <div key={week} style={week === 1 ? pop : undefined}>
-            <p className="mb-1 text-[0.85rem] uppercase tracking-wide text-subtle">{week === 0 ? "This week" : "Next week"}</p>
-            <div className="grid grid-cols-7 gap-1.5">
-              {DAYS.map((d, i) => {
-                const done =
-                  week === 1
-                    ? i === 2 || i === 5
-                    : POSTS.some((p) => p.day === i && t > p.at + 3400);
-                const live = week === 0 && POSTS.some((p) => p.day === i && t > p.at && t <= p.at + 3400);
-                return (
-                  <div
-                    key={d}
-                    className={cn(
-                      "flex flex-col items-center rounded-lg py-2 text-[0.95rem]",
-                      done ? "bg-accent text-accent-fg" : live ? "bg-surface-2 text-fg shadow-[0_0_0_2px_var(--color-accent)]" : "bg-surface text-subtle",
-                    )}
-                  >
-                    {d}
-                    <span className="h-4">{done ? <Check className="size-4" strokeWidth={3} aria-hidden /> : null}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ),
-      )}
-
-      {!nextWeek ? (
-        <div key={current.day} style={pop} className="rounded-xl bg-white px-4 py-3 text-[#1a1a1a]">
-          <p className="text-[0.8rem] uppercase tracking-wide text-[#888]">{DAYS[current.day]} · new post</p>
-          <p className="mt-1 min-h-[3rem] text-[1.1rem] font-semibold leading-snug">
-            {typed(current.title, t, current.at + 200, 40)}
-          </p>
-        </div>
-      ) : null}
-
-      {!nextWeek ? (
-        <div className="grid grid-cols-2 gap-2">
-          {CHANNELS.map((c, i) => (
-            <div
-              key={c}
-              className={cn(
-                "flex items-center justify-between rounded-lg px-3 py-2 text-[1rem]",
-                i < published ? "bg-[#14301d] text-[#86efac]" : "bg-surface text-subtle",
-              )}
-            >
-              {c}
-              {i < published ? (
-                <span style={pop} className="flex items-center gap-1 text-[0.9rem]">
-                  <Check className="size-4" strokeWidth={3} aria-hidden />
-                  Published
-                </span>
-              ) : null}
-            </div>
-          ))}
-        </div>
-      ) : null}
-
-      {t > 9400 ? (
-        <p style={pop} className="mt-auto font-display text-[1.4rem] font-semibold uppercase leading-tight tracking-display text-fg">
-          Twice a week. Every week. <span className="text-accent">You didn&rsquo;t touch it.</span>
-        </p>
-      ) : null}
-    </div>
-  );
-};
+}

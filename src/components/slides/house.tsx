@@ -1,4 +1,3 @@
-import { useDeck } from "@/lib/deck-store";
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import { Body, Display, HouseGraphic, Kicker, SlidePad } from "./primitives";
@@ -17,60 +16,27 @@ const NINE = [
 ];
 
 export function ScoreRecapSlide() {
-  const marks = useDeck((s) => s.marks);
-  const toggle = useDeck((s) => s.toggleMark);
-  const score = useDeck((s) => s.score());
   return (
     <SlidePad>
       <Kicker>Add it up</Kicker>
-      <div className="mt-3 flex items-end justify-between gap-6">
-        <Display className="text-5xl">Your nine.</Display>
-        <p className="font-display text-5xl font-semibold tracking-display text-accent slide-num">
-          {score}
-          <span className="text-subtle"> / 9</span>
-        </p>
-      </div>
+      <Display className="mt-3 text-4xl min-[701px]:text-[3.2rem]">Your nine. What did you get?</Display>
       <p className="mt-2 text-[1.35rem] text-muted">
-        That&rsquo;s the one you gave yourself.{" "}
+        Put your number in the chat.{" "}
         <span className="text-fg">I already ran the real one on your business.</span>{" "}
         <span className="text-accent">You get it at the end.</span>
       </p>
       <ol className="mt-6 grid flex-1 grid-cols-1 gap-3 min-[901px]:grid-cols-3">
-        {NINE.map((item) => {
-          const on = Boolean(marks[item.n]);
-          return (
-            <li key={item.n}>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggle(item.n);
-                }}
-                className={cn(
-                  "flex w-full items-center gap-4 rounded-lg px-5 py-4 text-left transition-colors duration-[var(--motion-quick)]",
-                  on ? "bg-surface-2" : "bg-surface",
-                )}
-              >
-                <span
-                  className={cn(
-                    "flex size-8 shrink-0 items-center justify-center rounded-sm",
-                    on ? "bg-accent text-accent-fg" : "bg-bg text-subtle",
-                  )}
-                >
-                  {on ? (
-                    <Check className="size-4" strokeWidth={2.5} />
-                  ) : (
-                    <span className="slide-num text-sm">{item.n}</span>
-                  )}
-                </span>
-                <span>
-                  <span className="block text-lg text-fg">{item.label}</span>
-                  <span className="text-sm text-subtle">{item.layer}</span>
-                </span>
-              </button>
-            </li>
-          );
-        })}
+        {NINE.map((item) => (
+          <li key={item.n} className="flex items-center gap-4 rounded-lg bg-surface px-5 py-4">
+            <span className="flex size-8 shrink-0 items-center justify-center rounded-sm bg-bg text-subtle">
+              <span className="slide-num text-sm">{item.n}</span>
+            </span>
+            <span>
+              <span className="block text-lg text-fg">{item.label}</span>
+              <span className="text-sm text-subtle">{item.layer}</span>
+            </span>
+          </li>
+        ))}
       </ol>
     </SlidePad>
   );
@@ -156,26 +122,20 @@ export function MathSlide() {
 }
 
 /**
- * Right after the prices. From the 24 Sept critique: say exactly what each
- * price buys, and how the two plans together cover the nine. Every line is
- * from the plan copy in cjp-frontdesk (src/lib/plans.ts) or the sales scripts.
+ * Right after the prices. 29 Sept 2026: the old two-column version was a wall
+ * of words. Now a grid: the nine down the side, the three plans across, a
+ * check where the plan does it. Which plan covers which check comes from
+ * nine.ts (`plan`), which mirrors cjp-frontdesk plans.ts.
  */
 export function WhatYouGetSlide() {
-  const cols = [
-    {
-      name: "Essentials",
-      price: "$297",
-      count: "4 of the nine",
-      lead: "The foundation.",
-      checks: NINE_CHECKS.filter((c) => c.plan === "essentials"),
-    },
-    {
-      name: "Growth",
-      price: "$497",
-      count: "All nine",
-      lead: "Everything in Essentials, plus:",
-      checks: NINE_CHECKS.filter((c) => c.plan === "growth"),
-    },
+  const plans = [
+    { name: "Essentials", price: "$297", tier: 1 },
+    { name: "Growth", price: "$497", tier: 2 },
+    { name: "Pro", price: "$997", tier: 3 },
+  ];
+  const rows = [
+    ...NINE_CHECKS.map((c) => ({ label: c.name.replace(/^Your (\w)/, (_, ch: string) => ch.toUpperCase()), from: c.plan === "essentials" ? 1 : 2 })),
+    { label: "Google ads + Local Service Ads, run for you", from: 3 },
   ];
   return (
     <SlidePad>
@@ -184,41 +144,51 @@ export function WhatYouGetSlide() {
           <Kicker>What you actually get</Kicker>
           <Display className="mt-3 text-4xl">Check by check.</Display>
         </div>
-        <p className="max-w-[30ch] pb-1 text-right text-base leading-snug text-muted">
-          Pro, $997: all nine, plus we run your Google ads. Month to month on all three.
-        </p>
+        <p className="pb-1 text-lg text-muted">Month to month. All three.</p>
       </div>
-      <div className="mt-5 grid min-h-0 gap-5 min-[901px]:grid-cols-2">
-        {cols.map((col) => (
-          <section
-            key={col.name}
-            className={cn(
-              "flex flex-col rounded-xl px-7 py-5",
-              col.name === "Growth"
-                ? "bg-surface-warm shadow-[0_0_0_2px_var(--color-accent)]"
-                : "bg-surface shadow-[var(--shadow-border)]",
-            )}
-          >
-            <div className="flex items-baseline justify-between gap-4">
-              <p className="font-display text-2xl font-semibold uppercase tracking-display">
-                {col.name} <span className="text-accent">{col.price}</span>
-                <span className="text-lg text-subtle">/mo</span>
-              </p>
-              <p className="font-display text-xl font-semibold uppercase tracking-display text-accent">{col.count}</p>
-            </div>
-            <p className="mt-1 text-base text-muted">{col.lead}</p>
-            <ul className="mt-3 space-y-2">
-              {col.checks.map((c) => (
-                <li key={c.n} className="flex items-baseline gap-4">
-                  <span className="slide-num w-9 shrink-0 font-display text-xl font-semibold text-accent">
-                    {String(c.n).padStart(2, "0")}
+      <div className="mt-5 min-h-0 overflow-hidden rounded-xl bg-surface shadow-[var(--shadow-border)]">
+        <table className="w-full border-collapse text-left">
+          <thead>
+            <tr className="border-b border-line">
+              <th className="px-6 py-3" />
+              {plans.map((p) => (
+                <th key={p.name} className={cn("w-44 px-4 py-3 text-center", p.tier === 2 && "bg-surface-warm")}>
+                  <span className="block font-display text-[1.4rem] font-semibold tracking-display text-fg uppercase">{p.name}</span>
+                  <span className="block font-display text-[1.8rem] font-semibold text-accent">
+                    {p.price}
+                    <span className="text-[1rem] text-subtle">/mo</span>
                   </span>
-                  <span className="text-base leading-snug text-fg">{c.weDo}</span>
-                </li>
+                </th>
               ))}
-            </ul>
-          </section>
-        ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r, i) => (
+              <tr key={r.label} className="border-b border-line/60 last:border-b-0">
+                <td className="px-6 py-[0.35rem] text-[1.3rem] text-fg">
+                  <span className="slide-num mr-3 inline-block w-7 font-display text-accent">
+                    {i < 9 ? String(i + 1).padStart(2, "0") : "+"}
+                  </span>
+                  {r.label}
+                </td>
+                {plans.map((p) => (
+                  <td key={p.name} className={cn("px-4 py-[0.35rem]", p.tier === 2 && "bg-surface-warm")}>
+                    {p.tier >= r.from ? (
+                      <Check
+                        className="mx-auto size-6 text-accent"
+                        strokeWidth={3}
+                        aria-label="Included"
+                        style={{ opacity: 0, animation: `rise-in 360ms var(--ease-out) ${300 + p.tier * 500 + i * 60}ms forwards` }}
+                      />
+                    ) : (
+                      <span className="mx-auto block h-0.5 w-4 bg-line-strong" aria-label="Not included" />
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </SlidePad>
   );

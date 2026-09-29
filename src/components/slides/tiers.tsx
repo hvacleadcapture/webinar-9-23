@@ -3,7 +3,7 @@ import { NINE } from "@/lib/nine";
 import { DemoThenPicture } from "./demo-kit";
 import { PostingDemo, POSTING_MS, ProfileDemo, PROFILE_MS, ReviewsDemo, REVIEWS_MS, ServicePagesDemo, SERVICE_PAGES_MS, WebsiteDemo, WEBSITE_MS } from "./demos-a";
 import { AiDemo, AI_MS, CitationsDemo, CITATIONS_MS, KeywordsDemo, KEYWORDS_MS, PhoneDemo, PHONE_MS } from "./demos-b";
-import { Body, DashItem, Display, Kicker, NineRail, Photo, Plain, ScoreChip, SlidePad } from "./primitives";
+import { Body, DashItem, Display, Kicker, NineRail, Photo, Plain, SlidePad } from "./primitives";
 
 function Split({
   kicker,
@@ -33,7 +33,6 @@ function Split({
             ))}
           </ul>
           {caption ? <p className="mt-8 text-sm text-subtle">{caption}</p> : null}
-          {score ? <ScoreChip n={score} /> : null}
         </div>
         {children}
         <NineRail active={score} />
@@ -80,21 +79,8 @@ export function ProfileSlide() {
               <DashItem key={item}>{item}</DashItem>
             ))}
           </ul>
-          <ScoreChip n={1} />
         </div>
-        <DemoThenPicture duration={PROFILE_MS} demo={ProfileDemo} className="hidden w-[500px] shrink-0 min-[901px]:flex">
-        <div className="grid h-full grid-cols-3 gap-3">
-          {[
-            ["/slides/user-added/benrishi-gbp.png", "Benrishi Electrical Google Business Profile"],
-            ["/slides/user-added/two-koats-gbp.png", "Two Koats Painting Google Business Profile"],
-            ["/slides/user-added/93-electric-gbp.png", "93 Electric Google Business Profile"],
-          ].map(([src, alt]) => (
-            <div key={src} className="flex min-h-0 items-center justify-center overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-border)]">
-              <img src={src} alt={alt} className="max-h-full w-full object-contain" />
-            </div>
-          ))}
-        </div>
-        </DemoThenPicture>
+        <DemoThenPicture duration={PROFILE_MS} demo={ProfileDemo} className="hidden w-[500px] shrink-0 min-[901px]:flex" />
         <NineRail active={1} />
       </div>
     </SlidePad>
@@ -109,14 +95,7 @@ export function ReviewsSlide() {
       items={["New review, last 30 days", "A reply on every one", "Asked for automatically"]}
       score={2}
     >
-      <DemoThenPicture duration={REVIEWS_MS} demo={ReviewsDemo} className="hidden w-[480px] shrink-0 min-[1100px]:flex">
-        <Photo
-          src="/slides/reviews-compare.jpg"
-          alt="Four reviews versus ninety-two reviews on two electrician listings"
-          className="h-full"
-          caption="their listing (4 reviews) · the top competitor (92)"
-        />
-      </DemoThenPicture>
+      <DemoThenPicture duration={REVIEWS_MS} demo={ReviewsDemo} className="hidden w-[480px] shrink-0 min-[1100px]:flex" />
     </Split>
   );
 }
@@ -127,28 +106,15 @@ export function WebsiteSlide() {
       <div className="flex min-h-0 flex-1 gap-8">
         <div className="flex min-w-0 flex-1 flex-col">
           <Kicker>Tier one · 3 of 3</Kicker>
-          <Display className="mt-4 text-5xl min-[701px]:text-[3.9rem]">Your website, in five seconds</Display>
-          <Plain n={3} />
+          <Display className="mt-4 text-4xl min-[701px]:text-[3rem]">Your website, in five seconds</Display>
+          <p className="mt-4 text-[1.3rem] leading-snug text-muted">A stranger lands on your site. Do they know what you do, where, and how to call?</p>
           <ul className="mt-6 space-y-3">
             {["What you do + where", "Licensed + insured", "Tap-to-call button", "All without scrolling"].map((item) => (
               <DashItem key={item}>{item}</DashItem>
             ))}
           </ul>
-          <ScoreChip n={3} />
         </div>
-        <DemoThenPicture duration={WEBSITE_MS} demo={WebsiteDemo} className="hidden w-[480px] shrink-0 min-[1000px]:flex">
-        <div className="flex h-full flex-col gap-2">
-          {[
-            ["/slides/garlock-site.jpg", "M.E. Garlock Construction"],
-            ["/slides/user-added/auto-gloss-website.png", "Auto Gloss"],
-            ["/slides/user-added/gordon-crane-website.png", "Gordon Crane Co."],
-          ].map(([src, alt]) => (
-            <div key={src} className="min-h-0 flex-1 overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-border)]">
-              <img src={src} alt={alt} className="h-full w-full object-cover object-top" />
-            </div>
-          ))}
-        </div>
-        </DemoThenPicture>
+        <DemoThenPicture duration={WEBSITE_MS} demo={WebsiteDemo} className="hidden w-[640px] shrink-0 min-[1000px]:flex" />
         <NineRail active={3} />
       </div>
     </SlidePad>
@@ -170,43 +136,8 @@ export function ServicePagesSlide() {
               <DashItem key={item}>{item}</DashItem>
             ))}
           </ul>
-          <ScoreChip n={4} />
         </div>
-        <DemoThenPicture duration={SERVICE_PAGES_MS} demo={ServicePagesDemo} className="hidden w-[500px] shrink-0 min-[901px]:flex">
-        <div className="flex h-full flex-col gap-3">
-          <div className="rounded-lg bg-surface px-5 py-4 shadow-[var(--shadow-border)]">
-            <p className="text-kicker tracking-kicker text-subtle uppercase">Most sites</p>
-            <p className="mt-1 font-mono text-base text-muted">/services</p>
-          </div>
-          <div className="rounded-lg bg-surface px-5 py-4 shadow-[var(--shadow-border)]">
-            <p className="text-kicker tracking-kicker text-accent uppercase">The site above yours</p>
-            <ul className="mt-2 space-y-1 font-mono text-base text-fg">
-              <li>/panel-upgrades</li>
-              <li>/ev-charger-install</li>
-              <li>/generator-hookup</li>
-              <li>/knob-and-tube-rewiring</li>
-              <li>/recessed-lighting</li>
-            </ul>
-          </div>
-          <p className="text-sm text-subtle">an example · one page for everything vs one page per job</p>
-          <div className="grid grid-cols-2 gap-2">
-            <div className="h-28 overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-border)]">
-              <img
-                src="/slides/user-added/ds.png"
-                alt="DS HomeTech website navigation menu with a page for every service"
-                className="h-full w-full object-cover object-top"
-              />
-            </div>
-            <div className="h-28 overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-border)]">
-              <img
-                src="/slides/user-added/service-rep.png"
-                alt="Handyman repair website services menu listing individual job pages"
-                className="h-full w-full object-cover object-top"
-              />
-            </div>
-          </div>
-        </div>
-        </DemoThenPicture>
+        <DemoThenPicture duration={SERVICE_PAGES_MS} demo={ServicePagesDemo} className="hidden w-[500px] shrink-0 min-[901px]:flex" />
         <NineRail active={4} />
       </div>
     </SlidePad>
@@ -224,22 +155,12 @@ export function PostingSlide() {
           </Display>
           <Plain n={5} />
           <ul className="mt-6 space-y-3">
-            {["Something new, last 7 days", "Google. Site. Facebook. Instagram.", "We automate all of it"].map((item) => (
+            {["Every Wednesday and Saturday", "On your website and your Google profile", "We write it and post it"].map((item) => (
               <DashItem key={item}>{item}</DashItem>
             ))}
           </ul>
-          <ScoreChip n={5} />
         </div>
-        <DemoThenPicture duration={POSTING_MS} demo={PostingDemo} className="hidden w-[480px] shrink-0 min-[1000px]:flex">
-        <div className="grid h-full grid-rows-2 gap-3">
-          <div className="min-h-0 overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-border)]">
-            <img src="/slides/user-added/blog-posts.png" alt="Contractor website blog with recent posts" className="h-full w-full object-cover object-top" />
-          </div>
-          <div className="min-h-0 overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-border)]">
-            <img src="/slides/user-added/google-posts.png" alt="Google Business Profile posts published for an electrical contractor" className="h-full w-full object-contain" />
-          </div>
-        </div>
-        </DemoThenPicture>
+        <DemoThenPicture duration={POSTING_MS} demo={PostingDemo} className="hidden w-[480px] shrink-0 min-[1000px]:flex" />
         <NineRail active={5} />
       </div>
     </SlidePad>
@@ -255,15 +176,7 @@ export function AiSlide() {
       score={6}
       caption="Yelp, HomeAdvisor and Nextdoor tell ChatGPT, Claude and Perplexity: do not read this"
     >
-      <DemoThenPicture duration={AI_MS} demo={AiDemo} className="hidden w-[460px] shrink-0 min-[1100px]:flex">
-        <Photo
-          src="/slides/user-added/chatgpt-repair-near-me.png"
-          alt="ChatGPT recommending specific local repair shops by name for a 'repair near me' search"
-          className="h-full"
-          caption="ChatGPT names real businesses when asked — is yours one of them?"
-          contain
-        />
-      </DemoThenPicture>
+      <DemoThenPicture duration={AI_MS} demo={AiDemo} className="hidden w-[460px] shrink-0 min-[1100px]:flex" />
     </Split>
   );
 }
@@ -276,14 +189,7 @@ export function KeywordsSlide() {
       items={["The 10 searches that pay you", "Where you rank for each", "From their street, not yours"]}
       score={7}
     >
-      <DemoThenPicture duration={KEYWORDS_MS} demo={KeywordsDemo} className="hidden w-[460px] shrink-0 min-[1100px]:flex">
-        <Photo
-          src="/slides/mappack.jpg"
-          alt="Local map pack showing three electricians for a Taunton search"
-          className="h-full"
-          caption={"“electrician taunton” · three get shown · it changes by street"}
-        />
-      </DemoThenPicture>
+      <DemoThenPicture duration={KEYWORDS_MS} demo={KeywordsDemo} className="hidden w-[460px] shrink-0 min-[1100px]:flex" />
     </Split>
   );
 }
@@ -303,21 +209,8 @@ export function CitationsSlide() {
               <DashItem key={item}>{item}</DashItem>
             ))}
           </ul>
-          <ScoreChip n={8} />
         </div>
-        <DemoThenPicture duration={CITATIONS_MS} demo={CitationsDemo} className="hidden w-[460px] shrink-0 min-[1000px]:flex">
-        <div className="flex h-full flex-col gap-2">
-          {[
-            ["/slides/user-added/potts-links-top-blurred.png", "Potts Brothers search results and social profiles"],
-            ["/slides/user-added/potts-links-middle.png", "Potts Brothers local links and profiles"],
-            ["/slides/user-added/potts-links-bottom.png", "Potts Brothers additional local links"],
-          ].map(([src, alt]) => (
-            <div key={src} className="min-h-0 flex-1 overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-border)]">
-              <img src={src} alt={alt} className="h-full w-full object-contain" />
-            </div>
-          ))}
-        </div>
-        </DemoThenPicture>
+        <DemoThenPicture duration={CITATIONS_MS} demo={CitationsDemo} className="hidden w-[460px] shrink-0 min-[1000px]:flex" />
         <NineRail active={8} />
       </div>
     </SlidePad>
@@ -332,7 +225,7 @@ export function PhoneSlide() {
       items={["You miss the call", "A text goes out by itself", "They text back, not the next guy"]}
       score={9}
     >
-      <DemoThenPicture duration={PHONE_MS} hold={60_000} demo={PhoneDemo} className="hidden w-[470px] shrink-0 min-[1000px]:flex" />
+      <DemoThenPicture duration={PHONE_MS} demo={PhoneDemo} className="hidden w-[470px] shrink-0 min-[1000px]:flex" />
     </Split>
   );
 }

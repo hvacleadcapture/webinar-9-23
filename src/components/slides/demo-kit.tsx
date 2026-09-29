@@ -69,50 +69,34 @@ export function DemoThenPicture({
 
 function DemoClock({
   duration,
-  hold,
   demo,
-  picture,
 }: {
   duration: number;
   hold: number;
   demo: (t: number) => ReactNode;
   picture?: ReactNode;
 }) {
-  const end = duration + hold;
-  const t = useElapsed(picture ? end + 800 : duration + 200);
-  const showPicture = Boolean(picture) && t >= end;
-  return (
-    <div className="relative min-h-0 flex-1">
-      <div
-        className="absolute inset-0 flex flex-col transition-opacity duration-700"
-        style={{ opacity: showPicture ? 0 : 1, pointerEvents: showPicture ? "none" : undefined }}
-      >
-        {demo(Math.min(t, duration + 100))}
-      </div>
-      {picture ? (
-        <div
-          className="absolute inset-0 flex flex-col transition-opacity duration-700"
-          style={{ opacity: showPicture ? 1 : 0 }}
-        >
-          {picture}
-        </div>
-      ) : null}
-    </div>
-  );
+  // 29 Sept 2026: no fade to screenshots. The animation's last frame IS the
+  // picture, and it holds there.
+  const t = useElapsed(duration + 200);
+  return <div className="relative flex min-h-0 flex-1 flex-col">{demo(Math.min(t, duration + 100))}</div>;
 }
 
 
 /** Milliseconds since mount, ticking every 100ms until `until`. */
 export function useElapsed(until: number) {
+  // requestAnimationFrame, not a 100ms interval: 29 Sept "looked like shit FPS".
   const [t, setT] = useState(0);
   useEffect(() => {
     const start = performance.now();
-    const id = setInterval(() => {
-      const now = performance.now() - start;
-      setT(now);
-      if (now > until) clearInterval(id);
-    }, 100);
-    return () => clearInterval(id);
+    let raf = 0;
+    const tick = (now: number) => {
+      const e = Math.max(0, now - start);
+      setT(e);
+      if (e <= until) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
   }, [until]);
   return t;
 }
