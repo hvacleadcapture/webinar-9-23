@@ -32,6 +32,7 @@ import {
 } from "./house";
 import { AdsProofSlide, CtaSlide, ProofClipsSlide } from "./close";
 import { MissedCallDemoSlide } from "./demo";
+import { AfterYesSlide, SignalSlide, SignalTourSlide } from "./signal";
 import { AutoGlossSlide, ObjectionsSlide, PriceCompareSlide, ReferenceCallSlide, ResultsLeadsSlide, ResultsRanksSlide, ResultsTrafficSlide } from "./credibility";
 
 export type SlideDef = {
@@ -272,6 +273,18 @@ export const SLIDES: SlideDef[] = [
     Component: StructureSlide,
   },
   {
+    id: "signal",
+    title: "Every lead, on your phone",
+    notes: "This is the pitch, say it plainly: this is what you're paying for, not just a website. Signal comes with every plan. Walk the four left to right: phone buzzes the second a lead comes in, you see what they need and their photos before you drive, you text back from your business number not your cell, and when you close the job the review ask goes out by itself. No app store, it's a link they add to their home screen. The screens are a made-up HVAC company, say so if asked.",
+    Component: SignalSlide,
+  },
+  {
+    id: "signal-tour",
+    title: "One lead, start to finish",
+    notes: "Hit play, it's muted, talk over it. The beats: form comes in, phone buzzes, they get a text back right away. Tap to call, everything they said is right there. Ask for photos, see the job before you get in the truck. Book the visit from the lead. Customers text back, you answer from your business number. Tap Closed, the customer gets asked how you did: happy goes to Google, unhappy tells you first so you can make it right. Skip ahead if the room is restless; the still slide already made the point.",
+    Component: SignalTourSlide,
+  },
+  {
     id: "piece-by-piece",
     title: "Piece by piece vs one plan",
     notes: "If you went out and bought all of this separately, low-end small-business prices, it's $1,760 to $4,834 a month, plus $2,500 to $10,000 for the website. Walk down the checks: Essentials already covers the website, reviews and missed-call text back. Growth is everything but the ads. Ad spend isn't in any of these numbers. Sources for every range are in credibility.tsx.",
@@ -286,7 +299,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "what-you-get",
     title: "What you get, check by check",
-    notes: "This answers the Hometown Air note: say exactly what each price buys. Essentials covers four of the nine. Growth covers all nine. Walk the Growth column line by line. Posts are twice a week. If asked about ads: that's Pro, only once the foundation is working.",
+    notes: "This answers the Hometown Air note: say exactly what each price buys. Essentials covers four of the nine. Growth covers all nine. Walk the Growth column line by line. Posts are twice a week. Signal, the app from two slides back, comes with all three. If asked about ads: that's Pro, only once the foundation is working.",
     Component: WhatYouGetSlide,
   },
   {
@@ -300,6 +313,12 @@ export const SLIDES: SlideDef[] = [
     title: "Hear it from the owners",
     notes: "Click play on Micah and Richard. These are the two YouTube testimonials provided for the webinar.",
     Component: ProofClipsSlide,
+  },
+  {
+    id: "after-yes",
+    title: "When you say yes",
+    notes: "Take the mystery out of signing up. Five steps: the 20-minute call on their audit, the onboarding call where we get their info once and the build starts that day, we build the site, Google profile and job pages, Signal goes on their phone, then every week after it keeps running. Land the headline: we do the work, you answer the phone. Don't promise a go-live date. Read the bottom line out loud: month to month, domain, Google page, reviews and leads stay theirs. Never say they own the website.",
+    Component: AfterYesSlide,
   },
   {
     id: "objections",
