@@ -340,11 +340,12 @@ export function AutoGlossSlide() {
  *  Reviews         NiceJob pricing ($75 / $125); Podium Core $399
  *  Missed-call     CallRail from $55, Lead Conversion from $95; HelpGenie $40-80
  *  GBP management  Merchynt 2026 ($200-400 typical)
- *  Local SEO       GoodFirms 2026 ($500-1,500 local); Ahrefs SEO pricing survey
+ *  Local SEO       $1,000-3,000: Christian's figure, 29 Sept 2026 (was GoodFirms $500-1,500)
  *  Content         WebFX content pricing ($150-600 per post, 2-4 a month)
  *  Citations       BrightLocal Manage $54/mo; Yext SMB $199-999/yr
  *  Rank tracking   BrightLocal Track $41/mo
- *  Ads management  WebFX Google Ads Lite $750/mo; ClicksGeek 2026 $500-750
+ *  Ads management  $1,500-5,000: Christian's figure, 29 Sept 2026
+ *  (Listings + citations row removed 29 Sept: CJP only does this on the Google profile.)
  *
  * Which plan covers which line follows the "Check by check" slide
  * (house.tsx): Essentials = reviews, website, AI-readable site, missed-call
@@ -357,11 +358,10 @@ const PIECES: { item: string; market: string; from: Tier }[] = [
   { item: "Review requests, automatic", market: "$75–$399/mo", from: 1 },
   { item: "Missed-call text back", market: "$50–$150/mo", from: 1 },
   { item: "Google profile managed", market: "$200–$400/mo", from: 2 },
-  { item: "Local SEO", market: "$500–$1,500/mo", from: 2 },
+  { item: "Local SEO", market: "$1,000–$3,000/mo", from: 2 },
   { item: "Posts + blog, every week", market: "$300–$1,000/mo", from: 2 },
-  { item: "Listings + citations", market: "$20–$85/mo", from: 2 },
   { item: "Rank tracking + monthly report", market: "$40–$100/mo", from: 2 },
-  { item: "Google Ads / LSA managed", market: "$500–$1,000/mo", from: 3 },
+  { item: "Google Ads / LSA managed", market: "$1,500–$5,000/mo", from: 3 },
 ];
 const PLANS: { name: string; price: string; tier: Tier }[] = [
   { name: "Essentials", price: "$297", tier: 1 },
@@ -376,7 +376,7 @@ export function PriceCompareSlide() {
         <div>
           <Kicker>If you bought it piece by piece</Kicker>
           <Display className="mt-3 text-4xl min-[701px]:text-[3.3rem]">
-            $1,760–$4,834 a month. <span className="text-accent">Or one plan.</span>
+            $3,240–$10,249 a month. <span className="text-accent">Or one plan.</span>
           </Display>
         </div>
         <p className="hidden max-w-[26ch] pb-1 text-right text-sm leading-snug text-subtle min-[901px]:block">
@@ -422,7 +422,7 @@ export function PriceCompareSlide() {
       </div>
       <p className="mt-3 text-[1.2rem] text-muted">
         Essentials replaces <span className="text-fg">$200–$749/mo</span> plus the website build. Growth replaces{" "}
-        <span className="text-fg">$1,260–$3,834/mo</span>. Pro replaces <span className="text-fg">$1,760–$4,834/mo</span>.
+        <span className="text-fg">$1,740–$5,249/mo</span>. Pro replaces <span className="text-fg">$3,240–$10,249/mo</span>.
       </p>
     </SlidePad>
   );
