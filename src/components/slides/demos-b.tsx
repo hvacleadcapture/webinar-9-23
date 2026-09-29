@@ -370,12 +370,26 @@ const CAL_TAP = 21200;
 
 export const PHONE_MS = 28000;
 
+/**
+ * One clock for both phones (29 Sept: "the times are completely different").
+ * Story time: the call is missed at 7:42 PM, she texts at 7:44, he's between
+ * jobs and answers at 7:58, she confirms at 7:59. Status bars and the lock
+ * screen read from this so they match the message timestamps.
+ */
+function clockAt(t: number) {
+  if (t < RING_AT) return "7:41";
+  if (t < ASK_SENT) return "7:42";
+  if (t < REPLY_TYPE_AT) return "7:44";
+  if (t < OK_AT) return "7:58";
+  return "7:59";
+}
+
 function CallerPhone({ t }: { t: number }) {
   if (t < AUTO_AT) {
     return (
-      <PhoneShell scale={0.55} height={680}>
+      <PhoneShell scale={0.55} height={680} time={clockAt(t)}>
         {t < RING_AT ? (
-          <LockScreen />
+          <LockScreen time={clockAt(t)} />
         ) : (
           <CallScreen name={BIZ} status={t < MISSED_AT ? "calling…" : "No answer"} />
         )}
@@ -390,7 +404,7 @@ function CallerPhone({ t }: { t: number }) {
     ...(t >= OK_AT ? [{ text: OK, me: true, style: riseIn(t, OK_AT) }] : []),
   ];
   return (
-    <PhoneShell scale={0.55} height={680} statusDark bg="#fff">
+    <PhoneShell scale={0.55} height={680} statusDark bg="#fff" time={clockAt(t)}>
       <SmsScreen from={BIZ} bubbles={bubbles} composer={t < ASK_SENT ? typing : ""} />
     </PhoneShell>
   );
@@ -400,8 +414,8 @@ function OwnerPhone({ t }: { t: number }) {
   const buzz = (from: number) => (t > from && t < from + 700 ? Math.sin((t - from) / 18) * 4 : 0);
   if (t < OPEN_AT) {
     return (
-      <PhoneShell scale={0.55} height={680} shake={buzz(MISSED_AT) + buzz(ASK_SENT + 300)}>
-        <LockScreen time="7:44">
+      <PhoneShell scale={0.55} height={680} shake={buzz(MISSED_AT) + buzz(ASK_SENT + 300)} time={clockAt(t)}>
+        <LockScreen time={clockAt(t)}>
           <div style={{ display: "grid", gap: 8 }}>
             {t > MISSED_AT ? (
               <div style={riseIn(t, MISSED_AT)}>
@@ -433,7 +447,7 @@ function OwnerPhone({ t }: { t: number }) {
     ...(t >= OK_AT + 400 ? [{ text: OK, meta: "7:59 PM", style: riseIn(t, OK_AT + 400) }] : []),
   ];
   return (
-    <PhoneShell scale={0.55} height={680}>
+    <PhoneShell scale={0.55} height={680} time={clockAt(t)}>
       <SignalScreen
         org={BIZ}
         view={onCal ? "calendar" : "messages"}

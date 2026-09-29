@@ -81,8 +81,10 @@ export function PhoneShell({
   statusDark,
   bg = "#f6f7f9",
   shake = 0,
+  time = "9:41",
   children,
 }: {
+  time?: string;
   scale?: number;
   height?: number;
   statusDark?: boolean;
@@ -113,7 +115,7 @@ export function PhoneShell({
         <div style={{ position: "relative", width: SCREEN_W, height, borderRadius: 48, overflow: "hidden", background: bg }}>
           {children}
           <div style={{ position: "absolute", left: 0, right: 0, top: 0, height: 50, zIndex: 80, color: ink, fontFamily: "Inter, system-ui, sans-serif", pointerEvents: "none" }}>
-            <span style={{ position: "absolute", left: 40, top: 17, fontWeight: 650, fontSize: 16.5 }}>9:41</span>
+            <span style={{ position: "absolute", left: 40, top: 17, fontWeight: 650, fontSize: 16.5 }}>{time}</span>
             <div style={{ position: "absolute", left: "50%", top: 11, width: 118, height: 34, marginLeft: -59, borderRadius: 20, background: "#000" }} />
             <StatusIcons color={ink} />
           </div>
