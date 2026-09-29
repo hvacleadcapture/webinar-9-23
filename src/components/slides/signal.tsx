@@ -1,4 +1,4 @@
-import { ClipboardCheck, Hammer, Repeat, Smartphone, Video } from "lucide-react";
+import { Hammer, Repeat, Smartphone, Video, Zap } from "lucide-react";
 import { Display, Kicker, SlidePad } from "./primitives";
 
 /**
@@ -76,11 +76,13 @@ export function SignalTourSlide() {
  * Every step is from the /start → /signup flow and plans.ts; no turnaround
  * times, none are promised anywhere else.
  */
+// 29 Sept 2026 (Christian): they sign up and pay on the 20-minute call, we
+// build, then onboarding sets them up in Signal, and it runs from there.
 const STEPS = [
-  { Icon: Video, title: "20-min call", line: "Your audit" },
-  { Icon: ClipboardCheck, title: "Onboarding", line: "Your info, once" },
+  { Icon: Video, title: "20-min call", line: "Your audit · you sign up" },
   { Icon: Hammer, title: "We build", line: "Site · Google · pages" },
-  { Icon: Smartphone, title: "Signal", line: "Leads on your phone" },
+  { Icon: Smartphone, title: "Onboarding", line: "Signal on your phone" },
+  { Icon: Zap, title: "It's live", line: "Leads start coming in" },
   { Icon: Repeat, title: "Every week", line: "Posts · reviews · rankings" },
 ];
 

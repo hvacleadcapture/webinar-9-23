@@ -194,16 +194,22 @@ export const SLIDES: SlideDef[] = [
     Component: ScoreRecapSlide,
   },
   {
+    id: "tier-reach",
+    title: "Tier three: Reach",
+    notes: "[~0.5 min] The roof: reach, which is ads. Only once the foundation and the frame are in. That was the nine. Now the roof: what reach is. Steve at A2Z is the example on the next slide.",
+    Component: TierReach,
+  },
+  {
+    id: "ads-demo",
+    title: "When you are ready for ads",
+    notes: "[~1.5 min] The transition into ads. Say it: now the foundation's in, we have everything we need to start scaling, so we go get more traffic. Steve at A2Z Concrete did exactly that: about six months of ads, about $3,000 spent (roughly $500 a month), 25 tracked leads, so about $120 a lead. One of those leads was a $37,000 driveway, and that one job paid for the whole service and all the ad spend. Only after the foundation. Don't imply every client gets this.",
+    Component: AdsDemoSlide,
+  },
+  {
     id: "math",
     title: "What is it costing you?",
     notes: "[~2 min] Slow down. Ask all three out loud and wait for the chat. Then the math: their average job times one more a week, times 52. Their number, never ours. Tell one real client story here in plain contractor words (what the phone was doing before, what it does now) using only numbers from the proof slide. No invented stats.",
     Component: MathSlide,
-  },
-  {
-    id: "pyramid",
-    title: "The house",
-    notes: "[~1 min] Reputation at the bottom. Ranking in the middle. Reach on the roof. Don't invert it.",
-    Component: PyramidSlide,
   },
   {
     id: "structure",
@@ -214,26 +220,8 @@ export const SLIDES: SlideDef[] = [
   {
     id: "piece-by-piece",
     title: "Piece by piece vs one plan",
-    notes: "[~2 min] If you went out and bought all of this separately, low-end small-business prices, it's $1,760 to $4,834 a month, plus $2,500 to $10,000 for the website. Walk down the checks: Essentials already covers the website, reviews and missed-call text back. Growth is everything but the ads. Ad spend isn't in any of these numbers. Sources for every range are in credibility.tsx.",
+    notes: "[~2 min] If you went out and bought all of this separately, it's $3,240 to $10,249 a month, plus $2,500 to $10,000 for the website. Walk down the checks: Essentials already covers the website, reviews and missed-call text back. Growth is everything but the ads. Pro adds the ads. Ad spend isn't in any of these numbers.",
     Component: PriceCompareSlide,
-  },
-  {
-    id: "what-you-get",
-    title: "What you get, check by check",
-    notes: "[~1.5 min] The grid: the nine down the side, the three plans across. Essentials covers four of the nine (reviews, website, AI-readable site, missed-call text back). Growth covers all nine. Pro adds the ads. Walk the Growth column. Every plan comes with Signal, the app that puts every lead on their phone. Month to month.",
-    Component: WhatYouGetSlide,
-  },
-  {
-    id: "tier-reach",
-    title: "Tier three: Reach",
-    notes: "[~0.5 min] The roof: reach, which is ads. Only once the foundation and the frame are in. That's where Steve is on the next slide.",
-    Component: TierReach,
-  },
-  {
-    id: "ads-demo",
-    title: "When you are ready for ads",
-    notes: "[~1.5 min] The transition into ads. Say it: now the foundation's in, we have everything we need to start scaling, so we go get more traffic. Steve at A2Z Concrete did exactly that: about six months of ads, about $3,000 spent (roughly $500 a month), 25 tracked leads, so about $120 a lead. One of those leads was a $37,000 driveway, and that one job paid for the whole service and all the ad spend. Only after the foundation. Don't imply every client gets this.",
-    Component: AdsDemoSlide,
   },
   {
     id: "clips",
@@ -244,7 +232,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "after-yes",
     title: "When you say yes",
-    notes: "[~1 min] Take the mystery out of signing up. Five steps: the 20-minute call on their audit, the onboarding call where we get their info once and the build starts that day, we build the site, Google profile and job pages, Signal goes on their phone, then every week after it keeps running. Land the headline: we do the work, you answer the phone. Don't promise a go-live date. Read the bottom line out loud: month to month, domain, Google page, reviews and leads stay theirs. Never say they own the website.",
+    notes: "[~1 min] Take the mystery out of signing up. On the 20-minute call we go over their audit and they sign up. Then we build: site, Google profile, a page for every job. Then onboarding: we set them up in Signal on their phone. Then it's live, and every week after it keeps running. Land the headline: we do the work, you answer the phone. Don't promise a go-live date. Month to month; domain, Google page, reviews and leads stay theirs. Never say they own the website.",
     Component: AfterYesSlide,
   },
   {
