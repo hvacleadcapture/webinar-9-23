@@ -1,5 +1,5 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
-import { RotateCcw } from "lucide-react";
+import { Play, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -56,12 +56,35 @@ export function DemoThenPicture({
   children?: ReactNode;
   className?: string;
 }) {
+  // 29 Sept 2026: on the nine check slides the animation waits for him to
+  // press Play, instead of starting the moment the slide comes up.
   const [run, setRun] = useState(0);
+  const [started, setStarted] = useState(false);
   return (
     <div className={cn("relative flex min-h-0 flex-col", className)}>
-      <DemoClock key={run} duration={duration} hold={hold} demo={demo} picture={children} />
+      {started ? (
+        <DemoClock key={run} duration={duration} hold={hold} demo={demo} picture={children} />
+      ) : (
+        <div className="relative min-h-0 flex-1">
+          <div className="pointer-events-none absolute inset-0 flex flex-col opacity-40">{demo(0)}</div>
+          <button
+            type="button"
+            data-no-advance
+            onClick={(e) => {
+              e.stopPropagation();
+              setStarted(true);
+            }}
+            className="absolute inset-0 flex flex-col items-center justify-center gap-4 rounded-xl text-fg transition-colors hover:bg-white/5"
+          >
+            <span className="flex size-24 items-center justify-center rounded-full bg-accent text-accent-fg shadow-[0_20px_60px_-20px_var(--color-accent)]">
+              <Play className="ml-1.5 size-11 fill-current" aria-hidden />
+            </span>
+            <span className="font-display text-xl font-semibold uppercase tracking-display">Play</span>
+          </button>
+        </div>
+      )}
       <div className="mt-2 flex justify-end">
-        <Replay onClick={() => setRun((r) => r + 1)} />
+        {started ? <Replay onClick={() => setRun((r) => r + 1)} /> : <span className="h-9" />}
       </div>
     </div>
   );
