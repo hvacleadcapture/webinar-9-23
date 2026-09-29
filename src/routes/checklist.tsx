@@ -20,7 +20,7 @@ export const Route = createFileRoute("/checklist")({
  * passing looks like, and one thing to do tonight. Prints to paper cleanly.
  */
 function Checklist() {
-  const tiers = [1, 2, 3] as const;
+  const tiers = [1, 2] as const;
   return (
     <main className="checklist mx-auto max-w-3xl px-4 py-10 text-fg sm:px-8">
       <p className="font-display text-kicker tracking-kicker text-accent uppercase">CJP Enterprises · Webinar checklist</p>

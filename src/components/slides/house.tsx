@@ -7,12 +7,12 @@ const NINE = [
   { n: 1, label: "Google profile", layer: "Reputation" },
   { n: 2, label: "Reviews", layer: "Reputation" },
   { n: 3, label: "Website in five seconds", layer: "Reputation" },
-  { n: 4, label: "A page for every service", layer: "Ranking" },
-  { n: 5, label: "Posting, every week", layer: "Ranking" },
-  { n: 6, label: "AI visibility", layer: "Ranking" },
-  { n: 7, label: "Keywords + rankings", layer: "Ranking" },
-  { n: 8, label: "Citations + local links", layer: "Ranking" },
-  { n: 9, label: "When the phone rings", layer: "Reputation" },
+  { n: 4, label: "When the phone rings", layer: "Reputation" },
+  { n: 5, label: "A page for every service", layer: "Ranking" },
+  { n: 6, label: "Posting, every week", layer: "Ranking" },
+  { n: 7, label: "AI visibility", layer: "Ranking" },
+  { n: 8, label: "Keywords + rankings", layer: "Ranking" },
+  { n: 9, label: "Citations + local links", layer: "Ranking" },
 ];
 
 export function ScoreRecapSlide() {

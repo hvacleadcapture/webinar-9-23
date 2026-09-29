@@ -9,7 +9,6 @@ import {
 } from "./opening";
 import {
   AiSlide,
-  CheckpointSlide,
   CitationsSlide,
   KeywordsSlide,
   PhoneSlide,
@@ -17,6 +16,7 @@ import {
   ProfileSlide,
   ReviewsSlide,
   ServicePagesSlide,
+  TierSlide,
   WebsiteSlide,
 } from "./tiers";
 import {
@@ -38,11 +38,14 @@ export type SlideDef = {
   Component: ComponentType;
 };
 
-function Check1() {
-  return <CheckpointSlide tier={1} />;
+function TierReputation() {
+  return <TierSlide layer="reputation" />;
 }
-function Check2() {
-  return <CheckpointSlide tier={2} />;
+function TierRanking() {
+  return <TierSlide layer="rankings" />;
+}
+function TierReach() {
+  return <TierSlide layer="reach" />;
 }
 
 export const SLIDES: SlideDef[] = [
@@ -115,8 +118,14 @@ export const SLIDES: SlideDef[] = [
   {
     id: "list",
     title: "The whole list",
-    notes: "[~0.5 min] Finite list. Not a secret. Nine things in three tiers. Keep moving.",
+    notes: "[~0.5 min] Finite list. Not a secret. Nine things: four for reputation, five for ranking, then the roof is ads. Keep moving.",
     Component: WholeListSlide,
+  },
+  {
+    id: "tier-reputation",
+    title: "Tier one: Reputation",
+    notes: "[~0.5 min] Point at the bottom of the house. We start with reputation, the foundation: four things. When someone finds you, do they trust you enough to call?",
+    Component: TierReputation,
   },
   {
     id: "profile",
@@ -137,10 +146,16 @@ export const SLIDES: SlideDef[] = [
     Component: WebsiteSlide,
   },
   {
-    id: "check1",
-    title: "Quick check: tier one",
-    notes: "[~0.5 min] Slow down here. Say each one back in one line. Then stop talking and read the chat for ten seconds. Answer a question in ten seconds, or park it once for Q&A.",
-    Component: Check1,
+    id: "phone",
+    title: "When the phone rings",
+    notes: "[~1.5 min] The missed-call demo now plays right on this slide and stays up. Talk over it: you miss the call, the text goes out by itself, they text back, job booked. The point is simple: if the phone rings and nobody answers, text back immediately. That's the foundation done.",
+    Component: PhoneSlide,
+  },
+  {
+    id: "tier-ranking",
+    title: "Tier two: Ranking",
+    notes: "[~0.5 min] Reputation, done: that's the foundation. Now the frame: ranking, five things, getting found for more than your own name. Read the chat for ten seconds before moving on.",
+    Component: TierRanking,
   },
   {
     id: "pages",
@@ -153,12 +168,6 @@ export const SLIDES: SlideDef[] = [
     title: "Posting every week",
     notes: "[~1.5 min] Animation plays and holds: R&D's real posts go up every Wednesday and Saturday, on the website blog and the Google Business Profile. That's it: NOT Facebook or Instagram. Say: we write it and post it, you don't touch it.",
     Component: PostingSlide,
-  },
-  {
-    id: "check2",
-    title: "Quick check: tier two",
-    notes: "[~0.5 min] Same as before. Say the two back. Read the chat. Tier three is the least familiar part for most people, so go slower there than you think you need to.",
-    Component: Check2,
   },
   {
     id: "ai",
@@ -175,14 +184,8 @@ export const SLIDES: SlideDef[] = [
   {
     id: "citations",
     title: "Citations + links",
-    notes: "[~1 min] Animation first: wrong listings get fixed one by one until 9 of 9 match, then local links get added. Example company. Potts Brothers search results showing local links and social profiles. Tedious, not hard.",
+    notes: "[~1 min] Animation first: wrong listings get fixed one by one until 9 of 9 match, then local links get added. Example company. Potts Brothers search results showing local links and social profiles. Tedious, not hard. That's nine. Add up the score.",
     Component: CitationsSlide,
-  },
-  {
-    id: "phone",
-    title: "When the phone rings",
-    notes: "[~1.5 min] The missed-call demo now plays right on this slide and stays up. Talk over it: you miss the call, the text goes out by itself, they text back, job booked. The point is simple: if the phone rings and nobody answers, text back immediately. That's nine. Add up the score.",
-    Component: PhoneSlide,
   },
   {
     id: "score",
@@ -231,6 +234,12 @@ export const SLIDES: SlideDef[] = [
     title: "What you get, check by check",
     notes: "[~1.5 min] The grid: the nine down the side, the three plans across. Essentials covers four of the nine (reviews, website, AI-readable site, missed-call text back). Growth covers all nine. Pro adds the ads. Walk the Growth column. Signal, the app, comes with all three. Month to month.",
     Component: WhatYouGetSlide,
+  },
+  {
+    id: "tier-reach",
+    title: "Tier three: Reach",
+    notes: "[~0.5 min] The roof: reach, which is ads. Only once the foundation and the frame are in. That's where Steve is on the next slide.",
+    Component: TierReach,
   },
   {
     id: "ads-demo",

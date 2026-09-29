@@ -6,15 +6,15 @@ const REPUTATION = [
   "01  Google profile",
   "02  Reviews",
   "03  Website in five seconds",
-  "09  When the phone rings",
+  "04  When the phone rings",
 ];
 
 const RANKINGS = [
-  "04  A page for every service",
-  "05  Posting, every week",
-  "06  AI visibility",
-  "07  Keywords + rankings",
-  "08  Citations + local links",
+  "05  A page for every service",
+  "06  Posting, every week",
+  "07  AI visibility",
+  "08  Keywords + rankings",
+  "09  Citations + local links",
 ];
 
 const REACH = ["After all that — ads that convert"];
@@ -101,12 +101,12 @@ export function HouseGraphic({
             accent
           />
           <LayerList
-            title="Ranking · 4–8"
+            title="Ranking · 5–9"
             items={RANKINGS}
             active={highlight === "all" || highlight === "rankings"}
           />
           <LayerList
-            title="Reputation · 1, 2, 3, 9"
+            title="Reputation · 1–4"
             items={REPUTATION}
             active={highlight === "all" || highlight === "reputation"}
           />

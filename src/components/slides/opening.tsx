@@ -223,35 +223,34 @@ export function PenSlide() {
 export function WholeListSlide() {
   const tiers = [
     {
-      k: "Tier 1 · you have it. Does it pass?",
+      k: "Tier 1 · Reputation, the foundation",
       items: [
         [1, "Your Google profile"],
         [2, "Your reviews"],
         [3, "Your website, in 5 seconds"],
+        [4, "When the phone rings"],
       ],
     },
     {
-      k: "Tier 2 · found for more than your name",
+      k: "Tier 2 · Ranking, the frame",
       items: [
-        [4, "A page for every service"],
-        [5, "Posting, every week"],
+        [5, "A page for every service"],
+        [6, "Posting, every week"],
+        [7, "AI visibility"],
+        [8, "Keywords + rankings"],
+        [9, "Citations + local links"],
       ],
     },
     {
-      k: "Tier 3 · the part almost nobody does",
-      items: [
-        [6, "AI visibility"],
-        [7, "Keywords + rankings"],
-        [8, "Citations + local links"],
-        [9, "When the phone rings"],
-      ],
+      k: "Tier 3 · Reach, the roof",
+      items: [[0, "Ads. Only once the first two are done."]],
     },
   ];
   return (
     <SlidePad>
       <Kicker>The whole list</Kicker>
       <Display className="mt-3 text-5xl">It's nine things.</Display>
-      <div className="mt-10 grid flex-1 gap-8 min-[901px]:grid-cols-3">
+      <div className="mt-6 grid flex-1 gap-8 min-[901px]:grid-cols-3">
         {tiers.map((tier, i) => (
           <section key={tier.k} className="flex flex-col border-t border-line pt-6">
             <p className="font-display text-kicker tracking-kicker text-accent uppercase">
@@ -260,10 +259,10 @@ export function WholeListSlide() {
             <h2 className="mt-3 font-display text-2xl font-semibold uppercase leading-snug text-fg">
               {tier.k.split("·")[1]}
             </h2>
-            <ol className="mt-6 space-y-4">
+            <ol className="mt-4 space-y-2.5">
               {tier.items.map(([num, item]) => (
-                <li key={item} className="flex gap-3 text-xl text-fg">
-                  <span className="slide-num text-subtle">{String(num).padStart(2, "0")}</span>
+                <li key={item} className="flex gap-3 text-lg text-fg">
+                  <span className="slide-num text-subtle">{num ? String(num).padStart(2, "0") : "+"}</span>
                   {item}
                 </li>
               ))}

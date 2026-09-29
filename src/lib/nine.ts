@@ -10,7 +10,7 @@
  */
 export type Check = {
   n: number;
-  tier: 1 | 2 | 3;
+  tier: 1 | 2;
   /** The cheapest plan that does this check for them, and what we actually do. */
   plan: "essentials" | "growth";
   weDo: string;
@@ -20,10 +20,14 @@ export type Check = {
   tonight: string;
 };
 
+/**
+ * 29 Sept 2026: the nine follow the house. Tier one is Reputation (the
+ * foundation: profile, reviews, website, the phone). Tier two is Ranking (the
+ * frame). Reach, the roof, is ads, and isn't one of the nine.
+ */
 export const TIERS = {
-  1: "You have it. Does it pass?",
-  2: "Found for more than your name",
-  3: "The part almost nobody does",
+  1: "Reputation · the foundation",
+  2: "Ranking · the frame",
 } as const;
 
 export const NINE: Check[] = [
@@ -59,6 +63,16 @@ export const NINE: Check[] = [
   },
   {
     n: 4,
+    tier: 1,
+    plan: "essentials",
+    weDo: "A missed call gets a text back in seconds",
+    name: "When the phone rings",
+    plain: "When you can't pick up, a text goes out right away so the caller doesn't just call the next guy.",
+    pass: ["Missed calls get a text back right away", "Not just a voicemail"],
+    tonight: "Call your own business when you know nobody will answer. Listen to what your customer gets.",
+  },
+  {
+    n: 5,
     tier: 2,
     plan: "growth",
     weDo: "A page for each job and each town you work",
@@ -68,18 +82,18 @@ export const NINE: Check[] = [
     tonight: "List the five jobs that make you the most money. Each one needs its own page.",
   },
   {
-    n: 5,
+    n: 6,
     tier: 2,
     plan: "growth",
-    weDo: "New posts twice a week, on your site and your Google profile",
+    weDo: "New posts every Wednesday and Saturday, on your site and your Google profile",
     name: "Posting, every week",
     plain: "A profile or site that hasn't changed in months looks closed. Something new says you're open.",
     pass: ["Something new in the last 7 days", "On Google and on your site"],
     tonight: "Post one photo of a job you finished this week to your Google profile.",
   },
   {
-    n: 6,
-    tier: 3,
+    n: 7,
+    tier: 2,
     plan: "essentials",
     weDo: "Your site built so ChatGPT and Google's AI can read it",
     name: "AI visibility",
@@ -88,8 +102,8 @@ export const NINE: Check[] = [
     tonight: "Ask ChatGPT “who's the best [your trade] in [your town]?” Write down who it names.",
   },
   {
-    n: 7,
-    tier: 3,
+    n: 8,
+    tier: 2,
     plan: "growth",
     weDo: "Your rankings tracked, and a monthly report from Google's own numbers",
     name: "Keywords and rankings",
@@ -98,24 +112,14 @@ export const NINE: Check[] = [
     tonight: "Write down the 10 searches a customer would type to find you. That list is your keywords.",
   },
   {
-    n: 8,
-    tier: 3,
+    n: 9,
+    tier: 2,
     plan: "growth",
     weDo: "Your listings cleaned up and matched, and local links built",
     name: "Citations and local links",
     plain: "Every other website that lists your business name, address and phone. They all need to match.",
     pass: ["Same name, address and phone", "Everywhere you're listed", "Social profiles count too"],
     tonight: "Google your business name. Check every listing on page one has the same name, address and phone.",
-  },
-  {
-    n: 9,
-    tier: 3,
-    plan: "essentials",
-    weDo: "A missed call gets a text back in seconds",
-    name: "When the phone rings",
-    plain: "When you can't pick up, a text goes out right away so the caller doesn't just call the next guy.",
-    pass: ["Missed calls get a text back right away", "Not just a voicemail"],
-    tonight: "Call your own business when you know nobody will answer. Listen to what your customer gets.",
   },
 ];
 
