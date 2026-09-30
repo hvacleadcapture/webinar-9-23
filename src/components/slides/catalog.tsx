@@ -6,6 +6,7 @@ import {
   TakeHomeSlide,
   TitleSlide,
   WholeListSlide,
+  WhySlide,
 } from "./opening";
 import {
   AiSlide,
@@ -102,6 +103,12 @@ export const SLIDES: SlideDef[] = [
     title: "Three scenarios",
     notes: "[~1 min] Hundreds of contractors. Most are in one of these three. No fault of their own.",
     Component: ScenariosSlide,
+  },
+  {
+    id: "why",
+    title: "Why you're here",
+    notes: "[~0.25 min] One line. Leverage technology to grow the business. Don't add a speech.",
+    Component: WhySlide,
   },
   {
     id: "pen",
