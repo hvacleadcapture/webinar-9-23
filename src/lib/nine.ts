@@ -30,6 +30,12 @@ export const TIERS = {
   2: "Ranking · the frame",
 } as const;
 
+/** The roof. Shown on the checklist so the page has the whole house, not a score. */
+export const REACH = {
+  name: "Reach · the roof",
+  plain: "Ads. Not one of the nine: ads only pay once the foundation and the frame are in, because they send people to the profile, reviews and site you just scored.",
+};
+
 export const NINE: Check[] = [
   {
     n: 1,

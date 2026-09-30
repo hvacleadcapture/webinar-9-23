@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { NINE, TIERS } from "@/lib/nine";
+import { NINE, REACH, TIERS } from "@/lib/nine";
 
 export const Route = createFileRoute("/checklist")({
   head: () => ({
@@ -66,9 +66,19 @@ function Checklist() {
         </section>
       ))}
 
+      <section className="mt-12 break-inside-avoid-page">
+        <p className="font-display text-kicker tracking-kicker text-accent uppercase">Tier 3</p>
+        <h2 className="mt-1 font-display text-2xl font-semibold uppercase leading-snug">{REACH.name}</h2>
+        <p className="mt-3 text-base leading-normal text-fg">{REACH.plain}</p>
+      </section>
+
       <footer className="mt-14 border-t border-line pt-6 text-base text-muted">
         <p>
-          Want a hand with the ones you missed? Grab 20 minutes and I&rsquo;ll go through your business with you:{" "}
+          I already scored your business against these nine. I&rsquo;m following up with every one of you with
+          your score, where you show up when someone searches your trade and your town, and your top fixes.
+        </p>
+        <p className="mt-3">
+          Want to go over it sooner? Grab 20 minutes:{" "}
           <a className="text-accent underline underline-offset-4" href="https://go.cjp-enterprises.com/start">
             go.cjp-enterprises.com/start
           </a>
