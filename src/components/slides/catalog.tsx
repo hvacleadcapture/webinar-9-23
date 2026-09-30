@@ -28,7 +28,6 @@ import {
   StructureSlide,
 } from "./house";
 import { CtaSlide, ProofClipsSlide } from "./close";
-import { AfterYesSlide } from "./signal";
 import { AdsDemoSlide, AutoGlossLiveSlide, RdOutcomeSlide } from "./outcomes";
 import { ObjectionsSlide, PriceCompareSlide, ReferenceCallSlide, ResultsLeadsSlide, ResultsRanksSlide, ResultsTrafficSlide } from "./credibility";
 
@@ -235,12 +234,6 @@ export const SLIDES: SlideDef[] = [
     title: "Hear it from the owners",
     notes: "[~3 min] Click play on Micah and Richard. These are the two YouTube testimonials provided for the webinar.",
     Component: ProofClipsSlide,
-  },
-  {
-    id: "after-yes",
-    title: "When you say yes",
-    notes: "[~1 min] Take the mystery out of signing up. On the 20-minute call we go over their audit and they sign up. Then we build: site, Google profile, a page for every job. Then onboarding: we set them up in Signal on their phone. Then it's live, and every week after it keeps running. Land the headline: we do the work, you answer the phone. Don't promise a go-live date. Month to month; domain, Google page, reviews and leads stay theirs. Never say they own the website.",
-    Component: AfterYesSlide,
   },
   {
     id: "objections",
