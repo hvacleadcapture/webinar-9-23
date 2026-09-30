@@ -231,10 +231,9 @@ export function KeywordsDemo(t: number): ReactNode {
  * Construction": public/slides/proof/potts-google.jpg is stacked from the
  * user-added potts-links-top-blurred + potts-links-middle screenshots (left
  * column only; the blurred panel is cropped out). Every tag states only what
- * that snippet actually shows. 30 Sept 2026: Houzz (still on the old
- * Springfield address) is left unmarked rather than flagged, per Christian;
- * the slide shows only the matching listings in green. Never tick it green:
- * it doesn't match.
+ * that snippet actually shows. 30 Sept 2026: Houzz is highlighted green on
+ * its phone, which matches ((703) 866-5400), per Christian. Its snippet still
+ * shows the old Springfield address, so its tag must never claim the address.
  *
  * Row boxes are in the stacked image's own pixels (700 × 948).
  */
@@ -244,6 +243,7 @@ const HITS: { site: string; top: number; bottom: number; ok: boolean; tag: strin
   { site: "Instagram", top: 202, bottom: 322, ok: true, tag: "Name · phone" },
   { site: "Facebook", top: 350, bottom: 492, ok: true, tag: "Name · phone" },
   { site: "BBB", top: 505, bottom: 626, ok: true, tag: "Phone · Arlington" },
+  { site: "Houzz", top: 655, bottom: 797, ok: true, tag: "Name · phone" },
   { site: "Nextdoor", top: 825, bottom: 946, ok: true, tag: "Name · phone · Arlington" },
 ];
 const NAP = {
