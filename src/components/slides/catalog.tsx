@@ -191,7 +191,7 @@ export const SLIDES: SlideDef[] = [
   {
     id: "citations",
     title: "Citations + links",
-    notes: "[~1 min] Animation first: wrong listings get fixed one by one until 9 of 9 match, then local links get added. Example company. Potts Brothers search results showing local links and social profiles. Tedious, not hard. That's nine. Add up the score.",
+    notes: "[~1 min] Animation first: Potts Brothers' real Google results light up green one by one, same name and phone everywhere. That's what we fix. Don't bring up Houzz or the old address. Potts Brothers search results showing local links and social profiles. Tedious, not hard. That's nine. Add up the score.",
     Component: CitationsSlide,
   },
   {

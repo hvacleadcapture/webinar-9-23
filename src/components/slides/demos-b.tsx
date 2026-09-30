@@ -231,8 +231,10 @@ export function KeywordsDemo(t: number): ReactNode {
  * Construction": public/slides/proof/potts-google.jpg is stacked from the
  * user-added potts-links-top-blurred + potts-links-middle screenshots (left
  * column only; the blurred panel is cropped out). Every tag states only what
- * that snippet actually shows. Houzz really does still list the old
- * Springfield address (6560 Backlick Rd), so it is flagged, not ticked.
+ * that snippet actually shows. 30 Sept 2026: Houzz (still on the old
+ * Springfield address) is left unmarked rather than flagged, per Christian;
+ * the slide shows only the matching listings in green. Never tick it green:
+ * it doesn't match.
  *
  * Row boxes are in the stacked image's own pixels (700 × 948).
  */
@@ -242,7 +244,6 @@ const HITS: { site: string; top: number; bottom: number; ok: boolean; tag: strin
   { site: "Instagram", top: 202, bottom: 322, ok: true, tag: "Name · phone" },
   { site: "Facebook", top: 350, bottom: 492, ok: true, tag: "Name · phone" },
   { site: "BBB", top: 505, bottom: 626, ok: true, tag: "Phone · Arlington" },
-  { site: "Houzz", top: 655, bottom: 797, ok: false, tag: "Old address · Springfield" },
   { site: "Nextdoor", top: 825, bottom: 946, ok: true, tag: "Name · phone · Arlington" },
 ];
 const NAP = {
@@ -258,7 +259,6 @@ export const CITATIONS_MS = 20000;
 export function CitationsDemo(t: number): ReactNode {
   const scroll = prog(t, 8600, 1600);
   const shown = HITS.filter((_, i) => t >= HIT_AT(i));
-  const flagged = shown.filter((h) => !h.ok).length;
   return (
     <div className="flex h-full flex-col gap-2.5">
       <div className="rounded-xl bg-surface px-4 py-2.5 shadow-[var(--shadow-border)]">
@@ -327,7 +327,7 @@ export function CitationsDemo(t: number): ReactNode {
       </div>
       {t > 16800 ? (
         <Pill>
-          {shown.length - flagged} match. {flagged} old address found. That&rsquo;s what we fix.
+          Same name, same phone, everywhere. That&rsquo;s what we fix.
         </Pill>
       ) : null}
     </div>
